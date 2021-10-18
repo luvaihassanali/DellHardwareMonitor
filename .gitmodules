@@ -1,0 +1,6 @@
+[submodule "DellFanManagement"]
+	path = DellFanManagement
+	url = https://github.com/AaronKelley/DellFanManagement
+[submodule "LibreHardwareMonitor"]
+	path = LibreHardwareMonitor
+	url = https://github.com/LibreHardwareMonitor/LibreHardwareMonitor

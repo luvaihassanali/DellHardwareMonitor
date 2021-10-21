@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 
@@ -75,9 +74,21 @@ namespace DellHardwareMonitor
                 }
             }
 
+            //To-do remove hard coded 2 value (put back linq?)
             Regex driveRegex = new Regex("^[A-Z]:$");
             string[] allDriveInstances = new PerformanceCounterCategory("LogicalDisk").GetInstanceNames();
-            string[] driveInstances = (string[])allDriveInstances.Where(n => driveRegex.IsMatch(n)).ToArray();
+            string[] driveInstances = new string[2];
+            int index = 0; 
+            foreach(string instance in allDriveInstances)
+            {
+                if(driveRegex.IsMatch(instance))
+                {
+                    driveInstances[index] = instance;
+                    index++;
+                }
+            }
+            //To-do: replace with Linq?
+
             driveStates = new DriveState[driveInstances.Length];
 
             for (int i = 0; i < driveStates.Length; i++)

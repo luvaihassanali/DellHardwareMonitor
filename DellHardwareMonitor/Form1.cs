@@ -3,35 +3,39 @@ using System.Drawing;
 using System.Windows.Forms;
 
 using DellFanManagement.DellSmbiozBzhLib;
+using DellHardwareMonitor.Properties;
 
 namespace DellHardwareMonitor
 {
-    public partial class DellHardwareMonitorForm : Form
+    public partial class Form1 : Form
     {
-        //Wiki: Polling is the process where the computer or controlling device waits for an external device to check for its readiness or state
-        private Timer pollingTimer = new Timer();
+        private Timer pollingTimer;
         private Boolean isDriverLoaded;
         private NotifyIcon trayIcon;
         private ContextMenu trayMenu;
         private HardwareState state;
 
-        public DellHardwareMonitorForm()
+        private const int padding = 10;
+        private Rectangle LeftSide { get { return new Rectangle(0, 0, padding, this.ClientSize.Height); } }
+
+        public Form1()
         {
             InitializeComponent();
 
-            //Visible in Task Manager when you expand process under Apps if not set shows default Form icon
-            this.Icon = Properties.Resources.wrench;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.DoubleBuffered = true;
+            this.SetStyle(ControlStyles.ResizeRedraw, true);
 
             trayMenu = new ContextMenu();
             trayMenu.MenuItems.Add("Info", OnInfo);
             trayMenu.MenuItems.Add("Exit", OnExit);
 
             trayIcon = new NotifyIcon();
-            trayIcon.Click += new EventHandler(trayIcon_Click);
             trayIcon.Text = "DellHardwareMonitor";
-            trayIcon.Icon = new Icon("wrench.ico");
+            trayIcon.Icon = Resources.wrench;
             trayIcon.ContextMenu = trayMenu;
             trayIcon.Visible = true;
+            trayIcon.DoubleClick += new EventHandler(trayIcon_Click);
 
             isDriverLoaded = false; //LoadDriver();
 
@@ -44,20 +48,45 @@ namespace DellHardwareMonitor
 
             //state = new HardwareState();
 
+            /*pollingTimer = new Timer();
             pollingTimer.Tick += new EventHandler(polling_Tick);
             pollingTimer.Interval = 2000;
             pollingTimer.Enabled = true;
-            pollingTimer.Start();
+            pollingTimer.Start();*/
         }
 
         #region Form functions
 
-        protected override void OnLoad(EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Minimized;
-            Visible = false;
+            //Settings.Default.WindowOpacity = 0;
+            if(Settings.Default.WindowOpacity == 0)
+            {
+                Rectangle screenBounds = Screen.FromControl(this).Bounds;
+                this.Size = new Size(300, (screenBounds.Height - (padding * 3)));
+                this.Location = new Point(screenBounds.Width - this.Size.Width + padding, 0);
+                Settings.Default.WindowOpacity = 1;
+            } 
+            else
+            {
+                this.Location = Settings.Default.WindowLocation;
+                this.Size = Settings.Default.WindowSize;
+                this.Opacity = Settings.Default.WindowOpacity;
+            }
+            
+            //this.WindowState = FormWindowState.Minimized;
+            //Visible = false;
             ShowInTaskbar = false;
-            base.OnLoad(e);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Console.WriteLine(this.Location);
+            Console.WriteLine(this.Size);
+            Settings.Default.WindowLocation = this.Location;
+            Settings.Default.WindowSize = this.Size;
+            Settings.Default.WindowOpacity = this.Opacity;
+            Settings.Default.Save();
         }
 
         private void trayIcon_Click(object sender, EventArgs e)
@@ -84,12 +113,17 @@ namespace DellHardwareMonitor
 
         private void OnExit(object sender, EventArgs e)
         {
+            Settings.Default.WindowLocation = this.Location;
+            Settings.Default.WindowSize = this.Size;
+            Settings.Default.WindowOpacity = this.Opacity;
+            Settings.Default.Save();
+
             if (isDriverLoaded)
             {
                 UnloadDriver();
             }
 
-            if (state.Computer != null)
+            if (state != null && state.Computer != null)
             {
                 state.Computer.Close();
             }
@@ -101,20 +135,16 @@ namespace DellHardwareMonitor
             System.Environment.Exit(1);
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        protected override void WndProc(ref Message message)
         {
-            if (isDriverLoaded)
-            {
-                UnloadDriver();
-            }
+            base.WndProc(ref message);
 
-            if (state.Computer != null)
+            if (message.Msg == 0x84) // WM_NCHITTEST
             {
-                state.Computer.Close();
-            }
+                var cursor = this.PointToClient(Cursor.Position);
 
-            trayIcon.Visible = false;
-            trayIcon.Dispose();
+                if (LeftSide.Contains(cursor)) message.Result = (IntPtr)10;
+            }
         }
 
         #endregion
@@ -174,7 +204,7 @@ namespace DellHardwareMonitor
             float? virtualMemoryUsed = state.RAM.Sensors[3].Value;
             float? virtualMemoryAvailable = state.RAM.Sensors[4].Value;
             float? virtualMemory = state.RAM.Sensors[5].Value;
-            
+
             //SSD
             state.SSD.Update();
             string ssdName = state.SSD.Name;
@@ -254,125 +284,6 @@ namespace DellHardwareMonitor
         }
     }
 
-    #endregion 
+    #endregion
 
 }
-
-//copy of polling function
-/*
-private void polling_Tick(object sender, EventArgs e)
-{
-    //CPU sensors
-    state.CPU.Update();
-    string cpuName = state.CPU.Name;
-    float? cpuOneLoad = state.CPU.Sensors[7].Value;
-    float? cpuTwoLoad = state.CPU.Sensors[8].Value;
-    float? cpuThreeLoad = state.CPU.Sensors[9].Value;
-    float? cpuFourLoad = state.CPU.Sensors[10].Value;
-    float? cpuFiveLoad = state.CPU.Sensors[11].Value;
-    float? cpuSixLoad = state.CPU.Sensors[12].Value;
-    float? totalLoad = state.CPU.Sensors[6].Value;
-    float? cpuOneTemp = state.CPU.Sensors[7].Value;
-    float? cpuTwoTemp = state.CPU.Sensors[8].Value;
-    float? cpuThreeTemp = state.CPU.Sensors[9].Value;
-    float? cpuFourTemp = state.CPU.Sensors[10].Value;
-    float? cpuFiveTemp = state.CPU.Sensors[11].Value;
-    float? cpuSixTemp = state.CPU.Sensors[12].Value;
-    float? cpuPackageTemp = state.CPU.Sensors[13].Value;
-    //14 - 19 core distance to tj max
-    float? coreMax = state.CPU.Sensors[20].Value;
-    float? coreAverage = state.CPU.Sensors[21].Value;
-    //22 - 27 cpu core clocks: first clock? or all clock...
-    float? cpuPackagePower = state.CPU.Sensors[28].Value;
-    float? cpuCoresPower = state.CPU.Sensors[29].Value;
-    float? cpuGraphicsPower = state.CPU.Sensors[30].Value;
-    float? cpuMemoryPower = state.CPU.Sensors[31].Value;
-    float? cpuBusSpeed = state.CPU.Sensors[32].Value;
-
-    //GPU
-    state.GPU.Update();
-    string gpuName = state.GPU.Name;
-    float? gpuTemp = state.GPU.Sensors[0].Value;
-    float? gpuCoreClock = state.GPU.Sensors[1].Value;
-    float? gpuMemory = state.GPU.Sensors[2].Value;
-    float? gpuCoreLoad = state.GPU.Sensors[3].Value;
-    float? gpuMemoryController = state.GPU.Sensors[4].Value;
-    float? gpuVideoEngineLoad = state.GPU.Sensors[5].Value;
-    float? gpuBusLoad = state.GPU.Sensors[6].Value;
-    float? gpuTotalMemory = state.GPU.Sensors[7].Value;
-    float? gpuFreeMemory = state.GPU.Sensors[8].Value;
-    float? gpuMemoryUsed = state.GPU.Sensors[9].Value;
-    float? gpuPackagePower = state.GPU.Sensors[10].Value;
-    //11, 12 GPU PCIe Rx/Tx
-
-    //RAM
-    state.RAM.Update();
-    float? memoryUsed = state.RAM.Sensors[0].Value;
-    float? memoryAvailable = state.RAM.Sensors[1].Value;
-    float? genericMemory = state.RAM.Sensors[2].Value;
-    float? virtualMemoryUsed = state.RAM.Sensors[3].Value;
-    float? virtualMemoryAvailable = state.RAM.Sensors[4].Value;
-    float? virtualMemory = state.RAM.Sensors[5].Value;
-
-    //SSD
-    state.SSD.Update();
-    string ssdName = state.SSD.Name;
-    float? ssdTemp = state.SSD.Sensors[0].Value;
-    float? ssdAvailableSpare = state.SSD.Sensors[1].Value;
-    float? ssdAvailableSpareThreshold = state.SSD.Sensors[2].Value;
-    float? ssdPercentUsed = state.SSD.Sensors[3].Value;
-    //04, 05 data read/written
-    float? ssdTemp1 = state.SSD.Sensors[6].Value;
-    float? ssdUsedSpace = state.SSD.Sensors[7].Value;
-    float? ssdWriteActivity = state.SSD.Sensors[8].Value;
-    float? ssdTotalActivity = state.SSD.Sensors[9].Value;
-    float? ssdReadRate = state.SSD.Sensors[10].Value;
-    float? ssdWriteRate = state.SSD.Sensors[11].Value;
-
-    double ssdFreeGB = state.DriveStates[0].Counters[0].NextValue() / 1024d;
-    double ssdFreePercent = state.DriveStates[0].Counters[1].NextValue();
-    double ssdUsedPercent = 100d - ssdFreePercent;
-    double ssdTotalGB = ssdFreeGB / (ssdFreePercent / 100d);
-    double ssdUsedGB = ssdTotalGB - ssdFreeGB;
-
-    //HDD
-    state.HDD.Update();
-    string hddName = state.HDD.Name;
-    float? hddTemp = state.HDD.Sensors[0].Value;
-    float? hddUsedSpace = state.HDD.Sensors[1].Value;
-    float? hddWriteActivity = state.HDD.Sensors[2].Value;
-    float? hddTotalActivity = state.HDD.Sensors[3].Value;
-    float? hddReadRate = state.HDD.Sensors[4].Value;
-    float? hddWriteRate = state.HDD.Sensors[5].Value;
-
-    double hddFreeGB = state.DriveStates[1].Counters[0].NextValue() / 1024d;
-    double hddFreePercent = state.DriveStates[1].Counters[1].NextValue();
-    double hddUsedPercent = 100d - hddFreePercent;
-    double hddTotalGB = hddFreeGB / (hddFreePercent / 100d);
-    double hddUsedGB = hddTotalGB - hddFreeGB;
-
-    //Ethernet
-    state.Ethernet.Update();
-    float? ethDataUploaded = state.WiFi.Sensors[0].Value;
-    float? ethDataDownloaded = state.WiFi.Sensors[1].Value;
-    float? ethDownloadSpeed = state.WiFi.Sensors[2].Value;
-    float? ethUploadSpeed = state.WiFi.Sensors[3].Value;
-    float? ethNetworkUtilisation = state.WiFi.Sensors[4].Value;
-    float ethBytesRecv = state.NetworkStates[0].Counters[0].NextValue();
-    float ethBytesSent = state.NetworkStates[0].Counters[1].NextValue();
-
-    //Wi-Fi
-    state.WiFi.Update();
-    float? wifiDataUploaded = state.WiFi.Sensors[0].Value;
-    float? wifiDataDownloaded = state.WiFi.Sensors[1].Value;
-    float? wifiDownloadSpeed = state.WiFi.Sensors[2].Value;
-    float? wifiUploadSpeed = state.WiFi.Sensors[3].Value;
-    float? wifiNetworkUtilisation = state.WiFi.Sensors[4].Value;
-    float wifiBytesRecv = state.NetworkStates[1].Counters[0].NextValue();
-    float wifiBytesSent = state.NetworkStates[1].Counters[1].NextValue();
-
-    uint? leftFanRpm = DellSmbiosBzh.GetFanRpm(BzhFanIndex.Fan1);
-    uint? rightFanRpm = DellSmbiosBzh.GetFanRpm(BzhFanIndex.Fan2);
-    //Console.WriteLine("left: " + leftFanRpm + " right: " + rightFanRpm);
-}
-*/ 

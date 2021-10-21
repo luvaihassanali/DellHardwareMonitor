@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DellHardwareMonitor
@@ -16,7 +13,7 @@ namespace DellHardwareMonitor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DellHardwareMonitorForm());
+            Application.Run(new Form1());
         }
     }
 }

@@ -47,19 +47,19 @@ namespace DellHardwareMonitor
             {
                 switch (hardware.Name)
                 {
-                    case "Intel Core i7-9750H": //INTEL CPU
+                    case "Intel Core i7-9750H": 
                         cpu = hardware;
                         break;
-                    case "NVIDIA GeForce RTX 2060": //NVIDIA GPU
+                    case "NVIDIA GeForce RTX 2060": 
                         gpu = hardware;
                         break;
-                    case "Generic Memory": //RAM
+                    case "Generic Memory": 
                         ram = hardware;
                         break;
-                    case "WDC WD10SPCX-21KHST0": //Generic Hard Disk HDD
+                    case "WDC WD10SPCX-21KHST0": 
                         hdd = hardware;
                         break;
-                    case "KBG40ZNS512G NVMe KIOXIA 512GB": //NVM Generic SDD
+                    case "KBG40ZNS512G NVMe KIOXIA 512GB": 
                         ssd = hardware;
                         break;
                     case "Ethernet":
@@ -87,7 +87,6 @@ namespace DellHardwareMonitor
                     index++;
                 }
             }
-            //To-do: replace with Linq?
 
             driveStates = new DriveState[driveInstances.Length];
 

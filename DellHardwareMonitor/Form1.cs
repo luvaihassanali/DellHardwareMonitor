@@ -41,9 +41,9 @@ namespace DellHardwareMonitor
             firstTick = true;
             pollingTimer = new Timer();
             pollingTimer.Tick += new EventHandler(polling_Tick);
-            pollingTimer.Interval = 1000;
-            //pollingTimer.Enabled = true;
-            //pollingTimer.Start();
+            pollingTimer.Interval = 2000;
+            pollingTimer.Enabled = true;
+            pollingTimer.Start();
         }
 
         #region Form functions
@@ -168,221 +168,100 @@ namespace DellHardwareMonitor
                 state = new HardwareState();
             }
 
-            //CPU sensors
-            state.CPU.Update();
-            string cpuName = state.CPU.Name;
-            float? cpuOneLoad = state.CPU.Sensors[0].Value;
-            float? cpuTwoLoad = state.CPU.Sensors[1].Value;
-            float? cpuThreeLoad = state.CPU.Sensors[2].Value;
-            float? cpuFourLoad = state.CPU.Sensors[3].Value;
-            float? cpuFiveLoad = state.CPU.Sensors[4].Value;
-            float? cpuSixLoad = state.CPU.Sensors[5].Value;
-            float? totalLoad = state.CPU.Sensors[6].Value;
-            float? cpuOneTemp = state.CPU.Sensors[7].Value;
-            float? cpuTwoTemp = state.CPU.Sensors[8].Value;
-            float? cpuThreeTemp = state.CPU.Sensors[9].Value;
-            float? cpuFourTemp = state.CPU.Sensors[10].Value;
-            float? cpuFiveTemp = state.CPU.Sensors[11].Value;
-            float? cpuSixTemp = state.CPU.Sensors[12].Value;
-            float? cpuPackageTemp = state.CPU.Sensors[13].Value;
-            //14 - 19 core distance to tj max
-            //float? coreMax = state.CPU.Sensors[20].Value;
-            //float? coreAverage = state.CPU.Sensors[21].Value;
-            double? cpuOneClock = state.CPU.Sensors[22].Value / 1000d;
-            double? cpuTwoClock = state.CPU.Sensors[23].Value / 1000d;
-            double? cpuThreeClock = state.CPU.Sensors[24].Value / 1000d;
-            double? cpuFourClock = state.CPU.Sensors[25].Value / 1000d;
-            double? cpuFiveClock = state.CPU.Sensors[26].Value / 1000d;
-            double? cpuSixClock = state.CPU.Sensors[27].Value / 1000d;
-            float? cpuPackagePower = state.CPU.Sensors[28].Value;
-            //float? cpuCoresPower = state.CPU.Sensors[29].Value;
-            //float? cpuGraphicsPower = state.CPU.Sensors[30].Value;
-            //float? cpuMemoryPower = state.CPU.Sensors[31].Value;
-            //float? cpuBusSpeed = state.CPU.Sensors[32].Value;
-
-            //GPU
-            state.GPU.Update();
-            string gpuName = state.GPU.Name;
-            float? gpuTemp = state.GPU.Sensors[0].Value;
-            double? gpuCoreClock = state.GPU.Sensors[1].Value / 1000d;
-            double? gpuMemoryClock = state.GPU.Sensors[2].Value / 1000d;
-            float? gpuCoreLoad = state.GPU.Sensors[3].Value;
-            //float? gpuMemoryController = state.GPU.Sensors[4].Value;
-            //Latest NVIDIA drivers apparently leave this setting out
-            //float? gpuVideoEngineLoad = state.GPU.Sensors[5].Value;
-            //float? gpuBusLoad = state.GPU.Sensors[6].Value;
-            double? gpuTotalMemory = state.GPU.Sensors[7].Value / 1000d;
-            double? gpuFreeMemory = state.GPU.Sensors[8].Value / 1000d;
-            double? gpuMemoryUsed = state.GPU.Sensors[9].Value / 1000d;
-            //float? gpuPackagePower = state.GPU.Sensors[10].Value;
-            //11, 12 GPU PCIe Rx/Tx
-
-            //RAM
-            state.RAM.Update();
-            float? memoryUsed = state.RAM.Sensors[0].Value;
-            float? memoryAvailable = state.RAM.Sensors[1].Value;
-            float? memoryLoad = state.RAM.Sensors[2].Value;
-            //float? virtualMemoryUsed = state.RAM.Sensors[3].Value;
-            //float? virtualMemoryAvailable = state.RAM.Sensors[4].Value;
-            //float? virtualMemoryLoad = state.RAM.Sensors[5].Value;
-
-            //SSD
-            state.SSD.Update();
-            string ssdName = state.SSD.Name;
-            float? ssdTemp = state.SSD.Sensors[0].Value;
-            //float? ssdAvailableSpare = state.SSD.Sensors[1].Value;
-            //float? ssdAvailableSpareThreshold = state.SSD.Sensors[2].Value;
-            //float? ssdPercentUsed = state.SSD.Sensors[3].Value;
-            //04, 05 data read/written
-            //float? ssdTemp1 = state.SSD.Sensors[6].Value;
-            //float? ssdUsedSpace = state.SSD.Sensors[7].Value;
-            //float? ssdWriteActivity = state.SSD.Sensors[8].Value;
-            //float? ssdTotalActivity = state.SSD.Sensors[9].Value;
-            //float? ssdReadRate = state.SSD.Sensors[10].Value;
-            //float? ssdWriteRate = state.SSD.Sensors[11].Value;
-
-            double ssdFreeGB = state.DriveStates[0].Counters[0].NextValue() / 1024d;
-            double ssdFreePercent = state.DriveStates[0].Counters[1].NextValue();
-            double ssdUsedPercent = 100d - ssdFreePercent;
-            double ssdTotalGB = ssdFreeGB / (ssdFreePercent / 100d);
-            double ssdUsedGB = ssdTotalGB - ssdFreeGB;
-            
-            //HDD
-            state.HDD.Update();
-            string hddName = state.HDD.Name;
-            float? hddTemp = state.HDD.Sensors[0].Value;
-            //float? hddUsedSpace = state.HDD.Sensors[1].Value;
-            //float? hddWriteActivity = state.HDD.Sensors[2].Value;
-            //float? hddTotalActivity = state.HDD.Sensors[3].Value;
-            //float? hddReadRate = state.HDD.Sensors[4].Value;
-            //float? hddWriteRate = state.HDD.Sensors[5].Value;
-
-            double hddFreeGB = state.DriveStates[1].Counters[0].NextValue() / 1024d;
-            double hddFreePercent = state.DriveStates[1].Counters[1].NextValue();
-            double hddUsedPercent = 100d - hddFreePercent;
-            double hddTotalGB = hddFreeGB / (hddFreePercent / 100d);
-            double hddUsedGB = hddTotalGB - hddFreeGB;
-
-            /*//Ethernet
-            state.Ethernet.Update();
-            float? ethDataUploaded = state.WiFi.Sensors[0].Value;
-            float? ethDataDownloaded = state.WiFi.Sensors[1].Value;
-            float? ethDownloadSpeed = state.WiFi.Sensors[2].Value;
-            float? ethUploadSpeed = state.WiFi.Sensors[3].Value;
-            float? ethNetworkUtilisation = state.WiFi.Sensors[4].Value;
-            float ethBytesRecv = state.NetworkStates[0].Counters[0].NextValue();
-            float ethBytesSent = state.NetworkStates[0].Counters[1].NextValue();*/
-
-            //Wi-Fi
+            state.CPU.Update(); 
+            state.GPU.Update(); 
+            state.RAM.Update(); 
+            state.SSD.Update(); 
+            state.HDD.Update(); 
             state.WiFi.Update();
-            //float? wifiDataUploaded = state.WiFi.Sensors[0].Value;
-            //float? wifiDataDownloaded = state.WiFi.Sensors[1].Value;
-            //float? wifiDownloadSpeed = state.WiFi.Sensors[2].Value;
-            //float? wifiUploadSpeed = state.WiFi.Sensors[3].Value;
-            //float? wifiNetworkUtilisation = state.WiFi.Sensors[4].Value;
-            double wifiBytesRecv = state.NetworkStates[1].Counters[0].NextValue() / 1048576d;
-            double wifiBytesSent = state.NetworkStates[1].Counters[1].NextValue() / 1048576d;
 
-            richTextBox1.Clear();
-            richTextBox1.Text +=
-                "cpuName: " + cpuName + "\n" +
-                "cpuOneLoad: " + cpuOneLoad + " %\n" +
-                "cpuTwoLoad: " + cpuTwoLoad + " %\n" +
-                "cpuThreeLoad: " + cpuThreeLoad + " %\n" +
-                "cpuFourLoad: " + cpuFourLoad + " %\n" +
-                "cpuFiveLoad: " + cpuFiveLoad + " %\n" +
-                "cpuSixLoad: " + cpuSixLoad + " %\n" +
-                "totalLoad: " + totalLoad + " %\n" +
-                "cpuOneTemp: " + cpuOneTemp + " °C\n" +
-                "cpuTwoTemp: " + cpuTwoTemp + " °C\n" +
-                "cpuThreeTemp: " + cpuThreeTemp + " °C\n" +
-                "cpuFourTemp: " + cpuFourTemp + " °C\n" +
-                "cpuFiveTemp: " + cpuFiveTemp + " °C\n" +
-                "cpuSixTemp: " + cpuSixTemp + " °C\n" +
-                "cpuPackageTemp: " + cpuPackageTemp + " °C\n" +
-                //"coreMax: " + coreMax + "\n" +
-                //"coreAverage: " + coreAverage + "\n" +
-                "cpuOneClock: " + cpuOneClock + " GHz\n" +
-                "cpuTwoClock: " + cpuTwoClock + " GHz\n" +
-                "cpuThreeClock: " + cpuThreeClock + " GHz\n" +
-                "cpuFourClock: " + cpuFourClock + " GHz\n" +
-                "cpuFiveClock: " + cpuFiveClock + " GHz\n" +
-                "cpuSixClock: " + cpuSixClock + " GHz\n" +
-                "cpuPackagePower: " + cpuPackagePower + " W\n\n";
-            //"cpuCoresPower: " + cpuCoresPower + "\n" +
-            //"cpuGraphicsPower: " + cpuGraphicsPower + "\n" +
-            //"cpuMemoryPower: " + cpuMemoryPower + "\n" +
-            //"cpuBusSpeed: " + cpuBusSpeed + "\n\n";
-
-            richTextBox1.Text +=
-                "gpuName: " + gpuName + "\n" +
-                "gpuTemp: " + gpuTemp + " °C\n" +
-                "gpuCoreClock: " + gpuCoreClock + " GHz\n" +
-                "gpuMemoryClock: " + gpuMemoryClock + " GHz\n" +
-                "gpuCoreLoad: " + gpuCoreLoad + " %\n" +
-                //"gpuMemoryController: " + gpuMemoryController + "\n" +
-                //"gpuVideoEngineLoad: " + gpuVideoEngineLoad + " %\n" +
-                //"gpuBusLoad: " + gpuBusLoad + "\n" +
-                "gpuTotalMemory: " + gpuTotalMemory + " GB\n" +
-                "gpuFreeMemory: " + gpuFreeMemory + " GB\n" +
-                "gpuMemoryUsed: " + gpuMemoryUsed + " GB\n\n";
-                //"gpuPackagePower: " + gpuPackagePower + " W\n\n";
-
-            richTextBox1.Text +=
-                "RAM \n" +
-                "memoryTotal: " + (float)(memoryUsed + memoryAvailable) + " GB\n" +
-                "memoryUsed: " + memoryUsed + " GB\n" +
-                "memoryAvailable: " + memoryAvailable + " GB\n" +
-                "memoryLoad: " + memoryLoad + " %\n\n";
-                //"virtualMemoryUsed: " + virtualMemoryUsed + "\n" +
-                //"virtualMemoryAvailable: " + virtualMemoryAvailable + "\n" +
-                //"virtualMemory: " + virtualMemoryLoad + "\n\n";
-
-            richTextBox1.Text +=
-                "ssdName: " + ssdName + "\n" +
-                "ssdTemp: " + ssdTemp + "\n" +
-                //"ssdAvailableSpare: " + ssdAvailableSpare + "\n" +
-                //"ssdAvailableSpareThreshold: " + ssdAvailableSpareThreshold + "\n" +
-                //"ssdPercentUsed: " + ssdPercentUsed + "\n" +
-                //"ssdTemp1: " + ssdTemp1 + "\n" +
-                //"ssdUsedSpace: " + ssdUsedSpace + "\n" +
-                //"ssdWriteActivity: " + ssdWriteActivity + "\n" +
-                //"ssdTotalActivity: " + ssdTotalActivity + "\n" +
-                //"ssdReadRate: " + ssdReadRate + "\n" +
-                //"ssdWriteRate: " + ssdWriteRate + "\n" +
-                "ssdTotalGB: " + ssdTotalGB + " GB\n" +
-                "ssdFreeGB: " + ssdFreeGB + " GB\n" +
-                "ssdUsedGB: " + ssdUsedGB + " GB\n" +
-                "ssdFreePercent: " + ssdFreePercent + " %\n" +
-                "ssdUsedPercent: " + ssdUsedPercent + " %\n\n";
-
-            richTextBox1.Text +=
-                "hddName: " + hddName + "\n" +
-                "hddTemp: " + hddTemp + "\n" +
-                //"hddUsedSpace: " + hddUsedSpace + "\n" +
-                //"hddWriteActivity: " + hddWriteActivity + "\n" +
-                //"hddTotalActivity: " + hddTotalActivity + "\n" +
-                //"hddReadRate: " + hddReadRate + "\n" +
-                //"hddWriteRate: " + hddWriteRate + "\n" +
-                "hddTotalGB: " + hddTotalGB + " GB\n" +
-                "hddUsedGB: " + hddUsedGB + " GB\n" +
-                "hddFreeGB: " + hddFreeGB + " GB\n" +
-                "hddFreePercent: " + hddFreePercent + " %\n" +
-                "hddUsedPercent: " + hddUsedPercent + " %\n\n";
-
-            richTextBox1.Text +=
-                "Wi-Fi: \n" +
-                //"wifiDataUploaded: " + wifiDataUploaded + "\n" +
-                //"wifiDataDownloaded: " + wifiDataDownloaded + "\n" +
-                //"wifiDownloadSpeed: " + wifiDownloadSpeed + "\n" +
-                //"wifiUploadSpeed: " + wifiUploadSpeed + "\n" +
-                //"wifiNetworkUtil: " + wifiNetworkUtilisation + "\n" +
-                "Download: " + wifiBytesRecv + " MB/s\n" +
-                "Upload: " + wifiBytesSent + " MB/s";
-
+            cpuNameLbl.Text = state.CPU.Name;
+            float cpuOneLoad = (float) state.CPU.Sensors[0].Value;
+            cpu1LoadLbl.Text = cpuOneLoad.ToString("0.00");
+            float cpuTwoLoad = (float)state.CPU.Sensors[1].Value;
+            cpu2LoadLbl.Text = cpuTwoLoad.ToString("0.00");
+            float cpuThreeLoad = (float)state.CPU.Sensors[1].Value;
+            cpu3LoadLbl.Text = cpuThreeLoad.ToString("0.00");
+            float cpuFourLoad = (float)state.CPU.Sensors[1].Value;
+            cpu4LoadLbl.Text = cpuFourLoad.ToString("0.00");
+            float cpuFiveLoad = (float)state.CPU.Sensors[1].Value;
+            cpu5LoadLbl.Text = cpuFiveLoad.ToString("0.00");
+            float cpuSixLoad = (float)state.CPU.Sensors[1].Value;
+            cpu6LoadLbl.Text = cpuSixLoad.ToString("0.00");
+            float cpuTotalLoadF = (float)state.CPU.Sensors[6].Value;
+            cpuTotalLoadLbl.Text = cpuTotalLoadF.ToString("0.00");
+            cpu1TempLbl.Text = state.CPU.Sensors[7].Value.ToString();
+            cpu2TempLbl.Text = state.CPU.Sensors[8].Value.ToString();
+            cpu3TempLbl.Text = state.CPU.Sensors[9].Value.ToString();
+            cpu4TempLbl.Text = state.CPU.Sensors[10].Value.ToString();
+            cpu5TempLbl.Text = state.CPU.Sensors[11].Value.ToString();
+            cpu6TempLbl.Text = state.CPU.Sensors[12].Value.ToString();
+            cpuPackageTempLbl.Text = state.CPU.Sensors[13].Value.ToString();
+            double cpuOneClock = (double)state.CPU.Sensors[22].Value / 1000d;
+            cpu1ClockLbl.Text = cpuOneClock.ToString("0.00");
+            double cpuTwoClock = (double)state.CPU.Sensors[23].Value / 1000d;
+            cpu2ClockLbl.Text = cpuTwoClock.ToString("0.00");
+            double cpuThreeClock = (double)state.CPU.Sensors[24].Value / 1000d;
+            cpu3ClockLbl.Text = cpuThreeClock.ToString("0.00");
+            double cpuFourClock = (double)state.CPU.Sensors[25].Value / 1000d;
+            cpu4ClockLbl.Text = cpuFourClock.ToString("0.00");
+            double cpuFiveClock = (double)state.CPU.Sensors[26].Value / 1000d;
+            cpu5ClockLbl.Text = cpuFiveClock.ToString("0.00");
+            double cpuSixClock = (double)state.CPU.Sensors[27].Value / 1000d;
+            cpu6ClockLbl.Text = cpuSixClock.ToString("0.00");
+            float cpuPackagePower = (float)state.CPU.Sensors[28].Value;
+            cpuPackagePwrLbl.Text = cpuPackagePower.ToString();
             //uint? leftFanRpm = DellSmbiosBzh.GetFanRpm(BzhFanIndex.Fan1);
+            
+            gpuName.Text = state.GPU.Name;
+            gpuTempLbl.Text = state.GPU.Sensors[0].Value.ToString();
+            gpuCoreClockLbl.Text = (state.GPU.Sensors[1].Value / 1000d).Value.ToString();
+            gpuMemClockLbl.Text = (state.GPU.Sensors[2].Value / 1000d).Value.ToString();
+            gpuCoreLoadLbl.Text = (state.GPU.Sensors[3].Value).Value.ToString();
+            gpuTotalMemLbl.Text = (state.GPU.Sensors[7].Value / 1000d).Value.ToString();
+            gpuFreeMemLbl.Text = (state.GPU.Sensors[8].Value / 1000d).Value.ToString();
+            gpuMemUsedLbl.Text = (state.GPU.Sensors[9].Value / 1000d).Value.ToString();
             //uint? rightFanRpm = DellSmbiosBzh.GetFanRpm(BzhFanIndex.Fan2);
-            //Console.WriteLine("left: " + leftFanRpm + " right: " + rightFanRpm);
+
+
+            float memoryUsed = (float)state.RAM.Sensors[0].Value;
+            ramUsedLbl.Text = memoryUsed.ToString("0.00");
+            float memoryAvailable = (float)state.RAM.Sensors[1].Value;
+            ramAvailableLbl.Text = memoryAvailable.ToString("0.00");
+            ramTotalLbl.Text = (memoryUsed + memoryAvailable).ToString("0.00");
+            float memoryLoad = (float)state.RAM.Sensors[2].Value;
+            ramLoadLbl.Text = memoryLoad.ToString("0.00");
+
+            ssdNameLbl.Text = state.SSD.Name;
+            ssdTempLbl.Text = state.SSD.Sensors[0].Value.ToString();
+            double ssdFreeGB = state.DriveStates[0].Counters[0].NextValue() / 1024d;
+            ssdFreeGBLbl.Text = ssdFreeGB.ToString("0.00");
+            double ssdFreePercent = state.DriveStates[0].Counters[1].NextValue();
+            ssdFreePercentLbl.Text = ssdFreePercent.ToString("0.00");
+            double ssdUsedPercent = 100d - ssdFreePercent;
+            ssdUsedPercentLbl.Text = ssdUsedPercent.ToString("0.00");
+            double ssdTotalGB = ssdFreeGB / (ssdFreePercent / 100d);
+            ssdTotalGBLbl.Text = ssdTotalGB.ToString("0.00");
+            double ssdUsedGB = ssdTotalGB - ssdFreeGB;
+            ssdUsedGBLbl.Text = ssdUsedGB.ToString("0.00");
+
+            hddNameLbl.Text = state.HDD.Name;
+            hddTempLbl.Text = state.HDD.Sensors[0].Value.ToString();
+            double hddFreeGB = state.DriveStates[1].Counters[0].NextValue() / 1024d;
+            hddFreeGBLbl.Text = hddFreeGB.ToString("0.00");
+            double hddFreePercent = state.DriveStates[1].Counters[1].NextValue();
+            hddFreePercentLbl.Text = hddFreePercent.ToString("0.00");
+            double hddUsedPercent = 100d - hddFreePercent;
+            hddUsedPercentLbl.Text = hddUsedPercent.ToString("0.00");
+            double hddTotalGB = hddFreeGB / (hddFreePercent / 100d);
+            hddTotalGBLbl.Text = hddTotalGB.ToString("0.00");
+            double hddUsedGB = hddTotalGB - hddFreeGB;
+            hddUsedGBLbl.Text = hddUsedGB.ToString("0.00");
+
+            double wifiBytesRecv = state.NetworkStates[1].Counters[0].NextValue() / 1048576d;
+            wifiBytesRecvLbl.Text = wifiBytesRecv.ToString("0.00");
+            double wifiBytesSent = state.NetworkStates[1].Counters[1].NextValue() / 1048576d;
+            wifiBytesSentLbl.Text = wifiBytesSent.ToString("0.00");
 
             if (firstTick)
             {
@@ -480,228 +359,4 @@ Console.WriteLine("Press any key to exit.");
 Console.ReadKey();
 */
 
-#endregion
-
-#region Polling func backup
-/*
-        private void polling_Tick(object sender, EventArgs e)
-        {
-            //CPU sensors
-            state.CPU.Update();
-            string cpuName = state.CPU.Name;
-            float? cpuOneLoad = state.CPU.Sensors[0].Value;
-            float? cpuTwoLoad = state.CPU.Sensors[1].Value;
-            float? cpuThreeLoad = state.CPU.Sensors[2].Value;
-            float? cpuFourLoad = state.CPU.Sensors[3].Value;
-            float? cpuFiveLoad = state.CPU.Sensors[4].Value;
-            float? cpuSixLoad = state.CPU.Sensors[5].Value;
-            float? totalLoad = state.CPU.Sensors[6].Value;
-            float? cpuOneTemp = state.CPU.Sensors[7].Value;
-            float? cpuTwoTemp = state.CPU.Sensors[8].Value;
-            float? cpuThreeTemp = state.CPU.Sensors[9].Value;
-            float? cpuFourTemp = state.CPU.Sensors[10].Value;
-            float? cpuFiveTemp = state.CPU.Sensors[11].Value;
-            float? cpuSixTemp = state.CPU.Sensors[12].Value;
-            float? cpuPackageTemp = state.CPU.Sensors[13].Value;
-            //14 - 19 core distance to tj max
-            //float? coreMax = state.CPU.Sensors[20].Value;
-            //float? coreAverage = state.CPU.Sensors[21].Value;
-            double? cpuOneClock = state.CPU.Sensors[22].Value / 1000d;
-            double? cpuTwoClock = state.CPU.Sensors[23].Value / 1000d;
-            double? cpuThreeClock = state.CPU.Sensors[24].Value / 1000d;
-            double? cpuFourClock = state.CPU.Sensors[25].Value / 1000d;
-            double? cpuFiveClock = state.CPU.Sensors[26].Value / 1000d;
-            double? cpuSixClock = state.CPU.Sensors[27].Value / 1000d;
-            float? cpuPackagePower = state.CPU.Sensors[28].Value;
-            //float? cpuCoresPower = state.CPU.Sensors[29].Value;
-            //float? cpuGraphicsPower = state.CPU.Sensors[30].Value;
-            //float? cpuMemoryPower = state.CPU.Sensors[31].Value;
-            //float? cpuBusSpeed = state.CPU.Sensors[32].Value;
-
-            //GPU
-            state.GPU.Update();
-            string gpuName = state.GPU.Name;
-            float? gpuTemp = state.GPU.Sensors[0].Value;
-            double? gpuCoreClock = state.GPU.Sensors[1].Value / 1000d;
-            double? gpuMemoryClock = state.GPU.Sensors[2].Value / 1000d;
-            float? gpuCoreLoad = state.GPU.Sensors[3].Value;
-            //float? gpuMemoryController = state.GPU.Sensors[4].Value;
-            //Latest NVIDIA drivers apparently leave this setting out
-            //float? gpuVideoEngineLoad = state.GPU.Sensors[5].Value;
-            //float? gpuBusLoad = state.GPU.Sensors[6].Value;
-            double? gpuTotalMemory = state.GPU.Sensors[7].Value / 1000d;
-            double? gpuFreeMemory = state.GPU.Sensors[8].Value / 1000d;
-            double? gpuMemoryUsed = state.GPU.Sensors[9].Value / 1000d;
-            float? gpuPackagePower = state.GPU.Sensors[10].Value;
-            //11, 12 GPU PCIe Rx/Tx
-
-            //RAM
-            state.RAM.Update();
-            float? memoryUsed = state.RAM.Sensors[0].Value;
-            float? memoryAvailable = state.RAM.Sensors[1].Value;
-            float? memoryLoad = state.RAM.Sensors[2].Value;
-            //float? virtualMemoryUsed = state.RAM.Sensors[3].Value;
-            //float? virtualMemoryAvailable = state.RAM.Sensors[4].Value;
-            //float? virtualMemoryLoad = state.RAM.Sensors[5].Value;
-
-            //SSD
-            state.SSD.Update();
-            string ssdName = state.SSD.Name;
-            float? ssdTemp = state.SSD.Sensors[0].Value;
-            //float? ssdAvailableSpare = state.SSD.Sensors[1].Value;
-            //float? ssdAvailableSpareThreshold = state.SSD.Sensors[2].Value;
-            //float? ssdPercentUsed = state.SSD.Sensors[3].Value;
-            //04, 05 data read/written
-            //float? ssdTemp1 = state.SSD.Sensors[6].Value;
-            //float? ssdUsedSpace = state.SSD.Sensors[7].Value;
-            //float? ssdWriteActivity = state.SSD.Sensors[8].Value;
-            //float? ssdTotalActivity = state.SSD.Sensors[9].Value;
-            //float? ssdReadRate = state.SSD.Sensors[10].Value;
-            //float? ssdWriteRate = state.SSD.Sensors[11].Value;
-
-            double ssdFreeGB = state.DriveStates[0].Counters[0].NextValue() / 1024d;
-            double ssdFreePercent = state.DriveStates[0].Counters[1].NextValue();
-            double ssdUsedPercent = 100d - ssdFreePercent;
-            double ssdTotalGB = ssdFreeGB / (ssdFreePercent / 100d);
-            double ssdUsedGB = ssdTotalGB - ssdFreeGB;
-            
-            //HDD
-            state.HDD.Update();
-            string hddName = state.HDD.Name;
-            float? hddTemp = state.HDD.Sensors[0].Value;
-            //float? hddUsedSpace = state.HDD.Sensors[1].Value;
-            //float? hddWriteActivity = state.HDD.Sensors[2].Value;
-            //float? hddTotalActivity = state.HDD.Sensors[3].Value;
-            //float? hddReadRate = state.HDD.Sensors[4].Value;
-            //float? hddWriteRate = state.HDD.Sensors[5].Value;
-
-            double hddFreeGB = state.DriveStates[1].Counters[0].NextValue() / 1024d;
-            double hddFreePercent = state.DriveStates[1].Counters[1].NextValue();
-            double hddUsedPercent = 100d - hddFreePercent;
-            double hddTotalGB = hddFreeGB / (hddFreePercent / 100d);
-            double hddUsedGB = hddTotalGB - hddFreeGB;
-
-            //Ethernet
-            state.Ethernet.Update();
-            float? ethDataUploaded = state.WiFi.Sensors[0].Value;
-            float? ethDataDownloaded = state.WiFi.Sensors[1].Value;
-            float? ethDownloadSpeed = state.WiFi.Sensors[2].Value;
-            float? ethUploadSpeed = state.WiFi.Sensors[3].Value;
-            float? ethNetworkUtilisation = state.WiFi.Sensors[4].Value;
-            float ethBytesRecv = state.NetworkStates[0].Counters[0].NextValue();
-            float ethBytesSent = state.NetworkStates[0].Counters[1].NextValue();
-
-            //Wi-Fi
-            state.WiFi.Update();
-            //float? wifiDataUploaded = state.WiFi.Sensors[0].Value;
-            //float? wifiDataDownloaded = state.WiFi.Sensors[1].Value;
-            //float? wifiDownloadSpeed = state.WiFi.Sensors[2].Value;
-            //float? wifiUploadSpeed = state.WiFi.Sensors[3].Value;
-            //float? wifiNetworkUtilisation = state.WiFi.Sensors[4].Value;
-            double wifiBytesRecv = state.NetworkStates[1].Counters[0].NextValue() / 1048576d;
-            double wifiBytesSent = state.NetworkStates[1].Counters[1].NextValue() / 1048576d;
-
-            richTextBox1.Clear();
-
-            richTextBox1.Text +=
-                "cpuName: " + cpuName + "\n" +
-                "cpuOneLoad: " + cpuOneLoad + " %\n" +
-                "cpuTwoLoad: " + cpuTwoLoad + " %\n" +
-                "cpuThreeLoad: " + cpuThreeLoad + " %\n" +
-                "cpuFourLoad: " + cpuFourLoad + " %\n" +
-                "cpuFiveLoad: " + cpuFiveLoad + " %\n" +
-                "cpuSixLoad: " + cpuSixLoad + " %\n" +
-                "totalLoad: " + totalLoad + " %\n" +
-                "cpuOneTemp: " + cpuOneTemp + " °C\n" +
-                "cpuTwoTemp: " + cpuTwoTemp + " °C\n" +
-                "cpuThreeTemp: " + cpuThreeTemp + " °C\n" +
-                "cpuFourTemp: " + cpuFourTemp + " °C\n" +
-                "cpuFiveTemp: " + cpuFiveTemp + " °C\n" +
-                "cpuSixTemp: " + cpuSixTemp + " °C\n" +
-                "cpuPackageTemp: " + cpuPackageTemp + " °C\n" +
-                //"coreMax: " + coreMax + "\n" +
-                //"coreAverage: " + coreAverage + "\n" +
-                "cpuOneClock: " + cpuOneClock + " GHz\n" +
-                "cpuTwoClock: " + cpuTwoClock + " GHz\n" +
-                "cpuThreeClock: " + cpuThreeClock + " GHz\n" +
-                "cpuFourClock: " + cpuFourClock + " GHz\n" +
-                "cpuFiveClock: " + cpuFiveClock + " GHz\n" +
-                "cpuSixClock: " + cpuSixClock + " GHz\n" +
-                "cpuPackagePower: " + cpuPackagePower + " W\n\n";
-                //"cpuCoresPower: " + cpuCoresPower + "\n" +
-                //"cpuGraphicsPower: " + cpuGraphicsPower + "\n" +
-                //"cpuMemoryPower: " + cpuMemoryPower + "\n" +
-                //"cpuBusSpeed: " + cpuBusSpeed + "\n\n";
-
-            richTextBox1.Text +=
-                "gpuName: " + gpuName + "\n" +
-                "gpuTemp: " + gpuTemp + " °C\n" +
-                "gpuCoreClock: " + gpuCoreClock + " GHz\n" +
-                "gpuMemoryClock: " + gpuMemoryClock + " GHz\n" +
-                "gpuCoreLoad: " + gpuCoreLoad + " %\n" +
-                //"gpuMemoryController: " + gpuMemoryController + "\n" +
-                //"gpuVideoEngineLoad: " + gpuVideoEngineLoad + " %\n" +
-                //"gpuBusLoad: " + gpuBusLoad + "\n" +
-                "gpuTotalMemory: " + gpuTotalMemory + " GB\n" +
-                "gpuFreeMemory: " + gpuFreeMemory + " GB\n" +
-                "gpuMemoryUsed: " + gpuMemoryUsed + " GB\n" +
-                "gpuPackagePower: " + gpuPackagePower + " W\n\n";
-
-            richTextBox1.Text +=
-                "RAM \n" +
-                "memoryTotal: " + (float)(memoryUsed + memoryAvailable) + " GB\n" +
-                "memoryUsed: " + memoryUsed + " GB\n" +
-                "memoryAvailable: " + memoryAvailable + " GB\n" +
-                "memoryLoad: " + memoryLoad + " %\n\n";
-                //"virtualMemoryUsed: " + virtualMemoryUsed + "\n" +
-                //"virtualMemoryAvailable: " + virtualMemoryAvailable + "\n" +
-                //"virtualMemory: " + virtualMemoryLoad + "\n\n";
-
-            richTextBox1.Text +=
-                "ssdName: " + ssdName + "\n" +
-                "ssdTemp: " + ssdTemp + "\n" +
-                //"ssdAvailableSpare: " + ssdAvailableSpare + "\n" +
-                //"ssdAvailableSpareThreshold: " + ssdAvailableSpareThreshold + "\n" +
-                //"ssdPercentUsed: " + ssdPercentUsed + "\n" +
-                //"ssdTemp1: " + ssdTemp1 + "\n" +
-                //"ssdUsedSpace: " + ssdUsedSpace + "\n" +
-                //"ssdWriteActivity: " + ssdWriteActivity + "\n" +
-                //"ssdTotalActivity: " + ssdTotalActivity + "\n" +
-                //"ssdReadRate: " + ssdReadRate + "\n" +
-                //"ssdWriteRate: " + ssdWriteRate + "\n" +
-                "ssdTotalGB: " + ssdTotalGB + " GB\n" +
-                "ssdFreeGB: " + ssdFreeGB + " GB\n" +
-                "ssdUsedGB: " + ssdUsedGB + " GB\n" +
-                "ssdFreePercent: " + ssdFreePercent + " %\n" +
-                "ssdUsedPercent: " + ssdUsedPercent + " %\n\n";
-
-            richTextBox1.Text +=
-                "hddName: " + hddName + "\n" +
-                "hddTemp: " + hddTemp + "\n" +
-                //"hddUsedSpace: " + hddUsedSpace + "\n" +
-                //"hddWriteActivity: " + hddWriteActivity + "\n" +
-                //"hddTotalActivity: " + hddTotalActivity + "\n" +
-                //"hddReadRate: " + hddReadRate + "\n" +
-                //"hddWriteRate: " + hddWriteRate + "\n" +
-                "hddTotalGB: " + hddTotalGB + " GB\n" +
-                "hddUsedGB: " + hddUsedGB + " GB\n" +
-                "hddFreeGB: " + hddFreeGB + " GB\n" +
-                "hddFreePercent: " + hddFreePercent + " %\n" +
-                "hddUsedPercent: " + hddUsedPercent + " %\n\n";
-
-            richTextBox1.Text +=
-                "Wi-Fi: \n" +
-                //"wifiDataUploaded: " + wifiDataUploaded + "\n" +
-                //"wifiDataDownloaded: " + wifiDataDownloaded + "\n" +
-                //"wifiDownloadSpeed: " + wifiDownloadSpeed + "\n" +
-                //"wifiUploadSpeed: " + wifiUploadSpeed + "\n" +
-                //"wifiNetworkUtil: " + wifiNetworkUtilisation + "\n" +
-                "Download: " + wifiBytesRecv + " MB/s\n" +
-                "Upload: " + wifiBytesSent + " MB/s";
-
-            //uint? leftFanRpm = DellSmbiosBzh.GetFanRpm(BzhFanIndex.Fan1);
-            //uint? rightFanRpm = DellSmbiosBzh.GetFanRpm(BzhFanIndex.Fan2);
-            //Console.WriteLine("left: " + leftFanRpm + " right: " + rightFanRpm);
-        }
-*/
 #endregion

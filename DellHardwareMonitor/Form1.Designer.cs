@@ -30,69 +30,69 @@ namespace DellHardwareMonitor
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.cpuPictureBox = new System.Windows.Forms.PictureBox();
             this.gpuPictureBox = new System.Windows.Forms.PictureBox();
             this.ramPictureBox = new System.Windows.Forms.PictureBox();
             this.ssdPictureBox = new System.Windows.Forms.PictureBox();
             this.hddPictureBox = new System.Windows.Forms.PictureBox();
             this.wifiPictureBox = new System.Windows.Forms.PictureBox();
-            this.cpuName = new System.Windows.Forms.Label();
-            this.cpu1Load = new System.Windows.Forms.Label();
-            this.cpu2Load = new System.Windows.Forms.Label();
-            this.cpu3Load = new System.Windows.Forms.Label();
-            this.cpu4Load = new System.Windows.Forms.Label();
-            this.cpu5Load = new System.Windows.Forms.Label();
-            this.cpu6Load = new System.Windows.Forms.Label();
-            this.cpu6Heat = new System.Windows.Forms.Label();
-            this.cpu5Heat = new System.Windows.Forms.Label();
-            this.cpu4Heat = new System.Windows.Forms.Label();
-            this.cpu3Heat = new System.Windows.Forms.Label();
-            this.cpu2Heat = new System.Windows.Forms.Label();
-            this.cpu1Heat = new System.Windows.Forms.Label();
-            this.cpuHeat = new System.Windows.Forms.Label();
-            this.cpuLoad = new System.Windows.Forms.Label();
-            this.cpuPackageTemp = new System.Windows.Forms.Label();
-            this.cpuTotalLoad = new System.Windows.Forms.Label();
-            this.cpuPackagePwr = new System.Windows.Forms.Label();
-            this.cpu6Clock = new System.Windows.Forms.Label();
-            this.cpu5Clock = new System.Windows.Forms.Label();
-            this.cpu4Clock = new System.Windows.Forms.Label();
-            this.cpu3Clock = new System.Windows.Forms.Label();
-            this.cpu2Clock = new System.Windows.Forms.Label();
-            this.cpu1Clock = new System.Windows.Forms.Label();
+            this.cpuNameLbl = new System.Windows.Forms.Label();
+            this.cpu1LoadLbl = new System.Windows.Forms.Label();
+            this.cpu2LoadLbl = new System.Windows.Forms.Label();
+            this.cpu3LoadLbl = new System.Windows.Forms.Label();
+            this.cpu4LoadLbl = new System.Windows.Forms.Label();
+            this.cpu5LoadLbl = new System.Windows.Forms.Label();
+            this.cpu6LoadLbl = new System.Windows.Forms.Label();
+            this.cpu6TempLbl = new System.Windows.Forms.Label();
+            this.cpu5TempLbl = new System.Windows.Forms.Label();
+            this.cpu4TempLbl = new System.Windows.Forms.Label();
+            this.cpu3TempLbl = new System.Windows.Forms.Label();
+            this.cpu2TempLbl = new System.Windows.Forms.Label();
+            this.cpu1TempLbl = new System.Windows.Forms.Label();
+            this.cpuTempHeaderLbl = new System.Windows.Forms.Label();
+            this.cpuLoadHeaderLbl = new System.Windows.Forms.Label();
+            this.cpuPackageTempLbl = new System.Windows.Forms.Label();
+            this.cpuTotalLoadLbl = new System.Windows.Forms.Label();
+            this.cpuPackagePwrLbl = new System.Windows.Forms.Label();
+            this.cpu6ClockLbl = new System.Windows.Forms.Label();
+            this.cpu5ClockLbl = new System.Windows.Forms.Label();
+            this.cpu4ClockLbl = new System.Windows.Forms.Label();
+            this.cpu3ClockLbl = new System.Windows.Forms.Label();
+            this.cpu2ClockLbl = new System.Windows.Forms.Label();
+            this.cpu1ClockLbl = new System.Windows.Forms.Label();
             this.gpuName = new System.Windows.Forms.Label();
-            this.gpuTemp = new System.Windows.Forms.Label();
-            this.gpuMemUsed = new System.Windows.Forms.Label();
-            this.gpuFreeMem = new System.Windows.Forms.Label();
-            this.gpuTotalMem = new System.Windows.Forms.Label();
-            this.gpuCoreLoad = new System.Windows.Forms.Label();
-            this.gpuMemClock = new System.Windows.Forms.Label();
-            this.gpuCoreClock = new System.Windows.Forms.Label();
-            this.ramLoad = new System.Windows.Forms.Label();
-            this.ramUsed = new System.Windows.Forms.Label();
-            this.ramLabel = new System.Windows.Forms.Label();
-            this.ramAvailable = new System.Windows.Forms.Label();
-            this.ramTotal = new System.Windows.Forms.Label();
-            this.ssdTemp = new System.Windows.Forms.Label();
-            this.ssdUsedPercent = new System.Windows.Forms.Label();
-            this.ssdUsedGB = new System.Windows.Forms.Label();
-            this.ssdTotalGB = new System.Windows.Forms.Label();
-            this.ssdName = new System.Windows.Forms.Label();
-            this.ssdFreePercent = new System.Windows.Forms.Label();
-            this.ssdFreeGB = new System.Windows.Forms.Label();
-            this.cpuFan = new System.Windows.Forms.Label();
-            this.gpuFan = new System.Windows.Forms.Label();
-            this.hddTemp = new System.Windows.Forms.Label();
-            this.hddUsedPercent = new System.Windows.Forms.Label();
-            this.hddUsedGB = new System.Windows.Forms.Label();
-            this.hddTotalGB = new System.Windows.Forms.Label();
-            this.hddName = new System.Windows.Forms.Label();
-            this.hddFreePercent = new System.Windows.Forms.Label();
-            this.hddFreeGB = new System.Windows.Forms.Label();
-            this.wifiBytesSent = new System.Windows.Forms.Label();
-            this.wifiBytesRecv = new System.Windows.Forms.Label();
-            this.wifiLabel = new System.Windows.Forms.Label();
+            this.gpuTempLbl = new System.Windows.Forms.Label();
+            this.gpuMemUsedLbl = new System.Windows.Forms.Label();
+            this.gpuFreeMemLbl = new System.Windows.Forms.Label();
+            this.gpuTotalMemLbl = new System.Windows.Forms.Label();
+            this.gpuCoreLoadLbl = new System.Windows.Forms.Label();
+            this.gpuMemClockLbl = new System.Windows.Forms.Label();
+            this.gpuCoreClockLbl = new System.Windows.Forms.Label();
+            this.ramLoadLbl = new System.Windows.Forms.Label();
+            this.ramUsedLbl = new System.Windows.Forms.Label();
+            this.ramHeaderLbl = new System.Windows.Forms.Label();
+            this.ramAvailableLbl = new System.Windows.Forms.Label();
+            this.ramTotalLbl = new System.Windows.Forms.Label();
+            this.ssdTempLbl = new System.Windows.Forms.Label();
+            this.ssdUsedPercentLbl = new System.Windows.Forms.Label();
+            this.ssdUsedGBLbl = new System.Windows.Forms.Label();
+            this.ssdTotalGBLbl = new System.Windows.Forms.Label();
+            this.ssdNameLbl = new System.Windows.Forms.Label();
+            this.ssdFreePercentLbl = new System.Windows.Forms.Label();
+            this.ssdFreeGBLbl = new System.Windows.Forms.Label();
+            this.cpuFanLbl = new System.Windows.Forms.Label();
+            this.gpuFanLbl = new System.Windows.Forms.Label();
+            this.hddTempLbl = new System.Windows.Forms.Label();
+            this.hddUsedPercentLbl = new System.Windows.Forms.Label();
+            this.hddUsedGBLbl = new System.Windows.Forms.Label();
+            this.hddTotalGBLbl = new System.Windows.Forms.Label();
+            this.hddNameLbl = new System.Windows.Forms.Label();
+            this.hddFreePercentLbl = new System.Windows.Forms.Label();
+            this.hddFreeGBLbl = new System.Windows.Forms.Label();
+            this.wifiBytesSentLbl = new System.Windows.Forms.Label();
+            this.wifiBytesRecvLbl = new System.Windows.Forms.Label();
+            this.wifiHeaderLbl = new System.Windows.Forms.Label();
+            this.cpuClockHeaderLbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.cpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ramPictureBox)).BeginInit();
@@ -100,15 +100,6 @@ namespace DellHardwareMonitor
             ((System.ComponentModel.ISupportInitialize)(this.hddPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wifiPictureBox)).BeginInit();
             this.SuspendLayout();
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(256, 984);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(16, 16);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
             // 
             // cpuPictureBox
             // 
@@ -164,221 +155,221 @@ namespace DellHardwareMonitor
             this.wifiPictureBox.TabIndex = 6;
             this.wifiPictureBox.TabStop = false;
             // 
-            // cpuName
+            // cpuNameLbl
             // 
-            this.cpuName.AutoSize = true;
-            this.cpuName.Location = new System.Drawing.Point(168, 24);
-            this.cpuName.Name = "cpuName";
-            this.cpuName.Size = new System.Drawing.Size(53, 13);
-            this.cpuName.TabIndex = 7;
-            this.cpuName.Text = "cpuName";
+            this.cpuNameLbl.AutoSize = true;
+            this.cpuNameLbl.Location = new System.Drawing.Point(168, 24);
+            this.cpuNameLbl.Name = "cpuNameLbl";
+            this.cpuNameLbl.Size = new System.Drawing.Size(53, 13);
+            this.cpuNameLbl.TabIndex = 7;
+            this.cpuNameLbl.Text = "cpuName";
             // 
-            // cpu1Load
+            // cpu1LoadLbl
             // 
-            this.cpu1Load.AutoSize = true;
-            this.cpu1Load.Location = new System.Drawing.Point(128, 72);
-            this.cpu1Load.Name = "cpu1Load";
-            this.cpu1Load.Size = new System.Drawing.Size(55, 13);
-            this.cpu1Load.TabIndex = 8;
-            this.cpu1Load.Text = "cpu1Load";
+            this.cpu1LoadLbl.AutoSize = true;
+            this.cpu1LoadLbl.Location = new System.Drawing.Point(128, 72);
+            this.cpu1LoadLbl.Name = "cpu1LoadLbl";
+            this.cpu1LoadLbl.Size = new System.Drawing.Size(55, 13);
+            this.cpu1LoadLbl.TabIndex = 8;
+            this.cpu1LoadLbl.Text = "cpu1Load";
             // 
-            // cpu2Load
+            // cpu2LoadLbl
             // 
-            this.cpu2Load.AutoSize = true;
-            this.cpu2Load.Location = new System.Drawing.Point(128, 96);
-            this.cpu2Load.Name = "cpu2Load";
-            this.cpu2Load.Size = new System.Drawing.Size(55, 13);
-            this.cpu2Load.TabIndex = 9;
-            this.cpu2Load.Text = "cpu2Load";
+            this.cpu2LoadLbl.AutoSize = true;
+            this.cpu2LoadLbl.Location = new System.Drawing.Point(128, 96);
+            this.cpu2LoadLbl.Name = "cpu2LoadLbl";
+            this.cpu2LoadLbl.Size = new System.Drawing.Size(55, 13);
+            this.cpu2LoadLbl.TabIndex = 9;
+            this.cpu2LoadLbl.Text = "cpu2Load";
             // 
-            // cpu3Load
+            // cpu3LoadLbl
             // 
-            this.cpu3Load.AutoSize = true;
-            this.cpu3Load.Location = new System.Drawing.Point(128, 120);
-            this.cpu3Load.Name = "cpu3Load";
-            this.cpu3Load.Size = new System.Drawing.Size(55, 13);
-            this.cpu3Load.TabIndex = 10;
-            this.cpu3Load.Text = "cpu3Load";
+            this.cpu3LoadLbl.AutoSize = true;
+            this.cpu3LoadLbl.Location = new System.Drawing.Point(128, 120);
+            this.cpu3LoadLbl.Name = "cpu3LoadLbl";
+            this.cpu3LoadLbl.Size = new System.Drawing.Size(55, 13);
+            this.cpu3LoadLbl.TabIndex = 10;
+            this.cpu3LoadLbl.Text = "cpu3Load";
             // 
-            // cpu4Load
+            // cpu4LoadLbl
             // 
-            this.cpu4Load.AutoSize = true;
-            this.cpu4Load.Location = new System.Drawing.Point(128, 144);
-            this.cpu4Load.Name = "cpu4Load";
-            this.cpu4Load.Size = new System.Drawing.Size(55, 13);
-            this.cpu4Load.TabIndex = 11;
-            this.cpu4Load.Text = "cpu4Load";
+            this.cpu4LoadLbl.AutoSize = true;
+            this.cpu4LoadLbl.Location = new System.Drawing.Point(128, 144);
+            this.cpu4LoadLbl.Name = "cpu4LoadLbl";
+            this.cpu4LoadLbl.Size = new System.Drawing.Size(55, 13);
+            this.cpu4LoadLbl.TabIndex = 11;
+            this.cpu4LoadLbl.Text = "cpu4Load";
             // 
-            // cpu5Load
+            // cpu5LoadLbl
             // 
-            this.cpu5Load.AutoSize = true;
-            this.cpu5Load.Location = new System.Drawing.Point(128, 168);
-            this.cpu5Load.Name = "cpu5Load";
-            this.cpu5Load.Size = new System.Drawing.Size(55, 13);
-            this.cpu5Load.TabIndex = 12;
-            this.cpu5Load.Text = "cpu5Load";
+            this.cpu5LoadLbl.AutoSize = true;
+            this.cpu5LoadLbl.Location = new System.Drawing.Point(128, 168);
+            this.cpu5LoadLbl.Name = "cpu5LoadLbl";
+            this.cpu5LoadLbl.Size = new System.Drawing.Size(55, 13);
+            this.cpu5LoadLbl.TabIndex = 12;
+            this.cpu5LoadLbl.Text = "cpu5Load";
             // 
-            // cpu6Load
+            // cpu6LoadLbl
             // 
-            this.cpu6Load.AutoSize = true;
-            this.cpu6Load.Location = new System.Drawing.Point(128, 192);
-            this.cpu6Load.Name = "cpu6Load";
-            this.cpu6Load.Size = new System.Drawing.Size(55, 13);
-            this.cpu6Load.TabIndex = 13;
-            this.cpu6Load.Text = "cpu6Load";
+            this.cpu6LoadLbl.AutoSize = true;
+            this.cpu6LoadLbl.Location = new System.Drawing.Point(128, 192);
+            this.cpu6LoadLbl.Name = "cpu6LoadLbl";
+            this.cpu6LoadLbl.Size = new System.Drawing.Size(55, 13);
+            this.cpu6LoadLbl.TabIndex = 13;
+            this.cpu6LoadLbl.Text = "cpu6Load";
             // 
-            // cpu6Heat
+            // cpu6TempLbl
             // 
-            this.cpu6Heat.AutoSize = true;
-            this.cpu6Heat.Location = new System.Drawing.Point(200, 192);
-            this.cpu6Heat.Name = "cpu6Heat";
-            this.cpu6Heat.Size = new System.Drawing.Size(54, 13);
-            this.cpu6Heat.TabIndex = 19;
-            this.cpu6Heat.Text = "cpu6Heat";
+            this.cpu6TempLbl.AutoSize = true;
+            this.cpu6TempLbl.Location = new System.Drawing.Point(200, 192);
+            this.cpu6TempLbl.Name = "cpu6TempLbl";
+            this.cpu6TempLbl.Size = new System.Drawing.Size(58, 13);
+            this.cpu6TempLbl.TabIndex = 19;
+            this.cpu6TempLbl.Text = "cpu6Temp";
             // 
-            // cpu5Heat
+            // cpu5TempLbl
             // 
-            this.cpu5Heat.AutoSize = true;
-            this.cpu5Heat.Location = new System.Drawing.Point(200, 168);
-            this.cpu5Heat.Name = "cpu5Heat";
-            this.cpu5Heat.Size = new System.Drawing.Size(54, 13);
-            this.cpu5Heat.TabIndex = 18;
-            this.cpu5Heat.Text = "cpu5Heat";
+            this.cpu5TempLbl.AutoSize = true;
+            this.cpu5TempLbl.Location = new System.Drawing.Point(200, 168);
+            this.cpu5TempLbl.Name = "cpu5TempLbl";
+            this.cpu5TempLbl.Size = new System.Drawing.Size(58, 13);
+            this.cpu5TempLbl.TabIndex = 18;
+            this.cpu5TempLbl.Text = "cpu5Temp";
             // 
-            // cpu4Heat
+            // cpu4TempLbl
             // 
-            this.cpu4Heat.AutoSize = true;
-            this.cpu4Heat.Location = new System.Drawing.Point(200, 144);
-            this.cpu4Heat.Name = "cpu4Heat";
-            this.cpu4Heat.Size = new System.Drawing.Size(54, 13);
-            this.cpu4Heat.TabIndex = 17;
-            this.cpu4Heat.Text = "cpu4Heat";
+            this.cpu4TempLbl.AutoSize = true;
+            this.cpu4TempLbl.Location = new System.Drawing.Point(200, 144);
+            this.cpu4TempLbl.Name = "cpu4TempLbl";
+            this.cpu4TempLbl.Size = new System.Drawing.Size(58, 13);
+            this.cpu4TempLbl.TabIndex = 17;
+            this.cpu4TempLbl.Text = "cpu4Temp";
             // 
-            // cpu3Heat
+            // cpu3TempLbl
             // 
-            this.cpu3Heat.AutoSize = true;
-            this.cpu3Heat.Location = new System.Drawing.Point(200, 120);
-            this.cpu3Heat.Name = "cpu3Heat";
-            this.cpu3Heat.Size = new System.Drawing.Size(54, 13);
-            this.cpu3Heat.TabIndex = 16;
-            this.cpu3Heat.Text = "cpu3Heat";
+            this.cpu3TempLbl.AutoSize = true;
+            this.cpu3TempLbl.Location = new System.Drawing.Point(200, 120);
+            this.cpu3TempLbl.Name = "cpu3TempLbl";
+            this.cpu3TempLbl.Size = new System.Drawing.Size(58, 13);
+            this.cpu3TempLbl.TabIndex = 16;
+            this.cpu3TempLbl.Text = "cpu3Temp";
             // 
-            // cpu2Heat
+            // cpu2TempLbl
             // 
-            this.cpu2Heat.AutoSize = true;
-            this.cpu2Heat.Location = new System.Drawing.Point(200, 96);
-            this.cpu2Heat.Name = "cpu2Heat";
-            this.cpu2Heat.Size = new System.Drawing.Size(54, 13);
-            this.cpu2Heat.TabIndex = 15;
-            this.cpu2Heat.Text = "cpu2Heat";
+            this.cpu2TempLbl.AutoSize = true;
+            this.cpu2TempLbl.Location = new System.Drawing.Point(200, 96);
+            this.cpu2TempLbl.Name = "cpu2TempLbl";
+            this.cpu2TempLbl.Size = new System.Drawing.Size(58, 13);
+            this.cpu2TempLbl.TabIndex = 15;
+            this.cpu2TempLbl.Text = "cpu2Temp";
             // 
-            // cpu1Heat
+            // cpu1TempLbl
             // 
-            this.cpu1Heat.AutoSize = true;
-            this.cpu1Heat.Location = new System.Drawing.Point(200, 72);
-            this.cpu1Heat.Name = "cpu1Heat";
-            this.cpu1Heat.Size = new System.Drawing.Size(54, 13);
-            this.cpu1Heat.TabIndex = 14;
-            this.cpu1Heat.Text = "cpu1Heat";
+            this.cpu1TempLbl.AutoSize = true;
+            this.cpu1TempLbl.Location = new System.Drawing.Point(200, 72);
+            this.cpu1TempLbl.Name = "cpu1TempLbl";
+            this.cpu1TempLbl.Size = new System.Drawing.Size(58, 13);
+            this.cpu1TempLbl.TabIndex = 14;
+            this.cpu1TempLbl.Text = "cpu1Temp";
             // 
-            // cpuHeat
+            // cpuTempHeaderLbl
             // 
-            this.cpuHeat.AutoSize = true;
-            this.cpuHeat.Location = new System.Drawing.Point(208, 48);
-            this.cpuHeat.Name = "cpuHeat";
-            this.cpuHeat.Size = new System.Drawing.Size(48, 13);
-            this.cpuHeat.TabIndex = 21;
-            this.cpuHeat.Text = "cpuHeat";
+            this.cpuTempHeaderLbl.AutoSize = true;
+            this.cpuTempHeaderLbl.Location = new System.Drawing.Point(208, 48);
+            this.cpuTempHeaderLbl.Name = "cpuTempHeaderLbl";
+            this.cpuTempHeaderLbl.Size = new System.Drawing.Size(52, 13);
+            this.cpuTempHeaderLbl.TabIndex = 21;
+            this.cpuTempHeaderLbl.Text = "cpuTemp";
             // 
-            // cpuLoad
+            // cpuLoadHeaderLbl
             // 
-            this.cpuLoad.AutoSize = true;
-            this.cpuLoad.Location = new System.Drawing.Point(136, 48);
-            this.cpuLoad.Name = "cpuLoad";
-            this.cpuLoad.Size = new System.Drawing.Size(49, 13);
-            this.cpuLoad.TabIndex = 20;
-            this.cpuLoad.Text = "cpuLoad";
+            this.cpuLoadHeaderLbl.AutoSize = true;
+            this.cpuLoadHeaderLbl.Location = new System.Drawing.Point(136, 48);
+            this.cpuLoadHeaderLbl.Name = "cpuLoadHeaderLbl";
+            this.cpuLoadHeaderLbl.Size = new System.Drawing.Size(49, 13);
+            this.cpuLoadHeaderLbl.TabIndex = 20;
+            this.cpuLoadHeaderLbl.Text = "cpuLoad";
             // 
-            // cpuPackageTemp
+            // cpuPackageTempLbl
             // 
-            this.cpuPackageTemp.AutoSize = true;
-            this.cpuPackageTemp.Location = new System.Drawing.Point(16, 144);
-            this.cpuPackageTemp.Name = "cpuPackageTemp";
-            this.cpuPackageTemp.Size = new System.Drawing.Size(95, 13);
-            this.cpuPackageTemp.TabIndex = 23;
-            this.cpuPackageTemp.Text = "cpuPackageTemp";
+            this.cpuPackageTempLbl.AutoSize = true;
+            this.cpuPackageTempLbl.Location = new System.Drawing.Point(16, 144);
+            this.cpuPackageTempLbl.Name = "cpuPackageTempLbl";
+            this.cpuPackageTempLbl.Size = new System.Drawing.Size(95, 13);
+            this.cpuPackageTempLbl.TabIndex = 23;
+            this.cpuPackageTempLbl.Text = "cpuPackageTemp";
             // 
-            // cpuTotalLoad
+            // cpuTotalLoadLbl
             // 
-            this.cpuTotalLoad.AutoSize = true;
-            this.cpuTotalLoad.Location = new System.Drawing.Point(16, 120);
-            this.cpuTotalLoad.Name = "cpuTotalLoad";
-            this.cpuTotalLoad.Size = new System.Drawing.Size(73, 13);
-            this.cpuTotalLoad.TabIndex = 22;
-            this.cpuTotalLoad.Text = "cpuTotalLoad";
+            this.cpuTotalLoadLbl.AutoSize = true;
+            this.cpuTotalLoadLbl.Location = new System.Drawing.Point(16, 120);
+            this.cpuTotalLoadLbl.Name = "cpuTotalLoadLbl";
+            this.cpuTotalLoadLbl.Size = new System.Drawing.Size(73, 13);
+            this.cpuTotalLoadLbl.TabIndex = 22;
+            this.cpuTotalLoadLbl.Text = "cpuTotalLoad";
             // 
-            // cpuPackagePwr
+            // cpuPackagePwrLbl
             // 
-            this.cpuPackagePwr.AutoSize = true;
-            this.cpuPackagePwr.Location = new System.Drawing.Point(16, 168);
-            this.cpuPackagePwr.Name = "cpuPackagePwr";
-            this.cpuPackagePwr.Size = new System.Drawing.Size(86, 13);
-            this.cpuPackagePwr.TabIndex = 24;
-            this.cpuPackagePwr.Text = "cpuPackagePwr";
+            this.cpuPackagePwrLbl.AutoSize = true;
+            this.cpuPackagePwrLbl.Location = new System.Drawing.Point(16, 168);
+            this.cpuPackagePwrLbl.Name = "cpuPackagePwrLbl";
+            this.cpuPackagePwrLbl.Size = new System.Drawing.Size(86, 13);
+            this.cpuPackagePwrLbl.TabIndex = 24;
+            this.cpuPackagePwrLbl.Text = "cpuPackagePwr";
             // 
-            // cpu6Clock
+            // cpu6ClockLbl
             // 
-            this.cpu6Clock.AutoSize = true;
-            this.cpu6Clock.Location = new System.Drawing.Point(176, 248);
-            this.cpu6Clock.Name = "cpu6Clock";
-            this.cpu6Clock.Size = new System.Drawing.Size(58, 13);
-            this.cpu6Clock.TabIndex = 30;
-            this.cpu6Clock.Text = "cpu6Clock";
+            this.cpu6ClockLbl.AutoSize = true;
+            this.cpu6ClockLbl.Location = new System.Drawing.Point(176, 264);
+            this.cpu6ClockLbl.Name = "cpu6ClockLbl";
+            this.cpu6ClockLbl.Size = new System.Drawing.Size(58, 13);
+            this.cpu6ClockLbl.TabIndex = 30;
+            this.cpu6ClockLbl.Text = "cpu6Clock";
             // 
-            // cpu5Clock
+            // cpu5ClockLbl
             // 
-            this.cpu5Clock.AutoSize = true;
-            this.cpu5Clock.Location = new System.Drawing.Point(104, 248);
-            this.cpu5Clock.Name = "cpu5Clock";
-            this.cpu5Clock.Size = new System.Drawing.Size(58, 13);
-            this.cpu5Clock.TabIndex = 29;
-            this.cpu5Clock.Text = "cpu5Clock";
+            this.cpu5ClockLbl.AutoSize = true;
+            this.cpu5ClockLbl.Location = new System.Drawing.Point(104, 264);
+            this.cpu5ClockLbl.Name = "cpu5ClockLbl";
+            this.cpu5ClockLbl.Size = new System.Drawing.Size(58, 13);
+            this.cpu5ClockLbl.TabIndex = 29;
+            this.cpu5ClockLbl.Text = "cpu5Clock";
             // 
-            // cpu4Clock
+            // cpu4ClockLbl
             // 
-            this.cpu4Clock.AutoSize = true;
-            this.cpu4Clock.Location = new System.Drawing.Point(32, 248);
-            this.cpu4Clock.Name = "cpu4Clock";
-            this.cpu4Clock.Size = new System.Drawing.Size(58, 13);
-            this.cpu4Clock.TabIndex = 28;
-            this.cpu4Clock.Text = "cpu4Clock";
+            this.cpu4ClockLbl.AutoSize = true;
+            this.cpu4ClockLbl.Location = new System.Drawing.Point(32, 264);
+            this.cpu4ClockLbl.Name = "cpu4ClockLbl";
+            this.cpu4ClockLbl.Size = new System.Drawing.Size(58, 13);
+            this.cpu4ClockLbl.TabIndex = 28;
+            this.cpu4ClockLbl.Text = "cpu4Clock";
             // 
-            // cpu3Clock
+            // cpu3ClockLbl
             // 
-            this.cpu3Clock.AutoSize = true;
-            this.cpu3Clock.Location = new System.Drawing.Point(176, 224);
-            this.cpu3Clock.Name = "cpu3Clock";
-            this.cpu3Clock.Size = new System.Drawing.Size(58, 13);
-            this.cpu3Clock.TabIndex = 27;
-            this.cpu3Clock.Text = "cpu3Clock";
+            this.cpu3ClockLbl.AutoSize = true;
+            this.cpu3ClockLbl.Location = new System.Drawing.Point(176, 240);
+            this.cpu3ClockLbl.Name = "cpu3ClockLbl";
+            this.cpu3ClockLbl.Size = new System.Drawing.Size(58, 13);
+            this.cpu3ClockLbl.TabIndex = 27;
+            this.cpu3ClockLbl.Text = "cpu3Clock";
             // 
-            // cpu2Clock
+            // cpu2ClockLbl
             // 
-            this.cpu2Clock.AutoSize = true;
-            this.cpu2Clock.Location = new System.Drawing.Point(104, 224);
-            this.cpu2Clock.Name = "cpu2Clock";
-            this.cpu2Clock.Size = new System.Drawing.Size(58, 13);
-            this.cpu2Clock.TabIndex = 26;
-            this.cpu2Clock.Text = "cpu2Clock";
+            this.cpu2ClockLbl.AutoSize = true;
+            this.cpu2ClockLbl.Location = new System.Drawing.Point(104, 240);
+            this.cpu2ClockLbl.Name = "cpu2ClockLbl";
+            this.cpu2ClockLbl.Size = new System.Drawing.Size(58, 13);
+            this.cpu2ClockLbl.TabIndex = 26;
+            this.cpu2ClockLbl.Text = "cpu2Clock";
             // 
-            // cpu1Clock
+            // cpu1ClockLbl
             // 
-            this.cpu1Clock.AutoSize = true;
-            this.cpu1Clock.Location = new System.Drawing.Point(32, 224);
-            this.cpu1Clock.Name = "cpu1Clock";
-            this.cpu1Clock.Size = new System.Drawing.Size(58, 13);
-            this.cpu1Clock.TabIndex = 25;
-            this.cpu1Clock.Text = "cpu1Clock";
+            this.cpu1ClockLbl.AutoSize = true;
+            this.cpu1ClockLbl.Location = new System.Drawing.Point(32, 240);
+            this.cpu1ClockLbl.Name = "cpu1ClockLbl";
+            this.cpu1ClockLbl.Size = new System.Drawing.Size(58, 13);
+            this.cpu1ClockLbl.TabIndex = 25;
+            this.cpu1ClockLbl.Text = "cpu1Clock";
             // 
             // gpuName
             // 
@@ -389,284 +380,293 @@ namespace DellHardwareMonitor
             this.gpuName.TabIndex = 31;
             this.gpuName.Text = "gpuName";
             // 
-            // gpuTemp
+            // gpuTempLbl
             // 
-            this.gpuTemp.AutoSize = true;
-            this.gpuTemp.Location = new System.Drawing.Point(120, 328);
-            this.gpuTemp.Name = "gpuTemp";
-            this.gpuTemp.Size = new System.Drawing.Size(52, 13);
-            this.gpuTemp.TabIndex = 38;
-            this.gpuTemp.Text = "gpuTemp";
+            this.gpuTempLbl.AutoSize = true;
+            this.gpuTempLbl.Location = new System.Drawing.Point(120, 328);
+            this.gpuTempLbl.Name = "gpuTempLbl";
+            this.gpuTempLbl.Size = new System.Drawing.Size(52, 13);
+            this.gpuTempLbl.TabIndex = 38;
+            this.gpuTempLbl.Text = "gpuTemp";
             // 
-            // gpuMemUsed
+            // gpuMemUsedLbl
             // 
-            this.gpuMemUsed.AutoSize = true;
-            this.gpuMemUsed.Location = new System.Drawing.Point(200, 392);
-            this.gpuMemUsed.Name = "gpuMemUsed";
-            this.gpuMemUsed.Size = new System.Drawing.Size(73, 13);
-            this.gpuMemUsed.TabIndex = 37;
-            this.gpuMemUsed.Text = "gpuMemUsed";
+            this.gpuMemUsedLbl.AutoSize = true;
+            this.gpuMemUsedLbl.Location = new System.Drawing.Point(200, 392);
+            this.gpuMemUsedLbl.Name = "gpuMemUsedLbl";
+            this.gpuMemUsedLbl.Size = new System.Drawing.Size(73, 13);
+            this.gpuMemUsedLbl.TabIndex = 37;
+            this.gpuMemUsedLbl.Text = "gpuMemUsed";
             // 
-            // gpuFreeMem
+            // gpuFreeMemLbl
             // 
-            this.gpuFreeMem.AutoSize = true;
-            this.gpuFreeMem.Location = new System.Drawing.Point(200, 368);
-            this.gpuFreeMem.Name = "gpuFreeMem";
-            this.gpuFreeMem.Size = new System.Drawing.Size(69, 13);
-            this.gpuFreeMem.TabIndex = 36;
-            this.gpuFreeMem.Text = "gpuFreeMem";
+            this.gpuFreeMemLbl.AutoSize = true;
+            this.gpuFreeMemLbl.Location = new System.Drawing.Point(200, 368);
+            this.gpuFreeMemLbl.Name = "gpuFreeMemLbl";
+            this.gpuFreeMemLbl.Size = new System.Drawing.Size(69, 13);
+            this.gpuFreeMemLbl.TabIndex = 36;
+            this.gpuFreeMemLbl.Text = "gpuFreeMem";
             // 
-            // gpuTotalMem
+            // gpuTotalMemLbl
             // 
-            this.gpuTotalMem.AutoSize = true;
-            this.gpuTotalMem.Location = new System.Drawing.Point(200, 344);
-            this.gpuTotalMem.Name = "gpuTotalMem";
-            this.gpuTotalMem.Size = new System.Drawing.Size(72, 13);
-            this.gpuTotalMem.TabIndex = 35;
-            this.gpuTotalMem.Text = "gpuTotalMem";
+            this.gpuTotalMemLbl.AutoSize = true;
+            this.gpuTotalMemLbl.Location = new System.Drawing.Point(200, 344);
+            this.gpuTotalMemLbl.Name = "gpuTotalMemLbl";
+            this.gpuTotalMemLbl.Size = new System.Drawing.Size(72, 13);
+            this.gpuTotalMemLbl.TabIndex = 35;
+            this.gpuTotalMemLbl.Text = "gpuTotalMem";
             // 
-            // gpuCoreLoad
+            // gpuCoreLoadLbl
             // 
-            this.gpuCoreLoad.AutoSize = true;
-            this.gpuCoreLoad.Location = new System.Drawing.Point(200, 320);
-            this.gpuCoreLoad.Name = "gpuCoreLoad";
-            this.gpuCoreLoad.Size = new System.Drawing.Size(71, 13);
-            this.gpuCoreLoad.TabIndex = 34;
-            this.gpuCoreLoad.Text = "gpuCoreLoad";
+            this.gpuCoreLoadLbl.AutoSize = true;
+            this.gpuCoreLoadLbl.Location = new System.Drawing.Point(200, 320);
+            this.gpuCoreLoadLbl.Name = "gpuCoreLoadLbl";
+            this.gpuCoreLoadLbl.Size = new System.Drawing.Size(71, 13);
+            this.gpuCoreLoadLbl.TabIndex = 34;
+            this.gpuCoreLoadLbl.Text = "gpuCoreLoad";
             // 
-            // gpuMemClock
+            // gpuMemClockLbl
             // 
-            this.gpuMemClock.AutoSize = true;
-            this.gpuMemClock.Location = new System.Drawing.Point(112, 376);
-            this.gpuMemClock.Name = "gpuMemClock";
-            this.gpuMemClock.Size = new System.Drawing.Size(75, 13);
-            this.gpuMemClock.TabIndex = 33;
-            this.gpuMemClock.Text = "gpuMemClock";
+            this.gpuMemClockLbl.AutoSize = true;
+            this.gpuMemClockLbl.Location = new System.Drawing.Point(112, 376);
+            this.gpuMemClockLbl.Name = "gpuMemClockLbl";
+            this.gpuMemClockLbl.Size = new System.Drawing.Size(75, 13);
+            this.gpuMemClockLbl.TabIndex = 33;
+            this.gpuMemClockLbl.Text = "gpuMemClock";
             // 
-            // gpuCoreClock
+            // gpuCoreClockLbl
             // 
-            this.gpuCoreClock.AutoSize = true;
-            this.gpuCoreClock.Location = new System.Drawing.Point(112, 352);
-            this.gpuCoreClock.Name = "gpuCoreClock";
-            this.gpuCoreClock.Size = new System.Drawing.Size(74, 13);
-            this.gpuCoreClock.TabIndex = 32;
-            this.gpuCoreClock.Text = "gpuCoreClock";
+            this.gpuCoreClockLbl.AutoSize = true;
+            this.gpuCoreClockLbl.Location = new System.Drawing.Point(112, 352);
+            this.gpuCoreClockLbl.Name = "gpuCoreClockLbl";
+            this.gpuCoreClockLbl.Size = new System.Drawing.Size(74, 13);
+            this.gpuCoreClockLbl.TabIndex = 32;
+            this.gpuCoreClockLbl.Text = "gpuCoreClock";
             // 
-            // ramLoad
+            // ramLoadLbl
             // 
-            this.ramLoad.AutoSize = true;
-            this.ramLoad.Location = new System.Drawing.Point(208, 528);
-            this.ramLoad.Name = "ramLoad";
-            this.ramLoad.Size = new System.Drawing.Size(48, 13);
-            this.ramLoad.TabIndex = 43;
-            this.ramLoad.Text = "ramLoad";
+            this.ramLoadLbl.AutoSize = true;
+            this.ramLoadLbl.Location = new System.Drawing.Point(208, 528);
+            this.ramLoadLbl.Name = "ramLoadLbl";
+            this.ramLoadLbl.Size = new System.Drawing.Size(48, 13);
+            this.ramLoadLbl.TabIndex = 43;
+            this.ramLoadLbl.Text = "ramLoad";
             // 
-            // ramUsed
+            // ramUsedLbl
             // 
-            this.ramUsed.AutoSize = true;
-            this.ramUsed.Location = new System.Drawing.Point(208, 504);
-            this.ramUsed.Name = "ramUsed";
-            this.ramUsed.Size = new System.Drawing.Size(49, 13);
-            this.ramUsed.TabIndex = 42;
-            this.ramUsed.Text = "ramUsed";
+            this.ramUsedLbl.AutoSize = true;
+            this.ramUsedLbl.Location = new System.Drawing.Point(208, 504);
+            this.ramUsedLbl.Name = "ramUsedLbl";
+            this.ramUsedLbl.Size = new System.Drawing.Size(49, 13);
+            this.ramUsedLbl.TabIndex = 42;
+            this.ramUsedLbl.Text = "ramUsed";
             // 
-            // ramLabel
+            // ramHeaderLbl
             // 
-            this.ramLabel.AutoSize = true;
-            this.ramLabel.Location = new System.Drawing.Point(168, 480);
-            this.ramLabel.Name = "ramLabel";
-            this.ramLabel.Size = new System.Drawing.Size(50, 13);
-            this.ramLabel.TabIndex = 41;
-            this.ramLabel.Text = "ramLabel";
+            this.ramHeaderLbl.AutoSize = true;
+            this.ramHeaderLbl.Location = new System.Drawing.Point(168, 480);
+            this.ramHeaderLbl.Name = "ramHeaderLbl";
+            this.ramHeaderLbl.Size = new System.Drawing.Size(50, 13);
+            this.ramHeaderLbl.TabIndex = 41;
+            this.ramHeaderLbl.Text = "ramLabel";
             // 
-            // ramAvailable
+            // ramAvailableLbl
             // 
-            this.ramAvailable.AutoSize = true;
-            this.ramAvailable.Location = new System.Drawing.Point(120, 528);
-            this.ramAvailable.Name = "ramAvailable";
-            this.ramAvailable.Size = new System.Drawing.Size(67, 13);
-            this.ramAvailable.TabIndex = 40;
-            this.ramAvailable.Text = "ramAvailable";
+            this.ramAvailableLbl.AutoSize = true;
+            this.ramAvailableLbl.Location = new System.Drawing.Point(120, 528);
+            this.ramAvailableLbl.Name = "ramAvailableLbl";
+            this.ramAvailableLbl.Size = new System.Drawing.Size(67, 13);
+            this.ramAvailableLbl.TabIndex = 40;
+            this.ramAvailableLbl.Text = "ramAvailable";
             // 
-            // ramTotal
+            // ramTotalLbl
             // 
-            this.ramTotal.AutoSize = true;
-            this.ramTotal.Location = new System.Drawing.Point(120, 504);
-            this.ramTotal.Name = "ramTotal";
-            this.ramTotal.Size = new System.Drawing.Size(48, 13);
-            this.ramTotal.TabIndex = 39;
-            this.ramTotal.Text = "ramTotal";
+            this.ramTotalLbl.AutoSize = true;
+            this.ramTotalLbl.Location = new System.Drawing.Point(120, 504);
+            this.ramTotalLbl.Name = "ramTotalLbl";
+            this.ramTotalLbl.Size = new System.Drawing.Size(48, 13);
+            this.ramTotalLbl.TabIndex = 39;
+            this.ramTotalLbl.Text = "ramTotal";
             // 
-            // ssdTemp
+            // ssdTempLbl
             // 
-            this.ssdTemp.AutoSize = true;
-            this.ssdTemp.Location = new System.Drawing.Point(96, 640);
-            this.ssdTemp.Name = "ssdTemp";
-            this.ssdTemp.Size = new System.Drawing.Size(50, 13);
-            this.ssdTemp.TabIndex = 50;
-            this.ssdTemp.Text = "ssdTemp";
+            this.ssdTempLbl.AutoSize = true;
+            this.ssdTempLbl.Location = new System.Drawing.Point(96, 640);
+            this.ssdTempLbl.Name = "ssdTempLbl";
+            this.ssdTempLbl.Size = new System.Drawing.Size(50, 13);
+            this.ssdTempLbl.TabIndex = 50;
+            this.ssdTempLbl.Text = "ssdTemp";
             // 
-            // ssdUsedPercent
+            // ssdUsedPercentLbl
             // 
-            this.ssdUsedPercent.AutoSize = true;
-            this.ssdUsedPercent.Location = new System.Drawing.Point(184, 688);
-            this.ssdUsedPercent.Name = "ssdUsedPercent";
-            this.ssdUsedPercent.Size = new System.Drawing.Size(85, 13);
-            this.ssdUsedPercent.TabIndex = 49;
-            this.ssdUsedPercent.Text = "ssdUsedPercent";
+            this.ssdUsedPercentLbl.AutoSize = true;
+            this.ssdUsedPercentLbl.Location = new System.Drawing.Point(184, 688);
+            this.ssdUsedPercentLbl.Name = "ssdUsedPercentLbl";
+            this.ssdUsedPercentLbl.Size = new System.Drawing.Size(85, 13);
+            this.ssdUsedPercentLbl.TabIndex = 49;
+            this.ssdUsedPercentLbl.Text = "ssdUsedPercent";
             // 
-            // ssdUsedGB
+            // ssdUsedGBLbl
             // 
-            this.ssdUsedGB.AutoSize = true;
-            this.ssdUsedGB.Location = new System.Drawing.Point(184, 664);
-            this.ssdUsedGB.Name = "ssdUsedGB";
-            this.ssdUsedGB.Size = new System.Drawing.Size(63, 13);
-            this.ssdUsedGB.TabIndex = 48;
-            this.ssdUsedGB.Text = "ssdUsedGB";
+            this.ssdUsedGBLbl.AutoSize = true;
+            this.ssdUsedGBLbl.Location = new System.Drawing.Point(184, 664);
+            this.ssdUsedGBLbl.Name = "ssdUsedGBLbl";
+            this.ssdUsedGBLbl.Size = new System.Drawing.Size(63, 13);
+            this.ssdUsedGBLbl.TabIndex = 48;
+            this.ssdUsedGBLbl.Text = "ssdUsedGB";
             // 
-            // ssdTotalGB
+            // ssdTotalGBLbl
             // 
-            this.ssdTotalGB.AutoSize = true;
-            this.ssdTotalGB.Location = new System.Drawing.Point(184, 640);
-            this.ssdTotalGB.Name = "ssdTotalGB";
-            this.ssdTotalGB.Size = new System.Drawing.Size(62, 13);
-            this.ssdTotalGB.TabIndex = 47;
-            this.ssdTotalGB.Text = "ssdTotalGB";
+            this.ssdTotalGBLbl.AutoSize = true;
+            this.ssdTotalGBLbl.Location = new System.Drawing.Point(184, 640);
+            this.ssdTotalGBLbl.Name = "ssdTotalGBLbl";
+            this.ssdTotalGBLbl.Size = new System.Drawing.Size(62, 13);
+            this.ssdTotalGBLbl.TabIndex = 47;
+            this.ssdTotalGBLbl.Text = "ssdTotalGB";
             // 
-            // ssdName
+            // ssdNameLbl
             // 
-            this.ssdName.AutoSize = true;
-            this.ssdName.Location = new System.Drawing.Point(96, 616);
-            this.ssdName.Name = "ssdName";
-            this.ssdName.Size = new System.Drawing.Size(51, 13);
-            this.ssdName.TabIndex = 46;
-            this.ssdName.Text = "ssdName";
+            this.ssdNameLbl.AutoSize = true;
+            this.ssdNameLbl.Location = new System.Drawing.Point(96, 616);
+            this.ssdNameLbl.Name = "ssdNameLbl";
+            this.ssdNameLbl.Size = new System.Drawing.Size(51, 13);
+            this.ssdNameLbl.TabIndex = 46;
+            this.ssdNameLbl.Text = "ssdName";
             // 
-            // ssdFreePercent
+            // ssdFreePercentLbl
             // 
-            this.ssdFreePercent.AutoSize = true;
-            this.ssdFreePercent.Location = new System.Drawing.Point(96, 688);
-            this.ssdFreePercent.Name = "ssdFreePercent";
-            this.ssdFreePercent.Size = new System.Drawing.Size(81, 13);
-            this.ssdFreePercent.TabIndex = 45;
-            this.ssdFreePercent.Text = "ssdFreePercent";
+            this.ssdFreePercentLbl.AutoSize = true;
+            this.ssdFreePercentLbl.Location = new System.Drawing.Point(96, 688);
+            this.ssdFreePercentLbl.Name = "ssdFreePercentLbl";
+            this.ssdFreePercentLbl.Size = new System.Drawing.Size(81, 13);
+            this.ssdFreePercentLbl.TabIndex = 45;
+            this.ssdFreePercentLbl.Text = "ssdFreePercent";
             // 
-            // ssdFreeGB
+            // ssdFreeGBLbl
             // 
-            this.ssdFreeGB.AutoSize = true;
-            this.ssdFreeGB.Location = new System.Drawing.Point(96, 664);
-            this.ssdFreeGB.Name = "ssdFreeGB";
-            this.ssdFreeGB.Size = new System.Drawing.Size(59, 13);
-            this.ssdFreeGB.TabIndex = 44;
-            this.ssdFreeGB.Text = "ssdFreeGB";
+            this.ssdFreeGBLbl.AutoSize = true;
+            this.ssdFreeGBLbl.Location = new System.Drawing.Point(96, 664);
+            this.ssdFreeGBLbl.Name = "ssdFreeGBLbl";
+            this.ssdFreeGBLbl.Size = new System.Drawing.Size(59, 13);
+            this.ssdFreeGBLbl.TabIndex = 44;
+            this.ssdFreeGBLbl.Text = "ssdFreeGB";
             // 
-            // cpuFan
+            // cpuFanLbl
             // 
-            this.cpuFan.AutoSize = true;
-            this.cpuFan.Location = new System.Drawing.Point(16, 192);
-            this.cpuFan.Name = "cpuFan";
-            this.cpuFan.Size = new System.Drawing.Size(43, 13);
-            this.cpuFan.TabIndex = 51;
-            this.cpuFan.Text = "cpuFan";
+            this.cpuFanLbl.AutoSize = true;
+            this.cpuFanLbl.Location = new System.Drawing.Point(16, 192);
+            this.cpuFanLbl.Name = "cpuFanLbl";
+            this.cpuFanLbl.Size = new System.Drawing.Size(43, 13);
+            this.cpuFanLbl.TabIndex = 51;
+            this.cpuFanLbl.Text = "cpuFan";
             // 
-            // gpuFan
+            // gpuFanLbl
             // 
-            this.gpuFan.AutoSize = true;
-            this.gpuFan.Location = new System.Drawing.Point(112, 400);
-            this.gpuFan.Name = "gpuFan";
-            this.gpuFan.Size = new System.Drawing.Size(43, 13);
-            this.gpuFan.TabIndex = 52;
-            this.gpuFan.Text = "gpuFan";
+            this.gpuFanLbl.AutoSize = true;
+            this.gpuFanLbl.Location = new System.Drawing.Point(112, 400);
+            this.gpuFanLbl.Name = "gpuFanLbl";
+            this.gpuFanLbl.Size = new System.Drawing.Size(43, 13);
+            this.gpuFanLbl.TabIndex = 52;
+            this.gpuFanLbl.Text = "gpuFan";
             // 
-            // hddTemp
+            // hddTempLbl
             // 
-            this.hddTemp.AutoSize = true;
-            this.hddTemp.Location = new System.Drawing.Point(104, 784);
-            this.hddTemp.Name = "hddTemp";
-            this.hddTemp.Size = new System.Drawing.Size(52, 13);
-            this.hddTemp.TabIndex = 59;
-            this.hddTemp.Text = "hddTemp";
+            this.hddTempLbl.AutoSize = true;
+            this.hddTempLbl.Location = new System.Drawing.Point(104, 784);
+            this.hddTempLbl.Name = "hddTempLbl";
+            this.hddTempLbl.Size = new System.Drawing.Size(52, 13);
+            this.hddTempLbl.TabIndex = 59;
+            this.hddTempLbl.Text = "hddTemp";
             // 
-            // hddUsedPercent
+            // hddUsedPercentLbl
             // 
-            this.hddUsedPercent.AutoSize = true;
-            this.hddUsedPercent.Location = new System.Drawing.Point(192, 832);
-            this.hddUsedPercent.Name = "hddUsedPercent";
-            this.hddUsedPercent.Size = new System.Drawing.Size(87, 13);
-            this.hddUsedPercent.TabIndex = 58;
-            this.hddUsedPercent.Text = "hddUsedPercent";
+            this.hddUsedPercentLbl.AutoSize = true;
+            this.hddUsedPercentLbl.Location = new System.Drawing.Point(192, 832);
+            this.hddUsedPercentLbl.Name = "hddUsedPercentLbl";
+            this.hddUsedPercentLbl.Size = new System.Drawing.Size(87, 13);
+            this.hddUsedPercentLbl.TabIndex = 58;
+            this.hddUsedPercentLbl.Text = "hddUsedPercent";
             // 
-            // hddUsedGB
+            // hddUsedGBLbl
             // 
-            this.hddUsedGB.AutoSize = true;
-            this.hddUsedGB.Location = new System.Drawing.Point(192, 808);
-            this.hddUsedGB.Name = "hddUsedGB";
-            this.hddUsedGB.Size = new System.Drawing.Size(65, 13);
-            this.hddUsedGB.TabIndex = 57;
-            this.hddUsedGB.Text = "hddUsedGB";
+            this.hddUsedGBLbl.AutoSize = true;
+            this.hddUsedGBLbl.Location = new System.Drawing.Point(192, 808);
+            this.hddUsedGBLbl.Name = "hddUsedGBLbl";
+            this.hddUsedGBLbl.Size = new System.Drawing.Size(65, 13);
+            this.hddUsedGBLbl.TabIndex = 57;
+            this.hddUsedGBLbl.Text = "hddUsedGB";
             // 
-            // hddTotalGB
+            // hddTotalGBLbl
             // 
-            this.hddTotalGB.AutoSize = true;
-            this.hddTotalGB.Location = new System.Drawing.Point(192, 784);
-            this.hddTotalGB.Name = "hddTotalGB";
-            this.hddTotalGB.Size = new System.Drawing.Size(64, 13);
-            this.hddTotalGB.TabIndex = 56;
-            this.hddTotalGB.Text = "hddTotalGB";
+            this.hddTotalGBLbl.AutoSize = true;
+            this.hddTotalGBLbl.Location = new System.Drawing.Point(192, 784);
+            this.hddTotalGBLbl.Name = "hddTotalGBLbl";
+            this.hddTotalGBLbl.Size = new System.Drawing.Size(64, 13);
+            this.hddTotalGBLbl.TabIndex = 56;
+            this.hddTotalGBLbl.Text = "hddTotalGB";
             // 
-            // hddName
+            // hddNameLbl
             // 
-            this.hddName.AutoSize = true;
-            this.hddName.Location = new System.Drawing.Point(104, 760);
-            this.hddName.Name = "hddName";
-            this.hddName.Size = new System.Drawing.Size(53, 13);
-            this.hddName.TabIndex = 55;
-            this.hddName.Text = "hddName";
+            this.hddNameLbl.AutoSize = true;
+            this.hddNameLbl.Location = new System.Drawing.Point(104, 760);
+            this.hddNameLbl.Name = "hddNameLbl";
+            this.hddNameLbl.Size = new System.Drawing.Size(53, 13);
+            this.hddNameLbl.TabIndex = 55;
+            this.hddNameLbl.Text = "hddName";
             // 
-            // hddFreePercent
+            // hddFreePercentLbl
             // 
-            this.hddFreePercent.AutoSize = true;
-            this.hddFreePercent.Location = new System.Drawing.Point(104, 832);
-            this.hddFreePercent.Name = "hddFreePercent";
-            this.hddFreePercent.Size = new System.Drawing.Size(83, 13);
-            this.hddFreePercent.TabIndex = 54;
-            this.hddFreePercent.Text = "hddFreePercent";
+            this.hddFreePercentLbl.AutoSize = true;
+            this.hddFreePercentLbl.Location = new System.Drawing.Point(104, 832);
+            this.hddFreePercentLbl.Name = "hddFreePercentLbl";
+            this.hddFreePercentLbl.Size = new System.Drawing.Size(83, 13);
+            this.hddFreePercentLbl.TabIndex = 54;
+            this.hddFreePercentLbl.Text = "hddFreePercent";
             // 
-            // hddFreeGB
+            // hddFreeGBLbl
             // 
-            this.hddFreeGB.AutoSize = true;
-            this.hddFreeGB.Location = new System.Drawing.Point(104, 808);
-            this.hddFreeGB.Name = "hddFreeGB";
-            this.hddFreeGB.Size = new System.Drawing.Size(61, 13);
-            this.hddFreeGB.TabIndex = 53;
-            this.hddFreeGB.Text = "hddFreeGB";
+            this.hddFreeGBLbl.AutoSize = true;
+            this.hddFreeGBLbl.Location = new System.Drawing.Point(104, 808);
+            this.hddFreeGBLbl.Name = "hddFreeGBLbl";
+            this.hddFreeGBLbl.Size = new System.Drawing.Size(61, 13);
+            this.hddFreeGBLbl.TabIndex = 53;
+            this.hddFreeGBLbl.Text = "hddFreeGB";
             // 
-            // wifiBytesSent
+            // wifiBytesSentLbl
             // 
-            this.wifiBytesSent.AutoSize = true;
-            this.wifiBytesSent.Location = new System.Drawing.Point(104, 976);
-            this.wifiBytesSent.Name = "wifiBytesSent";
-            this.wifiBytesSent.Size = new System.Drawing.Size(70, 13);
-            this.wifiBytesSent.TabIndex = 62;
-            this.wifiBytesSent.Text = "wifiBytesSent";
+            this.wifiBytesSentLbl.AutoSize = true;
+            this.wifiBytesSentLbl.Location = new System.Drawing.Point(104, 976);
+            this.wifiBytesSentLbl.Name = "wifiBytesSentLbl";
+            this.wifiBytesSentLbl.Size = new System.Drawing.Size(70, 13);
+            this.wifiBytesSentLbl.TabIndex = 62;
+            this.wifiBytesSentLbl.Text = "wifiBytesSent";
             // 
-            // wifiBytesRecv
+            // wifiBytesRecvLbl
             // 
-            this.wifiBytesRecv.AutoSize = true;
-            this.wifiBytesRecv.Location = new System.Drawing.Point(104, 952);
-            this.wifiBytesRecv.Name = "wifiBytesRecv";
-            this.wifiBytesRecv.Size = new System.Drawing.Size(74, 13);
-            this.wifiBytesRecv.TabIndex = 61;
-            this.wifiBytesRecv.Text = "wifiBytesRecv";
+            this.wifiBytesRecvLbl.AutoSize = true;
+            this.wifiBytesRecvLbl.Location = new System.Drawing.Point(104, 952);
+            this.wifiBytesRecvLbl.Name = "wifiBytesRecvLbl";
+            this.wifiBytesRecvLbl.Size = new System.Drawing.Size(74, 13);
+            this.wifiBytesRecvLbl.TabIndex = 61;
+            this.wifiBytesRecvLbl.Text = "wifiBytesRecv";
             // 
-            // wifiLabel
+            // wifiHeaderLbl
             // 
-            this.wifiLabel.AutoSize = true;
-            this.wifiLabel.Location = new System.Drawing.Point(104, 928);
-            this.wifiLabel.Name = "wifiLabel";
-            this.wifiLabel.Size = new System.Drawing.Size(48, 13);
-            this.wifiLabel.TabIndex = 60;
-            this.wifiLabel.Text = "wifiLabel";
+            this.wifiHeaderLbl.AutoSize = true;
+            this.wifiHeaderLbl.Location = new System.Drawing.Point(104, 928);
+            this.wifiHeaderLbl.Name = "wifiHeaderLbl";
+            this.wifiHeaderLbl.Size = new System.Drawing.Size(48, 13);
+            this.wifiHeaderLbl.TabIndex = 60;
+            this.wifiHeaderLbl.Text = "wifiLabel";
+            // 
+            // cpuClockHeaderLbl
+            // 
+            this.cpuClockHeaderLbl.AutoSize = true;
+            this.cpuClockHeaderLbl.Location = new System.Drawing.Point(112, 216);
+            this.cpuClockHeaderLbl.Name = "cpuClockHeaderLbl";
+            this.cpuClockHeaderLbl.Size = new System.Drawing.Size(52, 13);
+            this.cpuClockHeaderLbl.TabIndex = 63;
+            this.cpuClockHeaderLbl.Text = "cpuClock";
             // 
             // Form1
             // 
@@ -674,69 +674,69 @@ namespace DellHardwareMonitor
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(284, 1011);
-            this.Controls.Add(this.wifiBytesSent);
-            this.Controls.Add(this.wifiBytesRecv);
-            this.Controls.Add(this.wifiLabel);
-            this.Controls.Add(this.hddTemp);
-            this.Controls.Add(this.hddUsedPercent);
-            this.Controls.Add(this.hddUsedGB);
-            this.Controls.Add(this.hddTotalGB);
-            this.Controls.Add(this.hddName);
-            this.Controls.Add(this.hddFreePercent);
-            this.Controls.Add(this.hddFreeGB);
-            this.Controls.Add(this.gpuFan);
-            this.Controls.Add(this.cpuFan);
-            this.Controls.Add(this.ssdTemp);
-            this.Controls.Add(this.ssdUsedPercent);
-            this.Controls.Add(this.ssdUsedGB);
-            this.Controls.Add(this.ssdTotalGB);
-            this.Controls.Add(this.ssdName);
-            this.Controls.Add(this.ssdFreePercent);
-            this.Controls.Add(this.ssdFreeGB);
-            this.Controls.Add(this.ramLoad);
-            this.Controls.Add(this.ramUsed);
-            this.Controls.Add(this.ramLabel);
-            this.Controls.Add(this.ramAvailable);
-            this.Controls.Add(this.ramTotal);
-            this.Controls.Add(this.gpuTemp);
-            this.Controls.Add(this.gpuMemUsed);
-            this.Controls.Add(this.gpuFreeMem);
-            this.Controls.Add(this.gpuTotalMem);
-            this.Controls.Add(this.gpuCoreLoad);
-            this.Controls.Add(this.gpuMemClock);
-            this.Controls.Add(this.gpuCoreClock);
+            this.Controls.Add(this.cpuClockHeaderLbl);
+            this.Controls.Add(this.wifiBytesSentLbl);
+            this.Controls.Add(this.wifiBytesRecvLbl);
+            this.Controls.Add(this.wifiHeaderLbl);
+            this.Controls.Add(this.hddTempLbl);
+            this.Controls.Add(this.hddUsedPercentLbl);
+            this.Controls.Add(this.hddUsedGBLbl);
+            this.Controls.Add(this.hddTotalGBLbl);
+            this.Controls.Add(this.hddNameLbl);
+            this.Controls.Add(this.hddFreePercentLbl);
+            this.Controls.Add(this.hddFreeGBLbl);
+            this.Controls.Add(this.gpuFanLbl);
+            this.Controls.Add(this.cpuFanLbl);
+            this.Controls.Add(this.ssdTempLbl);
+            this.Controls.Add(this.ssdUsedPercentLbl);
+            this.Controls.Add(this.ssdUsedGBLbl);
+            this.Controls.Add(this.ssdTotalGBLbl);
+            this.Controls.Add(this.ssdNameLbl);
+            this.Controls.Add(this.ssdFreePercentLbl);
+            this.Controls.Add(this.ssdFreeGBLbl);
+            this.Controls.Add(this.ramLoadLbl);
+            this.Controls.Add(this.ramUsedLbl);
+            this.Controls.Add(this.ramHeaderLbl);
+            this.Controls.Add(this.ramAvailableLbl);
+            this.Controls.Add(this.ramTotalLbl);
+            this.Controls.Add(this.gpuTempLbl);
+            this.Controls.Add(this.gpuMemUsedLbl);
+            this.Controls.Add(this.gpuFreeMemLbl);
+            this.Controls.Add(this.gpuTotalMemLbl);
+            this.Controls.Add(this.gpuCoreLoadLbl);
+            this.Controls.Add(this.gpuMemClockLbl);
+            this.Controls.Add(this.gpuCoreClockLbl);
             this.Controls.Add(this.gpuName);
-            this.Controls.Add(this.cpu6Clock);
-            this.Controls.Add(this.cpu5Clock);
-            this.Controls.Add(this.cpu4Clock);
-            this.Controls.Add(this.cpu3Clock);
-            this.Controls.Add(this.cpu2Clock);
-            this.Controls.Add(this.cpu1Clock);
-            this.Controls.Add(this.cpuPackagePwr);
-            this.Controls.Add(this.cpuPackageTemp);
-            this.Controls.Add(this.cpuTotalLoad);
-            this.Controls.Add(this.cpuHeat);
-            this.Controls.Add(this.cpuLoad);
-            this.Controls.Add(this.cpu6Heat);
-            this.Controls.Add(this.cpu5Heat);
-            this.Controls.Add(this.cpu4Heat);
-            this.Controls.Add(this.cpu3Heat);
-            this.Controls.Add(this.cpu2Heat);
-            this.Controls.Add(this.cpu1Heat);
-            this.Controls.Add(this.cpu6Load);
-            this.Controls.Add(this.cpu5Load);
-            this.Controls.Add(this.cpu4Load);
-            this.Controls.Add(this.cpu3Load);
-            this.Controls.Add(this.cpu2Load);
-            this.Controls.Add(this.cpu1Load);
-            this.Controls.Add(this.cpuName);
+            this.Controls.Add(this.cpu6ClockLbl);
+            this.Controls.Add(this.cpu5ClockLbl);
+            this.Controls.Add(this.cpu4ClockLbl);
+            this.Controls.Add(this.cpu3ClockLbl);
+            this.Controls.Add(this.cpu2ClockLbl);
+            this.Controls.Add(this.cpu1ClockLbl);
+            this.Controls.Add(this.cpuPackagePwrLbl);
+            this.Controls.Add(this.cpuPackageTempLbl);
+            this.Controls.Add(this.cpuTotalLoadLbl);
+            this.Controls.Add(this.cpuTempHeaderLbl);
+            this.Controls.Add(this.cpuLoadHeaderLbl);
+            this.Controls.Add(this.cpu6TempLbl);
+            this.Controls.Add(this.cpu5TempLbl);
+            this.Controls.Add(this.cpu4TempLbl);
+            this.Controls.Add(this.cpu3TempLbl);
+            this.Controls.Add(this.cpu2TempLbl);
+            this.Controls.Add(this.cpu1TempLbl);
+            this.Controls.Add(this.cpu6LoadLbl);
+            this.Controls.Add(this.cpu5LoadLbl);
+            this.Controls.Add(this.cpu4LoadLbl);
+            this.Controls.Add(this.cpu3LoadLbl);
+            this.Controls.Add(this.cpu2LoadLbl);
+            this.Controls.Add(this.cpu1LoadLbl);
+            this.Controls.Add(this.cpuNameLbl);
             this.Controls.Add(this.wifiPictureBox);
             this.Controls.Add(this.hddPictureBox);
             this.Controls.Add(this.ssdPictureBox);
             this.Controls.Add(this.ramPictureBox);
             this.Controls.Add(this.gpuPictureBox);
             this.Controls.Add(this.cpuPictureBox);
-            this.Controls.Add(this.richTextBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.ShowInTaskbar = false;
@@ -757,70 +757,69 @@ namespace DellHardwareMonitor
         }
 
         #endregion
-
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.PictureBox cpuPictureBox;
         private System.Windows.Forms.PictureBox gpuPictureBox;
         private System.Windows.Forms.PictureBox ramPictureBox;
         private System.Windows.Forms.PictureBox ssdPictureBox;
         private System.Windows.Forms.PictureBox hddPictureBox;
         private System.Windows.Forms.PictureBox wifiPictureBox;
-        private System.Windows.Forms.Label cpuName;
-        private System.Windows.Forms.Label cpu1Load;
-        private System.Windows.Forms.Label cpu2Load;
-        private System.Windows.Forms.Label cpu3Load;
-        private System.Windows.Forms.Label cpu4Load;
-        private System.Windows.Forms.Label cpu5Load;
-        private System.Windows.Forms.Label cpu6Load;
-        private System.Windows.Forms.Label cpu6Heat;
-        private System.Windows.Forms.Label cpu5Heat;
-        private System.Windows.Forms.Label cpu4Heat;
-        private System.Windows.Forms.Label cpu3Heat;
-        private System.Windows.Forms.Label cpu2Heat;
-        private System.Windows.Forms.Label cpu1Heat;
-        private System.Windows.Forms.Label cpuHeat;
-        private System.Windows.Forms.Label cpuLoad;
-        private System.Windows.Forms.Label cpuPackageTemp;
-        private System.Windows.Forms.Label cpuTotalLoad;
-        private System.Windows.Forms.Label cpuPackagePwr;
-        private System.Windows.Forms.Label cpu6Clock;
-        private System.Windows.Forms.Label cpu5Clock;
-        private System.Windows.Forms.Label cpu4Clock;
-        private System.Windows.Forms.Label cpu3Clock;
-        private System.Windows.Forms.Label cpu2Clock;
-        private System.Windows.Forms.Label cpu1Clock;
+        private System.Windows.Forms.Label cpuNameLbl;
+        private System.Windows.Forms.Label cpu1LoadLbl;
+        private System.Windows.Forms.Label cpu2LoadLbl;
+        private System.Windows.Forms.Label cpu3LoadLbl;
+        private System.Windows.Forms.Label cpu4LoadLbl;
+        private System.Windows.Forms.Label cpu5LoadLbl;
+        private System.Windows.Forms.Label cpu6LoadLbl;
+        private System.Windows.Forms.Label cpu6TempLbl;
+        private System.Windows.Forms.Label cpu5TempLbl;
+        private System.Windows.Forms.Label cpu4TempLbl;
+        private System.Windows.Forms.Label cpu3TempLbl;
+        private System.Windows.Forms.Label cpu2TempLbl;
+        private System.Windows.Forms.Label cpu1TempLbl;
+        private System.Windows.Forms.Label cpuTempHeaderLbl;
+        private System.Windows.Forms.Label cpuLoadHeaderLbl;
+        private System.Windows.Forms.Label cpuPackageTempLbl;
+        private System.Windows.Forms.Label cpuTotalLoadLbl;
+        private System.Windows.Forms.Label cpuPackagePwrLbl;
+        private System.Windows.Forms.Label cpu6ClockLbl;
+        private System.Windows.Forms.Label cpu5ClockLbl;
+        private System.Windows.Forms.Label cpu4ClockLbl;
+        private System.Windows.Forms.Label cpu3ClockLbl;
+        private System.Windows.Forms.Label cpu2ClockLbl;
+        private System.Windows.Forms.Label cpu1ClockLbl;
         private System.Windows.Forms.Label gpuName;
-        private System.Windows.Forms.Label gpuTemp;
-        private System.Windows.Forms.Label gpuMemUsed;
-        private System.Windows.Forms.Label gpuFreeMem;
-        private System.Windows.Forms.Label gpuTotalMem;
-        private System.Windows.Forms.Label gpuCoreLoad;
-        private System.Windows.Forms.Label gpuMemClock;
-        private System.Windows.Forms.Label gpuCoreClock;
-        private System.Windows.Forms.Label ramLoad;
-        private System.Windows.Forms.Label ramUsed;
-        private System.Windows.Forms.Label ramLabel;
-        private System.Windows.Forms.Label ramAvailable;
-        private System.Windows.Forms.Label ramTotal;
-        private System.Windows.Forms.Label ssdTemp;
-        private System.Windows.Forms.Label ssdUsedPercent;
-        private System.Windows.Forms.Label ssdUsedGB;
-        private System.Windows.Forms.Label ssdTotalGB;
-        private System.Windows.Forms.Label ssdName;
-        private System.Windows.Forms.Label ssdFreePercent;
-        private System.Windows.Forms.Label ssdFreeGB;
-        private System.Windows.Forms.Label cpuFan;
-        private System.Windows.Forms.Label gpuFan;
-        private System.Windows.Forms.Label hddTemp;
-        private System.Windows.Forms.Label hddUsedPercent;
-        private System.Windows.Forms.Label hddUsedGB;
-        private System.Windows.Forms.Label hddTotalGB;
-        private System.Windows.Forms.Label hddName;
-        private System.Windows.Forms.Label hddFreePercent;
-        private System.Windows.Forms.Label hddFreeGB;
-        private System.Windows.Forms.Label wifiBytesSent;
-        private System.Windows.Forms.Label wifiBytesRecv;
-        private System.Windows.Forms.Label wifiLabel;
+        private System.Windows.Forms.Label gpuTempLbl;
+        private System.Windows.Forms.Label gpuMemUsedLbl;
+        private System.Windows.Forms.Label gpuFreeMemLbl;
+        private System.Windows.Forms.Label gpuTotalMemLbl;
+        private System.Windows.Forms.Label gpuCoreLoadLbl;
+        private System.Windows.Forms.Label gpuMemClockLbl;
+        private System.Windows.Forms.Label gpuCoreClockLbl;
+        private System.Windows.Forms.Label ramLoadLbl;
+        private System.Windows.Forms.Label ramUsedLbl;
+        private System.Windows.Forms.Label ramHeaderLbl;
+        private System.Windows.Forms.Label ramAvailableLbl;
+        private System.Windows.Forms.Label ramTotalLbl;
+        private System.Windows.Forms.Label ssdTempLbl;
+        private System.Windows.Forms.Label ssdUsedPercentLbl;
+        private System.Windows.Forms.Label ssdUsedGBLbl;
+        private System.Windows.Forms.Label ssdTotalGBLbl;
+        private System.Windows.Forms.Label ssdNameLbl;
+        private System.Windows.Forms.Label ssdFreePercentLbl;
+        private System.Windows.Forms.Label ssdFreeGBLbl;
+        private System.Windows.Forms.Label cpuFanLbl;
+        private System.Windows.Forms.Label gpuFanLbl;
+        private System.Windows.Forms.Label hddTempLbl;
+        private System.Windows.Forms.Label hddUsedPercentLbl;
+        private System.Windows.Forms.Label hddUsedGBLbl;
+        private System.Windows.Forms.Label hddTotalGBLbl;
+        private System.Windows.Forms.Label hddNameLbl;
+        private System.Windows.Forms.Label hddFreePercentLbl;
+        private System.Windows.Forms.Label hddFreeGBLbl;
+        private System.Windows.Forms.Label wifiBytesSentLbl;
+        private System.Windows.Forms.Label wifiBytesRecvLbl;
+        private System.Windows.Forms.Label wifiHeaderLbl;
+        private System.Windows.Forms.Label cpuClockHeaderLbl;
     }
 }
 

@@ -10,6 +10,7 @@ namespace DellHardwareMonitor
     public partial class Form1 : Form
     {
         private Timer pollingTimer;
+        private bool firstTick;
         private Boolean isDriverLoaded;
         private NotifyIcon trayIcon;
         private ContextMenu trayMenu;
@@ -37,22 +38,12 @@ namespace DellHardwareMonitor
             trayIcon.Visible = true;
             trayIcon.MouseClick += new MouseEventHandler(trayIcon_Click);
 
-            isDriverLoaded = false; //LoadDriver();
-
-            /*if(!isDriverLoaded)
-            {
-                MessageBox.Show("Failed to load DellSmbiosBzhLib driver.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
-                System.Environment.Exit(1);
-            }*/
-
-            state = new HardwareState();
-
+            firstTick = true;
             pollingTimer = new Timer();
             pollingTimer.Tick += new EventHandler(polling_Tick);
             pollingTimer.Interval = 1000;
-            pollingTimer.Enabled = true;
-            pollingTimer.Start();
+            //pollingTimer.Enabled = true;
+            //pollingTimer.Start();
         }
 
         #region Form functions
@@ -74,9 +65,14 @@ namespace DellHardwareMonitor
                 this.Opacity = Settings.Default.WindowOpacity;
             }
 
-            //this.WindowState = FormWindowState.Minimized;
-            //Visible = false;
-            ShowInTaskbar = false;
+            isDriverLoaded = false; //LoadDriver();
+
+            /*if(!isDriverLoaded)
+            {
+                MessageBox.Show("Failed to load DellSmbiosBzhLib driver.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+                System.Environment.Exit(1);
+            }*/
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -96,14 +92,10 @@ namespace DellHardwareMonitor
 
             if (this.WindowState == FormWindowState.Normal)
             {
-                Visible = false;
-                ShowInTaskbar = false;
                 this.WindowState = FormWindowState.Minimized;
             }
             else
             {
-                Visible = true;
-                ShowInTaskbar = false;
                 this.WindowState = FormWindowState.Normal;
                 Activate();
             }
@@ -170,6 +162,12 @@ namespace DellHardwareMonitor
 
         private void polling_Tick(object sender, EventArgs e)
         {
+            if(firstTick)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                state = new HardwareState();
+            }
+
             //CPU sensors
             state.CPU.Update();
             string cpuName = state.CPU.Name;
@@ -216,7 +214,7 @@ namespace DellHardwareMonitor
             double? gpuTotalMemory = state.GPU.Sensors[7].Value / 1000d;
             double? gpuFreeMemory = state.GPU.Sensors[8].Value / 1000d;
             double? gpuMemoryUsed = state.GPU.Sensors[9].Value / 1000d;
-            float? gpuPackagePower = state.GPU.Sensors[10].Value;
+            //float? gpuPackagePower = state.GPU.Sensors[10].Value;
             //11, 12 GPU PCIe Rx/Tx
 
             //RAM
@@ -286,7 +284,6 @@ namespace DellHardwareMonitor
             double wifiBytesSent = state.NetworkStates[1].Counters[1].NextValue() / 1048576d;
 
             richTextBox1.Clear();
-
             richTextBox1.Text +=
                 "cpuName: " + cpuName + "\n" +
                 "cpuOneLoad: " + cpuOneLoad + " %\n" +
@@ -312,10 +309,10 @@ namespace DellHardwareMonitor
                 "cpuFiveClock: " + cpuFiveClock + " GHz\n" +
                 "cpuSixClock: " + cpuSixClock + " GHz\n" +
                 "cpuPackagePower: " + cpuPackagePower + " W\n\n";
-                //"cpuCoresPower: " + cpuCoresPower + "\n" +
-                //"cpuGraphicsPower: " + cpuGraphicsPower + "\n" +
-                //"cpuMemoryPower: " + cpuMemoryPower + "\n" +
-                //"cpuBusSpeed: " + cpuBusSpeed + "\n\n";
+            //"cpuCoresPower: " + cpuCoresPower + "\n" +
+            //"cpuGraphicsPower: " + cpuGraphicsPower + "\n" +
+            //"cpuMemoryPower: " + cpuMemoryPower + "\n" +
+            //"cpuBusSpeed: " + cpuBusSpeed + "\n\n";
 
             richTextBox1.Text +=
                 "gpuName: " + gpuName + "\n" +
@@ -328,8 +325,8 @@ namespace DellHardwareMonitor
                 //"gpuBusLoad: " + gpuBusLoad + "\n" +
                 "gpuTotalMemory: " + gpuTotalMemory + " GB\n" +
                 "gpuFreeMemory: " + gpuFreeMemory + " GB\n" +
-                "gpuMemoryUsed: " + gpuMemoryUsed + " GB\n" +
-                "gpuPackagePower: " + gpuPackagePower + " W\n\n";
+                "gpuMemoryUsed: " + gpuMemoryUsed + " GB\n\n";
+                //"gpuPackagePower: " + gpuPackagePower + " W\n\n";
 
             richTextBox1.Text +=
                 "RAM \n" +
@@ -386,6 +383,12 @@ namespace DellHardwareMonitor
             //uint? leftFanRpm = DellSmbiosBzh.GetFanRpm(BzhFanIndex.Fan1);
             //uint? rightFanRpm = DellSmbiosBzh.GetFanRpm(BzhFanIndex.Fan2);
             //Console.WriteLine("left: " + leftFanRpm + " right: " + rightFanRpm);
+
+            if (firstTick)
+            {
+                Cursor.Current = Cursors.Default;
+                firstTick = false;
+            }
         }
 
         private bool LoadDriver()

@@ -65,22 +65,27 @@ namespace DellHardwareMonitor
                 this.Opacity = Settings.Default.WindowOpacity;
             }
 
-            isDriverLoaded = false; //LoadDriver();
+            isDriverLoaded = LoadDriver();
 
-            /*if(!isDriverLoaded)
+            if(!isDriverLoaded)
             {
                 MessageBox.Show("Failed to load DellSmbiosBzhLib driver.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
                 System.Environment.Exit(1);
-            }*/
+            }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Settings.Default.WindowLocation = this.Location;
-            Settings.Default.WindowSize = this.Size;
-            Settings.Default.WindowOpacity = this.Opacity;
-            Settings.Default.Save();
+            if (systemShutdown)
+            {
+                CleanUp();
+            }
+
+            CleanUp();
+
+            trayIcon.Visible = false;
+            trayIcon.Dispose();
         }
 
         private void trayIcon_Click(object sender, MouseEventArgs e)
@@ -108,13 +113,24 @@ namespace DellHardwareMonitor
 
         private void OnExit(object sender, EventArgs e)
         {
+            CleanUp();
+
+            trayIcon.Visible = false;
+            trayIcon.Dispose();
+
+            Application.Exit();
+            System.Environment.Exit(1);
+        }
+
+        private void CleanUp()
+        {
+            //Console.WriteLine("width: " + Settings.Default.WindowSize.Width + " height: " + Settings.Default.WindowSize.Height);
+            //Console.WriteLine("x: " + Settings.Default.WindowLocation.X + " y: " + Settings.Default.WindowLocation.Y);
+
             Settings.Default.WindowLocation = this.Location;
             Settings.Default.WindowSize = this.Size;
             Settings.Default.WindowOpacity = this.Opacity;
             Settings.Default.Save();
-
-            Console.WriteLine(this.Location);
-            Console.WriteLine(this.Size);
 
             if (isDriverLoaded)
             {
@@ -125,19 +141,21 @@ namespace DellHardwareMonitor
             {
                 state.Computer.Close();
             }
-
-            trayIcon.Visible = false;
-            trayIcon.Dispose();
-
-            Application.Exit();
-            System.Environment.Exit(1);
         }
 
+        private static int WM_NCHITTEST = 0x84;
+        private static int WM_QUERYENDSESSION = 0x11;
+        private static bool systemShutdown = false;
         protected override void WndProc(ref Message message)
         {
+            if (message.Msg == WM_QUERYENDSESSION)
+            {
+                systemShutdown = true;
+            }
+
             base.WndProc(ref message);
 
-            if (message.Msg == 0x84) // WM_NCHITTEST
+            if (message.Msg == WM_NCHITTEST)
             {
                 var cursor = this.PointToClient(Cursor.Position);
 
@@ -210,19 +228,21 @@ namespace DellHardwareMonitor
             double cpuSixClock = (double)state.CPU.Sensors[27].Value / 1000d;
             cpu6ClockLbl.Text = cpuSixClock.ToString("0.00");
             float cpuPackagePower = (float)state.CPU.Sensors[28].Value;
-            cpuPackagePwrLbl.Text = cpuPackagePower.ToString();
-            //uint? leftFanRpm = DellSmbiosBzh.GetFanRpm(BzhFanIndex.Fan1);
+            cpuPackagePwrLbl.Text = cpuPackagePower.ToString("0.00");
             
             gpuName.Text = state.GPU.Name;
             gpuTempLbl.Text = state.GPU.Sensors[0].Value.ToString();
-            gpuCoreClockLbl.Text = (state.GPU.Sensors[1].Value / 1000d).Value.ToString();
-            gpuMemClockLbl.Text = (state.GPU.Sensors[2].Value / 1000d).Value.ToString();
-            gpuCoreLoadLbl.Text = (state.GPU.Sensors[3].Value).Value.ToString();
-            gpuTotalMemLbl.Text = (state.GPU.Sensors[7].Value / 1000d).Value.ToString();
-            gpuFreeMemLbl.Text = (state.GPU.Sensors[8].Value / 1000d).Value.ToString();
-            gpuMemUsedLbl.Text = (state.GPU.Sensors[9].Value / 1000d).Value.ToString();
-            //uint? rightFanRpm = DellSmbiosBzh.GetFanRpm(BzhFanIndex.Fan2);
+            gpuCoreClockLbl.Text = (state.GPU.Sensors[1].Value / 1000d).Value.ToString("0.00");
+            gpuMemClockLbl.Text = (state.GPU.Sensors[2].Value / 1000d).Value.ToString("0.00");
+            gpuCoreLoadLbl.Text = (state.GPU.Sensors[3].Value).Value.ToString("0.00");
+            gpuTotalMemLbl.Text = (state.GPU.Sensors[7].Value / 1000d).Value.ToString("0.00");
+            gpuFreeMemLbl.Text = (state.GPU.Sensors[8].Value / 1000d).Value.ToString("0.00");
+            gpuMemUsedLbl.Text = (state.GPU.Sensors[9].Value / 1000d).Value.ToString("0.00");
 
+            uint? leftFanRpm = DellSmbiosBzh.GetFanRpm(BzhFanIndex.Fan1);
+            uint? rightFanRpm = DellSmbiosBzh.GetFanRpm(BzhFanIndex.Fan2);
+            cpuFanLbl.Text = leftFanRpm.ToString();
+            gpuFanLbl.Text = rightFanRpm.ToString();
 
             float memoryUsed = (float)state.RAM.Sensors[0].Value;
             ramUsedLbl.Text = memoryUsed.ToString("0.00");

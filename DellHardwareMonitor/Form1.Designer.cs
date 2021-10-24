@@ -74,20 +74,16 @@ namespace DellHardwareMonitor
             this.ramAvailableLbl = new System.Windows.Forms.Label();
             this.ramTotalLbl = new System.Windows.Forms.Label();
             this.ssdTempLbl = new System.Windows.Forms.Label();
-            this.ssdUsedPercentLbl = new System.Windows.Forms.Label();
             this.ssdUsedGBLbl = new System.Windows.Forms.Label();
             this.ssdTotalGBLbl = new System.Windows.Forms.Label();
             this.ssdNameLbl = new System.Windows.Forms.Label();
-            this.ssdFreePercentLbl = new System.Windows.Forms.Label();
             this.ssdFreeGBLbl = new System.Windows.Forms.Label();
             this.cpuFanLbl = new System.Windows.Forms.Label();
             this.gpuFanLbl = new System.Windows.Forms.Label();
             this.hddTempLbl = new System.Windows.Forms.Label();
-            this.hddUsedPercentLbl = new System.Windows.Forms.Label();
             this.hddUsedGBLbl = new System.Windows.Forms.Label();
             this.hddTotalGBLbl = new System.Windows.Forms.Label();
             this.hddNameLbl = new System.Windows.Forms.Label();
-            this.hddFreePercentLbl = new System.Windows.Forms.Label();
             this.hddFreeGBLbl = new System.Windows.Forms.Label();
             this.wifiBytesSentLbl = new System.Windows.Forms.Label();
             this.wifiBytesRecvLbl = new System.Windows.Forms.Label();
@@ -151,21 +147,21 @@ namespace DellHardwareMonitor
             this.label51 = new System.Windows.Forms.Label();
             this.label53 = new System.Windows.Forms.Label();
             this.label54 = new System.Windows.Forms.Label();
-            this.label55 = new System.Windows.Forms.Label();
-            this.label56 = new System.Windows.Forms.Label();
             this.label57 = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
             this.label59 = new System.Windows.Forms.Label();
             this.label60 = new System.Windows.Forms.Label();
-            this.label61 = new System.Windows.Forms.Label();
             this.label62 = new System.Windows.Forms.Label();
             this.label63 = new System.Windows.Forms.Label();
-            this.label64 = new System.Windows.Forms.Label();
             this.label65 = new System.Windows.Forms.Label();
             this.label66 = new System.Windows.Forms.Label();
             this.label67 = new System.Windows.Forms.Label();
             this.label68 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.ssdProgressBar1 = new System.Windows.Forms.ProgressBar();
+            this.hddProgressBar1 = new System.Windows.Forms.ProgressBar();
+            this.label55 = new System.Windows.Forms.Label();
+            this.label56 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.cpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ramPictureBox)).BeginInit();
@@ -178,7 +174,7 @@ namespace DellHardwareMonitor
             // cpuPictureBox
             // 
             this.cpuPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.cpu;
-            this.cpuPictureBox.Location = new System.Drawing.Point(8, 8);
+            this.cpuPictureBox.Location = new System.Drawing.Point(16, 40);
             this.cpuPictureBox.Name = "cpuPictureBox";
             this.cpuPictureBox.Size = new System.Drawing.Size(80, 80);
             this.cpuPictureBox.TabIndex = 1;
@@ -187,7 +183,7 @@ namespace DellHardwareMonitor
             // gpuPictureBox
             // 
             this.gpuPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.gpu;
-            this.gpuPictureBox.Location = new System.Drawing.Point(8, 224);
+            this.gpuPictureBox.Location = new System.Drawing.Point(16, 248);
             this.gpuPictureBox.Name = "gpuPictureBox";
             this.gpuPictureBox.Size = new System.Drawing.Size(80, 80);
             this.gpuPictureBox.TabIndex = 2;
@@ -205,7 +201,7 @@ namespace DellHardwareMonitor
             // ssdPictureBox
             // 
             this.ssdPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.ssd;
-            this.ssdPictureBox.Location = new System.Drawing.Point(8, 680);
+            this.ssdPictureBox.Location = new System.Drawing.Point(8, 704);
             this.ssdPictureBox.Name = "ssdPictureBox";
             this.ssdPictureBox.Size = new System.Drawing.Size(80, 80);
             this.ssdPictureBox.TabIndex = 4;
@@ -214,7 +210,7 @@ namespace DellHardwareMonitor
             // hddPictureBox
             // 
             this.hddPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.hdd;
-            this.hddPictureBox.Location = new System.Drawing.Point(8, 800);
+            this.hddPictureBox.Location = new System.Drawing.Point(8, 848);
             this.hddPictureBox.Name = "hddPictureBox";
             this.hddPictureBox.Size = new System.Drawing.Size(80, 80);
             this.hddPictureBox.TabIndex = 5;
@@ -223,7 +219,7 @@ namespace DellHardwareMonitor
             // wifiPictureBox
             // 
             this.wifiPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.wifi;
-            this.wifiPictureBox.Location = new System.Drawing.Point(8, 920);
+            this.wifiPictureBox.Location = new System.Drawing.Point(8, 968);
             this.wifiPictureBox.Name = "wifiPictureBox";
             this.wifiPictureBox.Size = new System.Drawing.Size(80, 80);
             this.wifiPictureBox.TabIndex = 6;
@@ -232,7 +228,7 @@ namespace DellHardwareMonitor
             // cpuNameLbl
             // 
             this.cpuNameLbl.AutoSize = true;
-            this.cpuNameLbl.Location = new System.Drawing.Point(136, 8);
+            this.cpuNameLbl.Location = new System.Drawing.Point(8, 16);
             this.cpuNameLbl.Name = "cpuNameLbl";
             this.cpuNameLbl.Size = new System.Drawing.Size(53, 13);
             this.cpuNameLbl.TabIndex = 7;
@@ -241,7 +237,7 @@ namespace DellHardwareMonitor
             // cpu1LoadLbl
             // 
             this.cpu1LoadLbl.AutoSize = true;
-            this.cpu1LoadLbl.Location = new System.Drawing.Point(216, 56);
+            this.cpu1LoadLbl.Location = new System.Drawing.Point(216, 64);
             this.cpu1LoadLbl.Name = "cpu1LoadLbl";
             this.cpu1LoadLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu1LoadLbl.TabIndex = 8;
@@ -250,7 +246,7 @@ namespace DellHardwareMonitor
             // cpu2LoadLbl
             // 
             this.cpu2LoadLbl.AutoSize = true;
-            this.cpu2LoadLbl.Location = new System.Drawing.Point(216, 80);
+            this.cpu2LoadLbl.Location = new System.Drawing.Point(216, 88);
             this.cpu2LoadLbl.Name = "cpu2LoadLbl";
             this.cpu2LoadLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu2LoadLbl.TabIndex = 9;
@@ -259,7 +255,7 @@ namespace DellHardwareMonitor
             // cpu3LoadLbl
             // 
             this.cpu3LoadLbl.AutoSize = true;
-            this.cpu3LoadLbl.Location = new System.Drawing.Point(216, 104);
+            this.cpu3LoadLbl.Location = new System.Drawing.Point(216, 112);
             this.cpu3LoadLbl.Name = "cpu3LoadLbl";
             this.cpu3LoadLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu3LoadLbl.TabIndex = 10;
@@ -268,7 +264,7 @@ namespace DellHardwareMonitor
             // cpu4LoadLbl
             // 
             this.cpu4LoadLbl.AutoSize = true;
-            this.cpu4LoadLbl.Location = new System.Drawing.Point(216, 128);
+            this.cpu4LoadLbl.Location = new System.Drawing.Point(216, 136);
             this.cpu4LoadLbl.Name = "cpu4LoadLbl";
             this.cpu4LoadLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu4LoadLbl.TabIndex = 11;
@@ -277,7 +273,7 @@ namespace DellHardwareMonitor
             // cpu5LoadLbl
             // 
             this.cpu5LoadLbl.AutoSize = true;
-            this.cpu5LoadLbl.Location = new System.Drawing.Point(216, 152);
+            this.cpu5LoadLbl.Location = new System.Drawing.Point(216, 160);
             this.cpu5LoadLbl.Name = "cpu5LoadLbl";
             this.cpu5LoadLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu5LoadLbl.TabIndex = 12;
@@ -286,7 +282,7 @@ namespace DellHardwareMonitor
             // cpu6LoadLbl
             // 
             this.cpu6LoadLbl.AutoSize = true;
-            this.cpu6LoadLbl.Location = new System.Drawing.Point(216, 176);
+            this.cpu6LoadLbl.Location = new System.Drawing.Point(216, 184);
             this.cpu6LoadLbl.Name = "cpu6LoadLbl";
             this.cpu6LoadLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu6LoadLbl.TabIndex = 13;
@@ -295,7 +291,7 @@ namespace DellHardwareMonitor
             // cpu6TempLbl
             // 
             this.cpu6TempLbl.AutoSize = true;
-            this.cpu6TempLbl.Location = new System.Drawing.Point(264, 176);
+            this.cpu6TempLbl.Location = new System.Drawing.Point(264, 184);
             this.cpu6TempLbl.Name = "cpu6TempLbl";
             this.cpu6TempLbl.Size = new System.Drawing.Size(19, 13);
             this.cpu6TempLbl.TabIndex = 19;
@@ -304,7 +300,7 @@ namespace DellHardwareMonitor
             // cpu5TempLbl
             // 
             this.cpu5TempLbl.AutoSize = true;
-            this.cpu5TempLbl.Location = new System.Drawing.Point(264, 152);
+            this.cpu5TempLbl.Location = new System.Drawing.Point(264, 160);
             this.cpu5TempLbl.Name = "cpu5TempLbl";
             this.cpu5TempLbl.Size = new System.Drawing.Size(19, 13);
             this.cpu5TempLbl.TabIndex = 18;
@@ -313,7 +309,7 @@ namespace DellHardwareMonitor
             // cpu4TempLbl
             // 
             this.cpu4TempLbl.AutoSize = true;
-            this.cpu4TempLbl.Location = new System.Drawing.Point(264, 128);
+            this.cpu4TempLbl.Location = new System.Drawing.Point(264, 136);
             this.cpu4TempLbl.Name = "cpu4TempLbl";
             this.cpu4TempLbl.Size = new System.Drawing.Size(19, 13);
             this.cpu4TempLbl.TabIndex = 17;
@@ -322,7 +318,7 @@ namespace DellHardwareMonitor
             // cpu3TempLbl
             // 
             this.cpu3TempLbl.AutoSize = true;
-            this.cpu3TempLbl.Location = new System.Drawing.Point(264, 104);
+            this.cpu3TempLbl.Location = new System.Drawing.Point(264, 112);
             this.cpu3TempLbl.Name = "cpu3TempLbl";
             this.cpu3TempLbl.Size = new System.Drawing.Size(19, 13);
             this.cpu3TempLbl.TabIndex = 16;
@@ -331,7 +327,7 @@ namespace DellHardwareMonitor
             // cpu2TempLbl
             // 
             this.cpu2TempLbl.AutoSize = true;
-            this.cpu2TempLbl.Location = new System.Drawing.Point(264, 80);
+            this.cpu2TempLbl.Location = new System.Drawing.Point(264, 88);
             this.cpu2TempLbl.Name = "cpu2TempLbl";
             this.cpu2TempLbl.Size = new System.Drawing.Size(19, 13);
             this.cpu2TempLbl.TabIndex = 15;
@@ -340,7 +336,7 @@ namespace DellHardwareMonitor
             // cpu1TempLbl
             // 
             this.cpu1TempLbl.AutoSize = true;
-            this.cpu1TempLbl.Location = new System.Drawing.Point(264, 56);
+            this.cpu1TempLbl.Location = new System.Drawing.Point(264, 64);
             this.cpu1TempLbl.Name = "cpu1TempLbl";
             this.cpu1TempLbl.Size = new System.Drawing.Size(19, 13);
             this.cpu1TempLbl.TabIndex = 14;
@@ -349,7 +345,7 @@ namespace DellHardwareMonitor
             // cpuTempHeaderLbl
             // 
             this.cpuTempHeaderLbl.AutoSize = true;
-            this.cpuTempHeaderLbl.Location = new System.Drawing.Point(264, 32);
+            this.cpuTempHeaderLbl.Location = new System.Drawing.Point(264, 40);
             this.cpuTempHeaderLbl.Name = "cpuTempHeaderLbl";
             this.cpuTempHeaderLbl.Size = new System.Drawing.Size(34, 13);
             this.cpuTempHeaderLbl.TabIndex = 21;
@@ -357,17 +353,17 @@ namespace DellHardwareMonitor
             // 
             // cpuLoadHeaderLbl
             // 
-            this.cpuLoadHeaderLbl.AutoSize = true;
-            this.cpuLoadHeaderLbl.Location = new System.Drawing.Point(216, 32);
+            this.cpuLoadHeaderLbl.Location = new System.Drawing.Point(216, 40);
             this.cpuLoadHeaderLbl.Name = "cpuLoadHeaderLbl";
-            this.cpuLoadHeaderLbl.Size = new System.Drawing.Size(31, 13);
+            this.cpuLoadHeaderLbl.Size = new System.Drawing.Size(40, 13);
             this.cpuLoadHeaderLbl.TabIndex = 20;
             this.cpuLoadHeaderLbl.Text = "Load";
+            this.cpuLoadHeaderLbl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // cpuPackageTempLbl
             // 
             this.cpuPackageTempLbl.AutoSize = true;
-            this.cpuPackageTempLbl.Location = new System.Drawing.Point(96, 96);
+            this.cpuPackageTempLbl.Location = new System.Drawing.Point(96, 136);
             this.cpuPackageTempLbl.Name = "cpuPackageTempLbl";
             this.cpuPackageTempLbl.Size = new System.Drawing.Size(19, 13);
             this.cpuPackageTempLbl.TabIndex = 23;
@@ -376,7 +372,7 @@ namespace DellHardwareMonitor
             // cpuTotalLoadLbl
             // 
             this.cpuTotalLoadLbl.AutoSize = true;
-            this.cpuTotalLoadLbl.Location = new System.Drawing.Point(88, 176);
+            this.cpuTotalLoadLbl.Location = new System.Drawing.Point(88, 184);
             this.cpuTotalLoadLbl.Name = "cpuTotalLoadLbl";
             this.cpuTotalLoadLbl.Size = new System.Drawing.Size(28, 13);
             this.cpuTotalLoadLbl.TabIndex = 22;
@@ -385,7 +381,7 @@ namespace DellHardwareMonitor
             // cpuPackagePwrLbl
             // 
             this.cpuPackagePwrLbl.AutoSize = true;
-            this.cpuPackagePwrLbl.Location = new System.Drawing.Point(88, 136);
+            this.cpuPackagePwrLbl.Location = new System.Drawing.Point(88, 160);
             this.cpuPackagePwrLbl.Name = "cpuPackagePwrLbl";
             this.cpuPackagePwrLbl.Size = new System.Drawing.Size(22, 13);
             this.cpuPackagePwrLbl.TabIndex = 24;
@@ -394,7 +390,7 @@ namespace DellHardwareMonitor
             // cpu6ClockLbl
             // 
             this.cpu6ClockLbl.AutoSize = true;
-            this.cpu6ClockLbl.Location = new System.Drawing.Point(144, 176);
+            this.cpu6ClockLbl.Location = new System.Drawing.Point(152, 184);
             this.cpu6ClockLbl.Name = "cpu6ClockLbl";
             this.cpu6ClockLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu6ClockLbl.TabIndex = 30;
@@ -403,7 +399,7 @@ namespace DellHardwareMonitor
             // cpu5ClockLbl
             // 
             this.cpu5ClockLbl.AutoSize = true;
-            this.cpu5ClockLbl.Location = new System.Drawing.Point(144, 152);
+            this.cpu5ClockLbl.Location = new System.Drawing.Point(152, 160);
             this.cpu5ClockLbl.Name = "cpu5ClockLbl";
             this.cpu5ClockLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu5ClockLbl.TabIndex = 29;
@@ -412,7 +408,7 @@ namespace DellHardwareMonitor
             // cpu4ClockLbl
             // 
             this.cpu4ClockLbl.AutoSize = true;
-            this.cpu4ClockLbl.Location = new System.Drawing.Point(144, 128);
+            this.cpu4ClockLbl.Location = new System.Drawing.Point(152, 136);
             this.cpu4ClockLbl.Name = "cpu4ClockLbl";
             this.cpu4ClockLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu4ClockLbl.TabIndex = 28;
@@ -421,7 +417,7 @@ namespace DellHardwareMonitor
             // cpu3ClockLbl
             // 
             this.cpu3ClockLbl.AutoSize = true;
-            this.cpu3ClockLbl.Location = new System.Drawing.Point(144, 104);
+            this.cpu3ClockLbl.Location = new System.Drawing.Point(152, 112);
             this.cpu3ClockLbl.Name = "cpu3ClockLbl";
             this.cpu3ClockLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu3ClockLbl.TabIndex = 27;
@@ -430,7 +426,7 @@ namespace DellHardwareMonitor
             // cpu2ClockLbl
             // 
             this.cpu2ClockLbl.AutoSize = true;
-            this.cpu2ClockLbl.Location = new System.Drawing.Point(144, 80);
+            this.cpu2ClockLbl.Location = new System.Drawing.Point(152, 88);
             this.cpu2ClockLbl.Name = "cpu2ClockLbl";
             this.cpu2ClockLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu2ClockLbl.TabIndex = 26;
@@ -439,7 +435,7 @@ namespace DellHardwareMonitor
             // cpu1ClockLbl
             // 
             this.cpu1ClockLbl.AutoSize = true;
-            this.cpu1ClockLbl.Location = new System.Drawing.Point(144, 56);
+            this.cpu1ClockLbl.Location = new System.Drawing.Point(152, 64);
             this.cpu1ClockLbl.Name = "cpu1ClockLbl";
             this.cpu1ClockLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu1ClockLbl.TabIndex = 25;
@@ -448,7 +444,7 @@ namespace DellHardwareMonitor
             // gpuName
             // 
             this.gpuName.AutoSize = true;
-            this.gpuName.Location = new System.Drawing.Point(144, 224);
+            this.gpuName.Location = new System.Drawing.Point(8, 224);
             this.gpuName.Name = "gpuName";
             this.gpuName.Size = new System.Drawing.Size(53, 13);
             this.gpuName.TabIndex = 31;
@@ -456,89 +452,89 @@ namespace DellHardwareMonitor
             // 
             // gpuTempLbl
             // 
-            this.gpuTempLbl.AutoSize = true;
-            this.gpuTempLbl.Location = new System.Drawing.Point(264, 248);
+            this.gpuTempLbl.Location = new System.Drawing.Point(104, 344);
             this.gpuTempLbl.Name = "gpuTempLbl";
             this.gpuTempLbl.Size = new System.Drawing.Size(19, 13);
             this.gpuTempLbl.TabIndex = 38;
             this.gpuTempLbl.Text = "35";
+            this.gpuTempLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // gpuMemUsedLbl
             // 
-            this.gpuMemUsedLbl.AutoSize = true;
             this.gpuMemUsedLbl.Location = new System.Drawing.Point(248, 368);
             this.gpuMemUsedLbl.Name = "gpuMemUsedLbl";
             this.gpuMemUsedLbl.Size = new System.Drawing.Size(28, 13);
             this.gpuMemUsedLbl.TabIndex = 37;
             this.gpuMemUsedLbl.Text = "2.10";
+            this.gpuMemUsedLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // gpuFreeMemLbl
             // 
-            this.gpuFreeMemLbl.AutoSize = true;
             this.gpuFreeMemLbl.Location = new System.Drawing.Point(248, 344);
             this.gpuFreeMemLbl.Name = "gpuFreeMemLbl";
             this.gpuFreeMemLbl.Size = new System.Drawing.Size(28, 13);
             this.gpuFreeMemLbl.TabIndex = 36;
             this.gpuFreeMemLbl.Text = "2.10";
+            this.gpuFreeMemLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // gpuTotalMemLbl
             // 
-            this.gpuTotalMemLbl.AutoSize = true;
             this.gpuTotalMemLbl.Location = new System.Drawing.Point(248, 320);
             this.gpuTotalMemLbl.Name = "gpuTotalMemLbl";
             this.gpuTotalMemLbl.Size = new System.Drawing.Size(28, 13);
             this.gpuTotalMemLbl.TabIndex = 35;
             this.gpuTotalMemLbl.Text = "2.10";
+            this.gpuTotalMemLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // gpuCoreLoadLbl
             // 
-            this.gpuCoreLoadLbl.AutoSize = true;
             this.gpuCoreLoadLbl.Location = new System.Drawing.Point(256, 392);
             this.gpuCoreLoadLbl.Name = "gpuCoreLoadLbl";
             this.gpuCoreLoadLbl.Size = new System.Drawing.Size(28, 13);
             this.gpuCoreLoadLbl.TabIndex = 34;
             this.gpuCoreLoadLbl.Text = "2.10";
+            this.gpuCoreLoadLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // gpuMemClockLbl
             // 
-            this.gpuMemClockLbl.AutoSize = true;
-            this.gpuMemClockLbl.Location = new System.Drawing.Point(240, 296);
+            this.gpuMemClockLbl.Location = new System.Drawing.Point(88, 392);
             this.gpuMemClockLbl.Name = "gpuMemClockLbl";
             this.gpuMemClockLbl.Size = new System.Drawing.Size(28, 13);
             this.gpuMemClockLbl.TabIndex = 33;
             this.gpuMemClockLbl.Text = "2.10";
+            this.gpuMemClockLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // gpuCoreClockLbl
             // 
-            this.gpuCoreClockLbl.AutoSize = true;
-            this.gpuCoreClockLbl.Location = new System.Drawing.Point(240, 272);
+            this.gpuCoreClockLbl.Location = new System.Drawing.Point(88, 368);
             this.gpuCoreClockLbl.Name = "gpuCoreClockLbl";
             this.gpuCoreClockLbl.Size = new System.Drawing.Size(28, 13);
             this.gpuCoreClockLbl.TabIndex = 32;
             this.gpuCoreClockLbl.Text = "2.10";
+            this.gpuCoreClockLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // ramLoadLbl
             // 
-            this.ramLoadLbl.AutoSize = true;
             this.ramLoadLbl.Location = new System.Drawing.Point(240, 624);
             this.ramLoadLbl.Name = "ramLoadLbl";
             this.ramLoadLbl.Size = new System.Drawing.Size(34, 13);
             this.ramLoadLbl.TabIndex = 43;
             this.ramLoadLbl.Text = "22.10";
+            this.ramLoadLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // ramUsedLbl
             // 
-            this.ramUsedLbl.AutoSize = true;
-            this.ramUsedLbl.Location = new System.Drawing.Point(240, 592);
+            this.ramUsedLbl.Location = new System.Drawing.Point(240, 576);
             this.ramUsedLbl.Name = "ramUsedLbl";
             this.ramUsedLbl.Size = new System.Drawing.Size(34, 13);
             this.ramUsedLbl.TabIndex = 42;
             this.ramUsedLbl.Text = "22.10";
+            this.ramUsedLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // ramHeaderLbl
             // 
             this.ramHeaderLbl.AutoSize = true;
-            this.ramHeaderLbl.Location = new System.Drawing.Point(120, 552);
+            this.ramHeaderLbl.Location = new System.Drawing.Point(104, 592);
             this.ramHeaderLbl.Name = "ramHeaderLbl";
             this.ramHeaderLbl.Size = new System.Drawing.Size(31, 13);
             this.ramHeaderLbl.TabIndex = 41;
@@ -546,187 +542,154 @@ namespace DellHardwareMonitor
             // 
             // ramAvailableLbl
             // 
-            this.ramAvailableLbl.AutoSize = true;
-            this.ramAvailableLbl.Location = new System.Drawing.Point(240, 576);
+            this.ramAvailableLbl.Location = new System.Drawing.Point(240, 552);
             this.ramAvailableLbl.Name = "ramAvailableLbl";
             this.ramAvailableLbl.Size = new System.Drawing.Size(34, 13);
             this.ramAvailableLbl.TabIndex = 40;
             this.ramAvailableLbl.Text = "22.10";
+            this.ramAvailableLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // ramTotalLbl
             // 
-            this.ramTotalLbl.AutoSize = true;
-            this.ramTotalLbl.Location = new System.Drawing.Point(240, 608);
+            this.ramTotalLbl.Location = new System.Drawing.Point(240, 600);
             this.ramTotalLbl.Name = "ramTotalLbl";
             this.ramTotalLbl.Size = new System.Drawing.Size(34, 13);
             this.ramTotalLbl.TabIndex = 39;
             this.ramTotalLbl.Text = "22.10";
+            this.ramTotalLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // ssdTempLbl
             // 
-            this.ssdTempLbl.AutoSize = true;
-            this.ssdTempLbl.Location = new System.Drawing.Point(160, 704);
+            this.ssdTempLbl.Location = new System.Drawing.Point(160, 712);
             this.ssdTempLbl.Name = "ssdTempLbl";
             this.ssdTempLbl.Size = new System.Drawing.Size(19, 13);
             this.ssdTempLbl.TabIndex = 50;
             this.ssdTempLbl.Text = "21";
-            // 
-            // ssdUsedPercentLbl
-            // 
-            this.ssdUsedPercentLbl.AutoSize = true;
-            this.ssdUsedPercentLbl.Location = new System.Drawing.Point(248, 752);
-            this.ssdUsedPercentLbl.Name = "ssdUsedPercentLbl";
-            this.ssdUsedPercentLbl.Size = new System.Drawing.Size(34, 13);
-            this.ssdUsedPercentLbl.TabIndex = 49;
-            this.ssdUsedPercentLbl.Text = "22.10";
+            this.ssdTempLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // ssdUsedGBLbl
             // 
-            this.ssdUsedGBLbl.AutoSize = true;
-            this.ssdUsedGBLbl.Location = new System.Drawing.Point(232, 728);
+            this.ssdUsedGBLbl.Location = new System.Drawing.Point(232, 736);
             this.ssdUsedGBLbl.Name = "ssdUsedGBLbl";
             this.ssdUsedGBLbl.Size = new System.Drawing.Size(40, 13);
             this.ssdUsedGBLbl.TabIndex = 48;
             this.ssdUsedGBLbl.Text = "221.10";
+            this.ssdUsedGBLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // ssdTotalGBLbl
             // 
-            this.ssdTotalGBLbl.AutoSize = true;
-            this.ssdTotalGBLbl.Location = new System.Drawing.Point(232, 704);
+            this.ssdTotalGBLbl.Location = new System.Drawing.Point(232, 712);
             this.ssdTotalGBLbl.Name = "ssdTotalGBLbl";
             this.ssdTotalGBLbl.Size = new System.Drawing.Size(40, 13);
             this.ssdTotalGBLbl.TabIndex = 47;
             this.ssdTotalGBLbl.Text = "221.10";
+            this.ssdTotalGBLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // ssdNameLbl
             // 
             this.ssdNameLbl.AutoSize = true;
-            this.ssdNameLbl.Location = new System.Drawing.Point(112, 672);
+            this.ssdNameLbl.Location = new System.Drawing.Point(8, 680);
             this.ssdNameLbl.Name = "ssdNameLbl";
             this.ssdNameLbl.Size = new System.Drawing.Size(51, 13);
             this.ssdNameLbl.TabIndex = 46;
             this.ssdNameLbl.Text = "ssdName";
             // 
-            // ssdFreePercentLbl
-            // 
-            this.ssdFreePercentLbl.AutoSize = true;
-            this.ssdFreePercentLbl.Location = new System.Drawing.Point(152, 752);
-            this.ssdFreePercentLbl.Name = "ssdFreePercentLbl";
-            this.ssdFreePercentLbl.Size = new System.Drawing.Size(34, 13);
-            this.ssdFreePercentLbl.TabIndex = 45;
-            this.ssdFreePercentLbl.Text = "22.10";
-            // 
             // ssdFreeGBLbl
             // 
-            this.ssdFreeGBLbl.AutoSize = true;
-            this.ssdFreeGBLbl.Location = new System.Drawing.Point(136, 728);
+            this.ssdFreeGBLbl.Location = new System.Drawing.Point(136, 736);
             this.ssdFreeGBLbl.Name = "ssdFreeGBLbl";
             this.ssdFreeGBLbl.Size = new System.Drawing.Size(40, 13);
             this.ssdFreeGBLbl.TabIndex = 44;
             this.ssdFreeGBLbl.Text = "221.10";
+            this.ssdFreeGBLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // cpuFanLbl
             // 
-            this.cpuFanLbl.Location = new System.Drawing.Point(184, 456);
+            this.cpuFanLbl.Location = new System.Drawing.Point(200, 456);
             this.cpuFanLbl.Name = "cpuFanLbl";
             this.cpuFanLbl.Size = new System.Drawing.Size(31, 13);
             this.cpuFanLbl.TabIndex = 51;
             this.cpuFanLbl.Text = "2100";
+            this.cpuFanLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // gpuFanLbl
             // 
-            this.gpuFanLbl.AutoSize = true;
-            this.gpuFanLbl.Location = new System.Drawing.Point(184, 488);
+            this.gpuFanLbl.Location = new System.Drawing.Point(200, 488);
             this.gpuFanLbl.Name = "gpuFanLbl";
             this.gpuFanLbl.Size = new System.Drawing.Size(31, 13);
             this.gpuFanLbl.TabIndex = 52;
             this.gpuFanLbl.Text = "2100";
+            this.gpuFanLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // hddTempLbl
             // 
-            this.hddTempLbl.AutoSize = true;
-            this.hddTempLbl.Location = new System.Drawing.Point(160, 824);
+            this.hddTempLbl.Location = new System.Drawing.Point(160, 856);
             this.hddTempLbl.Name = "hddTempLbl";
             this.hddTempLbl.Size = new System.Drawing.Size(19, 13);
             this.hddTempLbl.TabIndex = 59;
             this.hddTempLbl.Text = "21";
-            // 
-            // hddUsedPercentLbl
-            // 
-            this.hddUsedPercentLbl.AutoSize = true;
-            this.hddUsedPercentLbl.Location = new System.Drawing.Point(248, 872);
-            this.hddUsedPercentLbl.Name = "hddUsedPercentLbl";
-            this.hddUsedPercentLbl.Size = new System.Drawing.Size(34, 13);
-            this.hddUsedPercentLbl.TabIndex = 58;
-            this.hddUsedPercentLbl.Text = "22.10";
+            this.hddTempLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // hddUsedGBLbl
             // 
-            this.hddUsedGBLbl.AutoSize = true;
-            this.hddUsedGBLbl.Location = new System.Drawing.Point(232, 848);
+            this.hddUsedGBLbl.Location = new System.Drawing.Point(232, 880);
             this.hddUsedGBLbl.Name = "hddUsedGBLbl";
             this.hddUsedGBLbl.Size = new System.Drawing.Size(40, 13);
             this.hddUsedGBLbl.TabIndex = 57;
             this.hddUsedGBLbl.Text = "221.10";
+            this.hddUsedGBLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // hddTotalGBLbl
             // 
-            this.hddTotalGBLbl.AutoSize = true;
-            this.hddTotalGBLbl.Location = new System.Drawing.Point(232, 824);
+            this.hddTotalGBLbl.Location = new System.Drawing.Point(232, 856);
             this.hddTotalGBLbl.Name = "hddTotalGBLbl";
             this.hddTotalGBLbl.Size = new System.Drawing.Size(40, 13);
             this.hddTotalGBLbl.TabIndex = 56;
             this.hddTotalGBLbl.Text = "221.10";
+            this.hddTotalGBLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // hddNameLbl
             // 
             this.hddNameLbl.AutoSize = true;
-            this.hddNameLbl.Location = new System.Drawing.Point(104, 800);
+            this.hddNameLbl.Location = new System.Drawing.Point(8, 824);
             this.hddNameLbl.Name = "hddNameLbl";
             this.hddNameLbl.Size = new System.Drawing.Size(53, 13);
             this.hddNameLbl.TabIndex = 55;
             this.hddNameLbl.Text = "hddName";
             // 
-            // hddFreePercentLbl
-            // 
-            this.hddFreePercentLbl.AutoSize = true;
-            this.hddFreePercentLbl.Location = new System.Drawing.Point(152, 872);
-            this.hddFreePercentLbl.Name = "hddFreePercentLbl";
-            this.hddFreePercentLbl.Size = new System.Drawing.Size(34, 13);
-            this.hddFreePercentLbl.TabIndex = 54;
-            this.hddFreePercentLbl.Text = "22.10";
-            // 
             // hddFreeGBLbl
             // 
-            this.hddFreeGBLbl.AutoSize = true;
-            this.hddFreeGBLbl.Location = new System.Drawing.Point(136, 848);
+            this.hddFreeGBLbl.Location = new System.Drawing.Point(136, 880);
             this.hddFreeGBLbl.Name = "hddFreeGBLbl";
             this.hddFreeGBLbl.Size = new System.Drawing.Size(40, 13);
             this.hddFreeGBLbl.TabIndex = 53;
             this.hddFreeGBLbl.Text = "221.10";
+            this.hddFreeGBLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // wifiBytesSentLbl
             // 
             this.wifiBytesSentLbl.AutoSize = true;
-            this.wifiBytesSentLbl.Location = new System.Drawing.Point(104, 976);
+            this.wifiBytesSentLbl.Location = new System.Drawing.Point(216, 1024);
             this.wifiBytesSentLbl.Name = "wifiBytesSentLbl";
-            this.wifiBytesSentLbl.Size = new System.Drawing.Size(70, 13);
+            this.wifiBytesSentLbl.Size = new System.Drawing.Size(28, 13);
             this.wifiBytesSentLbl.TabIndex = 62;
-            this.wifiBytesSentLbl.Text = "wifiBytesSent";
+            this.wifiBytesSentLbl.Text = "0.00";
+            this.wifiBytesSentLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // wifiBytesRecvLbl
             // 
             this.wifiBytesRecvLbl.AutoSize = true;
-            this.wifiBytesRecvLbl.Location = new System.Drawing.Point(104, 952);
+            this.wifiBytesRecvLbl.Location = new System.Drawing.Point(216, 1000);
             this.wifiBytesRecvLbl.Name = "wifiBytesRecvLbl";
-            this.wifiBytesRecvLbl.Size = new System.Drawing.Size(74, 13);
+            this.wifiBytesRecvLbl.Size = new System.Drawing.Size(28, 13);
             this.wifiBytesRecvLbl.TabIndex = 61;
-            this.wifiBytesRecvLbl.Text = "wifiBytesRecv";
+            this.wifiBytesRecvLbl.Text = "0.00";
+            this.wifiBytesRecvLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // wifiHeaderLbl
             // 
             this.wifiHeaderLbl.AutoSize = true;
-            this.wifiHeaderLbl.Location = new System.Drawing.Point(104, 920);
+            this.wifiHeaderLbl.Location = new System.Drawing.Point(104, 976);
             this.wifiHeaderLbl.Name = "wifiHeaderLbl";
             this.wifiHeaderLbl.Size = new System.Drawing.Size(31, 13);
             this.wifiHeaderLbl.TabIndex = 60;
@@ -735,7 +698,7 @@ namespace DellHardwareMonitor
             // cpuClockHeaderLbl
             // 
             this.cpuClockHeaderLbl.AutoSize = true;
-            this.cpuClockHeaderLbl.Location = new System.Drawing.Point(136, 32);
+            this.cpuClockHeaderLbl.Location = new System.Drawing.Point(144, 40);
             this.cpuClockHeaderLbl.Name = "cpuClockHeaderLbl";
             this.cpuClockHeaderLbl.Size = new System.Drawing.Size(68, 13);
             this.cpuClockHeaderLbl.TabIndex = 63;
@@ -744,7 +707,7 @@ namespace DellHardwareMonitor
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(280, 176);
+            this.label1.Location = new System.Drawing.Point(280, 184);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(18, 13);
             this.label1.TabIndex = 69;
@@ -753,7 +716,7 @@ namespace DellHardwareMonitor
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(280, 152);
+            this.label2.Location = new System.Drawing.Point(280, 160);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(18, 13);
             this.label2.TabIndex = 68;
@@ -762,7 +725,7 @@ namespace DellHardwareMonitor
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(280, 128);
+            this.label3.Location = new System.Drawing.Point(280, 136);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(18, 13);
             this.label3.TabIndex = 67;
@@ -771,7 +734,7 @@ namespace DellHardwareMonitor
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(280, 104);
+            this.label4.Location = new System.Drawing.Point(280, 112);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(18, 13);
             this.label4.TabIndex = 66;
@@ -780,7 +743,7 @@ namespace DellHardwareMonitor
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(280, 80);
+            this.label5.Location = new System.Drawing.Point(280, 88);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(18, 13);
             this.label5.TabIndex = 65;
@@ -789,7 +752,7 @@ namespace DellHardwareMonitor
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(280, 56);
+            this.label6.Location = new System.Drawing.Point(280, 64);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(18, 13);
             this.label6.TabIndex = 64;
@@ -798,7 +761,7 @@ namespace DellHardwareMonitor
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(240, 176);
+            this.label7.Location = new System.Drawing.Point(240, 184);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(15, 13);
             this.label7.TabIndex = 75;
@@ -807,7 +770,7 @@ namespace DellHardwareMonitor
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(240, 152);
+            this.label8.Location = new System.Drawing.Point(240, 160);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(15, 13);
             this.label8.TabIndex = 74;
@@ -816,7 +779,7 @@ namespace DellHardwareMonitor
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(240, 128);
+            this.label9.Location = new System.Drawing.Point(240, 136);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(15, 13);
             this.label9.TabIndex = 73;
@@ -825,7 +788,7 @@ namespace DellHardwareMonitor
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(240, 104);
+            this.label10.Location = new System.Drawing.Point(240, 112);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(15, 13);
             this.label10.TabIndex = 72;
@@ -834,7 +797,7 @@ namespace DellHardwareMonitor
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(240, 80);
+            this.label11.Location = new System.Drawing.Point(240, 88);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(15, 13);
             this.label11.TabIndex = 71;
@@ -843,7 +806,7 @@ namespace DellHardwareMonitor
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(240, 56);
+            this.label12.Location = new System.Drawing.Point(240, 64);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(15, 13);
             this.label12.TabIndex = 70;
@@ -852,7 +815,7 @@ namespace DellHardwareMonitor
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(168, 176);
+            this.label13.Location = new System.Drawing.Point(176, 184);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(28, 13);
             this.label13.TabIndex = 81;
@@ -861,7 +824,7 @@ namespace DellHardwareMonitor
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(168, 152);
+            this.label14.Location = new System.Drawing.Point(176, 160);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(28, 13);
             this.label14.TabIndex = 80;
@@ -870,7 +833,7 @@ namespace DellHardwareMonitor
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(168, 128);
+            this.label15.Location = new System.Drawing.Point(176, 136);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(28, 13);
             this.label15.TabIndex = 79;
@@ -879,7 +842,7 @@ namespace DellHardwareMonitor
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(168, 104);
+            this.label16.Location = new System.Drawing.Point(176, 112);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(28, 13);
             this.label16.TabIndex = 78;
@@ -888,7 +851,7 @@ namespace DellHardwareMonitor
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(168, 80);
+            this.label17.Location = new System.Drawing.Point(176, 88);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(28, 13);
             this.label17.TabIndex = 77;
@@ -897,7 +860,7 @@ namespace DellHardwareMonitor
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(168, 56);
+            this.label18.Location = new System.Drawing.Point(176, 64);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(28, 13);
             this.label18.TabIndex = 76;
@@ -906,7 +869,7 @@ namespace DellHardwareMonitor
             // cpuTotalLoadHeaderLbl
             // 
             this.cpuTotalLoadHeaderLbl.AutoSize = true;
-            this.cpuTotalLoadHeaderLbl.Location = new System.Drawing.Point(8, 176);
+            this.cpuTotalLoadHeaderLbl.Location = new System.Drawing.Point(8, 184);
             this.cpuTotalLoadHeaderLbl.Name = "cpuTotalLoadHeaderLbl";
             this.cpuTotalLoadHeaderLbl.Size = new System.Drawing.Size(58, 13);
             this.cpuTotalLoadHeaderLbl.TabIndex = 82;
@@ -915,7 +878,7 @@ namespace DellHardwareMonitor
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(112, 176);
+            this.label19.Location = new System.Drawing.Point(112, 184);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(15, 13);
             this.label19.TabIndex = 83;
@@ -924,7 +887,7 @@ namespace DellHardwareMonitor
             // cpuPackageTempHeaderLbl
             // 
             this.cpuPackageTempHeaderLbl.AutoSize = true;
-            this.cpuPackageTempHeaderLbl.Location = new System.Drawing.Point(8, 96);
+            this.cpuPackageTempHeaderLbl.Location = new System.Drawing.Point(8, 136);
             this.cpuPackageTempHeaderLbl.Name = "cpuPackageTempHeaderLbl";
             this.cpuPackageTempHeaderLbl.Size = new System.Drawing.Size(80, 13);
             this.cpuPackageTempHeaderLbl.TabIndex = 84;
@@ -933,7 +896,7 @@ namespace DellHardwareMonitor
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(112, 96);
+            this.label20.Location = new System.Drawing.Point(112, 136);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(18, 13);
             this.label20.TabIndex = 85;
@@ -942,7 +905,7 @@ namespace DellHardwareMonitor
             // cpuPackagePwrHeaderLbl
             // 
             this.cpuPackagePwrHeaderLbl.AutoSize = true;
-            this.cpuPackagePwrHeaderLbl.Location = new System.Drawing.Point(8, 136);
+            this.cpuPackagePwrHeaderLbl.Location = new System.Drawing.Point(8, 160);
             this.cpuPackagePwrHeaderLbl.Name = "cpuPackagePwrHeaderLbl";
             this.cpuPackagePwrHeaderLbl.Size = new System.Drawing.Size(37, 13);
             this.cpuPackagePwrHeaderLbl.TabIndex = 86;
@@ -951,7 +914,7 @@ namespace DellHardwareMonitor
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(112, 136);
+            this.label21.Location = new System.Drawing.Point(112, 160);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(18, 13);
             this.label21.TabIndex = 87;
@@ -960,7 +923,7 @@ namespace DellHardwareMonitor
             // cpuFanHeaderLbl
             // 
             this.cpuFanHeaderLbl.AutoSize = true;
-            this.cpuFanHeaderLbl.Location = new System.Drawing.Point(104, 456);
+            this.cpuFanHeaderLbl.Location = new System.Drawing.Point(120, 456);
             this.cpuFanHeaderLbl.Name = "cpuFanHeaderLbl";
             this.cpuFanHeaderLbl.Size = new System.Drawing.Size(50, 13);
             this.cpuFanHeaderLbl.TabIndex = 88;
@@ -969,7 +932,7 @@ namespace DellHardwareMonitor
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(216, 456);
+            this.label22.Location = new System.Drawing.Point(232, 456);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(31, 13);
             this.label22.TabIndex = 89;
@@ -978,7 +941,7 @@ namespace DellHardwareMonitor
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(104, 488);
+            this.label23.Location = new System.Drawing.Point(120, 488);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(51, 13);
             this.label23.TabIndex = 97;
@@ -987,7 +950,7 @@ namespace DellHardwareMonitor
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(144, 248);
+            this.label24.Location = new System.Drawing.Point(8, 344);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(34, 13);
             this.label24.TabIndex = 96;
@@ -996,7 +959,7 @@ namespace DellHardwareMonitor
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(144, 368);
+            this.label25.Location = new System.Drawing.Point(160, 368);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(72, 13);
             this.label25.TabIndex = 95;
@@ -1005,7 +968,7 @@ namespace DellHardwareMonitor
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(144, 344);
+            this.label26.Location = new System.Drawing.Point(160, 344);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(68, 13);
             this.label26.TabIndex = 94;
@@ -1014,7 +977,7 @@ namespace DellHardwareMonitor
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(144, 320);
+            this.label27.Location = new System.Drawing.Point(160, 320);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(71, 13);
             this.label27.TabIndex = 93;
@@ -1023,7 +986,7 @@ namespace DellHardwareMonitor
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(144, 392);
+            this.label28.Location = new System.Drawing.Point(160, 392);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(56, 13);
             this.label28.TabIndex = 92;
@@ -1032,7 +995,7 @@ namespace DellHardwareMonitor
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(144, 296);
+            this.label29.Location = new System.Drawing.Point(8, 392);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(68, 13);
             this.label29.TabIndex = 91;
@@ -1041,7 +1004,7 @@ namespace DellHardwareMonitor
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(144, 272);
+            this.label30.Location = new System.Drawing.Point(8, 368);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(59, 13);
             this.label30.TabIndex = 90;
@@ -1050,7 +1013,7 @@ namespace DellHardwareMonitor
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(272, 248);
+            this.label31.Location = new System.Drawing.Point(120, 344);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(18, 13);
             this.label31.TabIndex = 98;
@@ -1059,7 +1022,7 @@ namespace DellHardwareMonitor
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(264, 272);
+            this.label32.Location = new System.Drawing.Point(112, 368);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(28, 13);
             this.label32.TabIndex = 99;
@@ -1068,7 +1031,7 @@ namespace DellHardwareMonitor
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(264, 296);
+            this.label33.Location = new System.Drawing.Point(112, 392);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(28, 13);
             this.label33.TabIndex = 100;
@@ -1077,7 +1040,7 @@ namespace DellHardwareMonitor
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(216, 488);
+            this.label34.Location = new System.Drawing.Point(232, 488);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(31, 13);
             this.label34.TabIndex = 101;
@@ -1122,7 +1085,7 @@ namespace DellHardwareMonitor
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(120, 624);
+            this.label39.Location = new System.Drawing.Point(160, 624);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(31, 13);
             this.label39.TabIndex = 109;
@@ -1131,7 +1094,7 @@ namespace DellHardwareMonitor
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(120, 592);
+            this.label40.Location = new System.Drawing.Point(160, 576);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(32, 13);
             this.label40.TabIndex = 108;
@@ -1140,7 +1103,7 @@ namespace DellHardwareMonitor
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(120, 576);
+            this.label41.Location = new System.Drawing.Point(160, 552);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(50, 13);
             this.label41.TabIndex = 107;
@@ -1149,7 +1112,7 @@ namespace DellHardwareMonitor
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(120, 608);
+            this.label42.Location = new System.Drawing.Point(160, 600);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(31, 13);
             this.label42.TabIndex = 106;
@@ -1167,7 +1130,7 @@ namespace DellHardwareMonitor
             // label44
             // 
             this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(272, 592);
+            this.label44.Location = new System.Drawing.Point(272, 576);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(22, 13);
             this.label44.TabIndex = 112;
@@ -1176,7 +1139,7 @@ namespace DellHardwareMonitor
             // label45
             // 
             this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(272, 576);
+            this.label45.Location = new System.Drawing.Point(272, 552);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(22, 13);
             this.label45.TabIndex = 111;
@@ -1185,7 +1148,7 @@ namespace DellHardwareMonitor
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(272, 608);
+            this.label46.Location = new System.Drawing.Point(272, 600);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(22, 13);
             this.label46.TabIndex = 110;
@@ -1194,7 +1157,7 @@ namespace DellHardwareMonitor
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(104, 704);
+            this.label47.Location = new System.Drawing.Point(104, 712);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(34, 13);
             this.label47.TabIndex = 119;
@@ -1203,7 +1166,7 @@ namespace DellHardwareMonitor
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(200, 728);
+            this.label49.Location = new System.Drawing.Point(200, 736);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(32, 13);
             this.label49.TabIndex = 117;
@@ -1212,7 +1175,7 @@ namespace DellHardwareMonitor
             // label50
             // 
             this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(200, 704);
+            this.label50.Location = new System.Drawing.Point(200, 712);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(31, 13);
             this.label50.TabIndex = 116;
@@ -1221,7 +1184,7 @@ namespace DellHardwareMonitor
             // label52
             // 
             this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(104, 728);
+            this.label52.Location = new System.Drawing.Point(104, 736);
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(28, 13);
             this.label52.TabIndex = 114;
@@ -1230,7 +1193,7 @@ namespace DellHardwareMonitor
             // label48
             // 
             this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(272, 704);
+            this.label48.Location = new System.Drawing.Point(272, 712);
             this.label48.Name = "label48";
             this.label48.Size = new System.Drawing.Size(22, 13);
             this.label48.TabIndex = 120;
@@ -1239,7 +1202,7 @@ namespace DellHardwareMonitor
             // label51
             // 
             this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(272, 728);
+            this.label51.Location = new System.Drawing.Point(272, 736);
             this.label51.Name = "label51";
             this.label51.Size = new System.Drawing.Size(22, 13);
             this.label51.TabIndex = 121;
@@ -1248,7 +1211,7 @@ namespace DellHardwareMonitor
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(176, 728);
+            this.label53.Location = new System.Drawing.Point(176, 736);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(22, 13);
             this.label53.TabIndex = 122;
@@ -1257,34 +1220,16 @@ namespace DellHardwareMonitor
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(176, 704);
+            this.label54.Location = new System.Drawing.Point(176, 712);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(18, 13);
             this.label54.TabIndex = 123;
             this.label54.Text = "°C";
             // 
-            // label55
-            // 
-            this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(184, 752);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(15, 13);
-            this.label55.TabIndex = 124;
-            this.label55.Text = "%";
-            // 
-            // label56
-            // 
-            this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(280, 752);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(15, 13);
-            this.label56.TabIndex = 125;
-            this.label56.Text = "%";
-            // 
             // label57
             // 
             this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(104, 824);
+            this.label57.Location = new System.Drawing.Point(104, 856);
             this.label57.Name = "label57";
             this.label57.Size = new System.Drawing.Size(34, 13);
             this.label57.TabIndex = 129;
@@ -1293,7 +1238,7 @@ namespace DellHardwareMonitor
             // label58
             // 
             this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(200, 848);
+            this.label58.Location = new System.Drawing.Point(200, 880);
             this.label58.Name = "label58";
             this.label58.Size = new System.Drawing.Size(32, 13);
             this.label58.TabIndex = 128;
@@ -1302,7 +1247,7 @@ namespace DellHardwareMonitor
             // label59
             // 
             this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(200, 824);
+            this.label59.Location = new System.Drawing.Point(200, 856);
             this.label59.Name = "label59";
             this.label59.Size = new System.Drawing.Size(31, 13);
             this.label59.TabIndex = 127;
@@ -1311,25 +1256,16 @@ namespace DellHardwareMonitor
             // label60
             // 
             this.label60.AutoSize = true;
-            this.label60.Location = new System.Drawing.Point(104, 848);
+            this.label60.Location = new System.Drawing.Point(104, 880);
             this.label60.Name = "label60";
             this.label60.Size = new System.Drawing.Size(28, 13);
             this.label60.TabIndex = 126;
             this.label60.Text = "Free";
             // 
-            // label61
-            // 
-            this.label61.AutoSize = true;
-            this.label61.Location = new System.Drawing.Point(280, 872);
-            this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(15, 13);
-            this.label61.TabIndex = 132;
-            this.label61.Text = "%";
-            // 
             // label62
             // 
             this.label62.AutoSize = true;
-            this.label62.Location = new System.Drawing.Point(272, 848);
+            this.label62.Location = new System.Drawing.Point(272, 880);
             this.label62.Name = "label62";
             this.label62.Size = new System.Drawing.Size(22, 13);
             this.label62.TabIndex = 131;
@@ -1338,25 +1274,16 @@ namespace DellHardwareMonitor
             // label63
             // 
             this.label63.AutoSize = true;
-            this.label63.Location = new System.Drawing.Point(272, 824);
+            this.label63.Location = new System.Drawing.Point(272, 856);
             this.label63.Name = "label63";
             this.label63.Size = new System.Drawing.Size(22, 13);
             this.label63.TabIndex = 130;
             this.label63.Text = "GB";
             // 
-            // label64
-            // 
-            this.label64.AutoSize = true;
-            this.label64.Location = new System.Drawing.Point(184, 872);
-            this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(15, 13);
-            this.label64.TabIndex = 135;
-            this.label64.Text = "%";
-            // 
             // label65
             // 
             this.label65.AutoSize = true;
-            this.label65.Location = new System.Drawing.Point(176, 824);
+            this.label65.Location = new System.Drawing.Point(176, 856);
             this.label65.Name = "label65";
             this.label65.Size = new System.Drawing.Size(18, 13);
             this.label65.TabIndex = 134;
@@ -1365,7 +1292,7 @@ namespace DellHardwareMonitor
             // label66
             // 
             this.label66.AutoSize = true;
-            this.label66.Location = new System.Drawing.Point(176, 848);
+            this.label66.Location = new System.Drawing.Point(176, 880);
             this.label66.Name = "label66";
             this.label66.Size = new System.Drawing.Size(22, 13);
             this.label66.TabIndex = 133;
@@ -1374,7 +1301,7 @@ namespace DellHardwareMonitor
             // label67
             // 
             this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(176, 976);
+            this.label67.Location = new System.Drawing.Point(240, 1024);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(23, 13);
             this.label67.TabIndex = 137;
@@ -1383,7 +1310,7 @@ namespace DellHardwareMonitor
             // label68
             // 
             this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(176, 952);
+            this.label68.Location = new System.Drawing.Point(240, 1000);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(23, 13);
             this.label68.TabIndex = 136;
@@ -1398,27 +1325,59 @@ namespace DellHardwareMonitor
             this.pictureBox1.TabIndex = 138;
             this.pictureBox1.TabStop = false;
             // 
+            // ssdProgressBar1
+            // 
+            this.ssdProgressBar1.Location = new System.Drawing.Point(112, 760);
+            this.ssdProgressBar1.Name = "ssdProgressBar1";
+            this.ssdProgressBar1.Size = new System.Drawing.Size(176, 16);
+            this.ssdProgressBar1.TabIndex = 139;
+            // 
+            // hddProgressBar1
+            // 
+            this.hddProgressBar1.Location = new System.Drawing.Point(112, 904);
+            this.hddProgressBar1.Name = "hddProgressBar1";
+            this.hddProgressBar1.Size = new System.Drawing.Size(176, 16);
+            this.hddProgressBar1.TabIndex = 141;
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(120, 1024);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(41, 13);
+            this.label55.TabIndex = 143;
+            this.label55.Text = "Upload";
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Location = new System.Drawing.Point(120, 1000);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(58, 13);
+            this.label56.TabIndex = 142;
+            this.label56.Text = "Download:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(298, 1011);
+            this.ClientSize = new System.Drawing.Size(298, 1048);
+            this.Controls.Add(this.label55);
+            this.Controls.Add(this.label56);
+            this.Controls.Add(this.hddProgressBar1);
+            this.Controls.Add(this.ssdProgressBar1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label67);
             this.Controls.Add(this.label68);
-            this.Controls.Add(this.label64);
             this.Controls.Add(this.label65);
             this.Controls.Add(this.label66);
-            this.Controls.Add(this.label61);
             this.Controls.Add(this.label62);
             this.Controls.Add(this.label63);
             this.Controls.Add(this.label57);
             this.Controls.Add(this.label58);
             this.Controls.Add(this.label59);
             this.Controls.Add(this.label60);
-            this.Controls.Add(this.label56);
-            this.Controls.Add(this.label55);
             this.Controls.Add(this.label54);
             this.Controls.Add(this.label53);
             this.Controls.Add(this.label51);
@@ -1482,20 +1441,16 @@ namespace DellHardwareMonitor
             this.Controls.Add(this.wifiBytesRecvLbl);
             this.Controls.Add(this.wifiHeaderLbl);
             this.Controls.Add(this.hddTempLbl);
-            this.Controls.Add(this.hddUsedPercentLbl);
             this.Controls.Add(this.hddUsedGBLbl);
             this.Controls.Add(this.hddTotalGBLbl);
             this.Controls.Add(this.hddNameLbl);
-            this.Controls.Add(this.hddFreePercentLbl);
             this.Controls.Add(this.hddFreeGBLbl);
             this.Controls.Add(this.gpuFanLbl);
             this.Controls.Add(this.cpuFanLbl);
             this.Controls.Add(this.ssdTempLbl);
-            this.Controls.Add(this.ssdUsedPercentLbl);
             this.Controls.Add(this.ssdUsedGBLbl);
             this.Controls.Add(this.ssdTotalGBLbl);
             this.Controls.Add(this.ssdNameLbl);
-            this.Controls.Add(this.ssdFreePercentLbl);
             this.Controls.Add(this.ssdFreeGBLbl);
             this.Controls.Add(this.ramLoadLbl);
             this.Controls.Add(this.ramUsedLbl);
@@ -1605,20 +1560,16 @@ namespace DellHardwareMonitor
         private System.Windows.Forms.Label ramAvailableLbl;
         private System.Windows.Forms.Label ramTotalLbl;
         private System.Windows.Forms.Label ssdTempLbl;
-        private System.Windows.Forms.Label ssdUsedPercentLbl;
         private System.Windows.Forms.Label ssdUsedGBLbl;
         private System.Windows.Forms.Label ssdTotalGBLbl;
         private System.Windows.Forms.Label ssdNameLbl;
-        private System.Windows.Forms.Label ssdFreePercentLbl;
         private System.Windows.Forms.Label ssdFreeGBLbl;
         private System.Windows.Forms.Label cpuFanLbl;
         private System.Windows.Forms.Label gpuFanLbl;
         private System.Windows.Forms.Label hddTempLbl;
-        private System.Windows.Forms.Label hddUsedPercentLbl;
         private System.Windows.Forms.Label hddUsedGBLbl;
         private System.Windows.Forms.Label hddTotalGBLbl;
         private System.Windows.Forms.Label hddNameLbl;
-        private System.Windows.Forms.Label hddFreePercentLbl;
         private System.Windows.Forms.Label hddFreeGBLbl;
         private System.Windows.Forms.Label wifiBytesSentLbl;
         private System.Windows.Forms.Label wifiBytesRecvLbl;
@@ -1682,21 +1633,21 @@ namespace DellHardwareMonitor
         private System.Windows.Forms.Label label51;
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.Label label54;
-        private System.Windows.Forms.Label label55;
-        private System.Windows.Forms.Label label56;
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.Label label60;
-        private System.Windows.Forms.Label label61;
         private System.Windows.Forms.Label label62;
         private System.Windows.Forms.Label label63;
-        private System.Windows.Forms.Label label64;
         private System.Windows.Forms.Label label65;
         private System.Windows.Forms.Label label66;
         private System.Windows.Forms.Label label67;
         private System.Windows.Forms.Label label68;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ProgressBar ssdProgressBar1;
+        private System.Windows.Forms.ProgressBar hddProgressBar1;
+        private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.Label label56;
     }
 }
 

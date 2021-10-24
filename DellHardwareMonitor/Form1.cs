@@ -50,16 +50,18 @@ namespace DellHardwareMonitor
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Settings.Default.WindowOpacity = 0;
+            Settings.Default.WindowOpacity = 0;
             if (Settings.Default.WindowOpacity == 0)
             {
                 Rectangle screenBounds = Screen.FromControl(this).Bounds;
-                this.Size = new Size(300, (screenBounds.Height - (padding * 3)));
+                this.Size = new Size(315, (screenBounds.Height - (padding * 3)));
                 this.Location = new Point(screenBounds.Width - this.Size.Width + padding, 0);
                 Settings.Default.WindowOpacity = 1;
             }
             else
             {
+                //Console.WriteLine("width: " + Settings.Default.WindowSize.Width + " height: " + Settings.Default.WindowSize.Height);
+                //Console.WriteLine("x: " + Settings.Default.WindowLocation.X + " y: " + Settings.Default.WindowLocation.Y);
                 this.Location = Settings.Default.WindowLocation;
                 this.Size = Settings.Default.WindowSize;
                 this.Opacity = Settings.Default.WindowOpacity;
@@ -113,7 +115,7 @@ namespace DellHardwareMonitor
 
         private void OnExit(object sender, EventArgs e)
         {
-            CleanUp();
+            //CleanUp();
 
             trayIcon.Visible = false;
             trayIcon.Dispose();
@@ -127,10 +129,13 @@ namespace DellHardwareMonitor
             //Console.WriteLine("width: " + Settings.Default.WindowSize.Width + " height: " + Settings.Default.WindowSize.Height);
             //Console.WriteLine("x: " + Settings.Default.WindowLocation.X + " y: " + Settings.Default.WindowLocation.Y);
 
-            Settings.Default.WindowLocation = this.Location;
-            Settings.Default.WindowSize = this.Size;
-            Settings.Default.WindowOpacity = this.Opacity;
-            Settings.Default.Save();
+            if(this.WindowState != FormWindowState.Minimized)
+            {
+                Settings.Default.WindowLocation = this.Location;
+                Settings.Default.WindowSize = this.Size;
+                Settings.Default.WindowOpacity = this.Opacity;
+                Settings.Default.Save();
+            }
 
             if (isDriverLoaded)
             {
@@ -257,9 +262,9 @@ namespace DellHardwareMonitor
             double ssdFreeGB = state.DriveStates[0].Counters[0].NextValue() / 1024d;
             ssdFreeGBLbl.Text = ssdFreeGB.ToString("0.00");
             double ssdFreePercent = state.DriveStates[0].Counters[1].NextValue();
-            ssdFreePercentLbl.Text = ssdFreePercent.ToString("0.00");
+            ssdProgressBar1.Value = (int)ssdFreePercent;
             double ssdUsedPercent = 100d - ssdFreePercent;
-            ssdUsedPercentLbl.Text = ssdUsedPercent.ToString("0.00");
+            ssdProgressBar1.Value = (int)ssdUsedPercent;
             double ssdTotalGB = ssdFreeGB / (ssdFreePercent / 100d);
             ssdTotalGBLbl.Text = ssdTotalGB.ToString("0.00");
             double ssdUsedGB = ssdTotalGB - ssdFreeGB;
@@ -270,9 +275,8 @@ namespace DellHardwareMonitor
             double hddFreeGB = state.DriveStates[1].Counters[0].NextValue() / 1024d;
             hddFreeGBLbl.Text = hddFreeGB.ToString("0.00");
             double hddFreePercent = state.DriveStates[1].Counters[1].NextValue();
-            hddFreePercentLbl.Text = hddFreePercent.ToString("0.00");
             double hddUsedPercent = 100d - hddFreePercent;
-            hddUsedPercentLbl.Text = hddUsedPercent.ToString("0.00");
+            hddProgressBar1.Value = (int)hddUsedPercent; 
             double hddTotalGB = hddFreeGB / (hddFreePercent / 100d);
             hddTotalGBLbl.Text = hddTotalGB.ToString("0.00");
             double hddUsedGB = hddTotalGB - hddFreeGB;

@@ -89,11 +89,11 @@ namespace DellHardwareMonitor
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            Fader.FadeInCustom(form2, Fader.FadeSpeed.Slow, 0.7);
-            Fader.FadeIn(this, Fader.FadeSpeed.Slow);
+            Fader.FadeInCustom(form2, Fader.FadeSpeed.Slowest, 0.8);
+            Fader.FadeIn(this, Fader.FadeSpeed.Slowest);
 
-            form2.BringToFront();
-            this.BringToFront();
+            form2.Activate();
+            this.Activate();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -128,12 +128,14 @@ namespace DellHardwareMonitor
             }
             else
             {
-                for(int i = 1250; i >= 0; i -= 2)
+                form2.Activate();
+                this.Activate();
+
+                for (int i = 1250; i >= 0; i -= 2)
                 {
                     this.Location = new Point(initPos.X, i);
                     form2.Location = new Point(initPos.X, i);
                 }
-                this.BringToFront();
             }
         }
 
@@ -217,8 +219,8 @@ namespace DellHardwareMonitor
 
         private void Form2_MouseClick(object sender, MouseEventArgs e)
         {
-            form2.BringToFront();
-            this.BringToFront();
+            form2.Activate();
+            this.Activate();
         }
 
         #endregion

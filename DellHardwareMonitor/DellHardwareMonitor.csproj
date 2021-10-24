@@ -146,28 +146,28 @@
     <None Include="Resources\wrench.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons8-hdd-80.png" />
+    <None Include="Resources\icons8-fan-64.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons8-memory-slot-80.png" />
+    <None Include="Resources\icons8-graphics-card-64.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons8-motherboard-80.png" />
+    <None Include="Resources\icons8-hard-disk-64.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons8-ssd-80.png" />
+    <None Include="Resources\icons8-processor-64.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons8-video-card-80.png" />
+    <None Include="Resources\icons8-ram-64.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons8-wi-fi-80.png" />
+    <None Include="Resources\icons8-router-64.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\fan.png" />
+    <None Include="Resources\icons8-ssd-drive-64.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ajax-loader.gif" />
+    <None Include="Resources\loading.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

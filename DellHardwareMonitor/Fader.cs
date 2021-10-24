@@ -34,7 +34,7 @@ namespace DellHardwareMonitor
         // (You can alternately use a custom float value)
         public static class FadeSpeed
         {
-            public static readonly float Slowest = 1;
+            public static readonly float Slowest = 5;
             public static readonly float Slower = 10;
             public static readonly float Slow = 25;
             public static readonly float Normal = 50;

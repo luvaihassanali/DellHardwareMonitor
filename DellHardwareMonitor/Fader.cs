@@ -128,6 +128,64 @@ namespace DellHardwareMonitor
             return await showDialogResult.Task;
         }
 
+        private void FadeInCustom(float fadeSpeed, FadeCompleted finished, double opacity)
+        {
+            form.Opacity = 0;
+            form.Show();
+
+            fadeFinished = finished;
+            this.fadeSpeed = fadeSpeed;
+            fadeDirection = FadeDirection.In;
+
+            BeginFadeCustom(opacity);
+        }
+
+        private void BeginFadeCustom(double opacity)
+        {
+            UpdateOpacityCustom(opacity);
+            fadeFinished?.Invoke();
+        }
+
+        private async void UpdateOpacityCustom(double opacity)
+        {
+            if (form.IsDisposed)
+            {
+                return;
+            }
+
+            switch (fadeDirection)
+            {
+                // Fade in
+                case FadeDirection.In:
+                    if (form.Opacity < opacity)
+                        form.Opacity += (fadeSpeed / 1000.0);
+                    else
+                        return;
+
+                    break;
+
+                // Fade out
+                case FadeDirection.Out:
+                    if (form.Opacity > opacity)
+                    {
+                        form.Opacity -= (fadeSpeed / 1000.0);
+                    }
+                    else
+                    {
+                        if (!shouldClose)
+                            form.Hide();
+                        else
+                            form.Close();
+
+                        return;
+                    }
+                    break;
+            }
+
+            await Task.Delay(10);
+            UpdateOpacityCustom(opacity);
+        }
+
         /// <summary>
         /// Fade the form in at the defined speed.
         /// </summary>
@@ -206,6 +264,12 @@ namespace DellHardwareMonitor
         {
             Fader fader = new Fader(form);
             fader.FadeIn(fadeSpeed, null);
+        }
+
+        public static void FadeInCustom(Form form, float fadeSpeed, double opacity)
+        {
+            Fader fader = new Fader(form);
+            fader.FadeInCustom(fadeSpeed, null, opacity);
         }
 
         /// <summary>

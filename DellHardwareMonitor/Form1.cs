@@ -15,7 +15,7 @@ namespace DellHardwareMonitor
         private NotifyIcon trayIcon;
         private ContextMenu trayMenu;
         private HardwareState state;
-
+        private Form form2;
         private const int padding = 10;
         private Rectangle LeftSide { get { return new Rectangle(0, 0, padding, this.ClientSize.Height); } }
 
@@ -45,6 +45,13 @@ namespace DellHardwareMonitor
             pollingTimer = new Timer();
             pollingTimer.Tick += new EventHandler(polling_Tick);
             pollingTimer.Interval = 1000;
+
+            form2 = new Form();
+            form2.FormBorderStyle = FormBorderStyle.None;
+            form2.StartPosition = FormStartPosition.Manual;
+            form2.BackColor = Color.Black;
+            form2.ShowInTaskbar = false;
+            form2.MouseClick += Form2_MouseClick;
         }
 
         #region Form functions
@@ -61,12 +68,14 @@ namespace DellHardwareMonitor
             }
             else
             {
-                //Console.WriteLine("width: " + Settings.Default.WindowSize.Width + " height: " + Settings.Default.WindowSize.Height);
-                //Console.WriteLine("x: " + Settings.Default.WindowLocation.X + " y: " + Settings.Default.WindowLocation.Y);
+
                 this.Location = Settings.Default.WindowLocation;
                 this.Size = Settings.Default.WindowSize;
                 this.Opacity = Settings.Default.WindowOpacity;
             }
+
+            form2.Location = new Point(this.Location.X, this.Location.Y);
+            form2.Size = this.Size;
 
             isDriverLoaded = LoadDriver();
 
@@ -80,7 +89,11 @@ namespace DellHardwareMonitor
 
         private void Form1_Shown(object sender, EventArgs e)
         {
+            Fader.FadeInCustom(form2, Fader.FadeSpeed.Slow, 0.7);
             Fader.FadeIn(this, Fader.FadeSpeed.Slow);
+
+            form2.BringToFront();
+            this.BringToFront();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -110,6 +123,7 @@ namespace DellHardwareMonitor
                 for(int i = 0; i < 1251; i += 2)
                 {
                     this.Location = new Point(initPos.X, i);
+                    form2.Location = new Point(initPos.X, i);
                 }
             }
             else
@@ -117,7 +131,9 @@ namespace DellHardwareMonitor
                 for(int i = 1250; i >= 0; i -= 2)
                 {
                     this.Location = new Point(initPos.X, i);
+                    form2.Location = new Point(initPos.X, i);
                 }
+                this.BringToFront();
             }
         }
 
@@ -197,6 +213,12 @@ namespace DellHardwareMonitor
             {
                 this.Opacity -= 0.05;
             }
+        }
+
+        private void Form2_MouseClick(object sender, MouseEventArgs e)
+        {
+            form2.BringToFront();
+            this.BringToFront();
         }
 
         #endregion
@@ -333,15 +355,6 @@ namespace DellHardwareMonitor
                 pollingTimer.Enabled = true;
                 pollingTimer.Start();
             }));
-
-
-            //Put in polling function? or create initial setup...
-            //worker.ReportProgress(i * 10);
-            //if (worker.CancellationPending == true)
-            //{
-            //    e.Cancel = true;
-            //    break;
-            //}
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

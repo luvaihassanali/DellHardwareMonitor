@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -10,8 +11,7 @@ namespace DellHardwareMonitor
     public partial class Form1 : Form
     {
         private Timer pollingTimer;
-        private bool firstTick;
-        private Boolean isDriverLoaded;
+        private bool isDriverLoaded;
         private NotifyIcon trayIcon;
         private ContextMenu trayMenu;
         private HardwareState state;
@@ -22,6 +22,10 @@ namespace DellHardwareMonitor
         public Form1()
         {
             InitializeComponent();
+
+            backgroundWorker1.WorkerReportsProgress = true;
+            backgroundWorker1.WorkerSupportsCancellation = true;
+            backgroundWorker1.RunWorkerAsync();
 
             this.FormBorderStyle = FormBorderStyle.None;
             this.DoubleBuffered = true;
@@ -38,19 +42,16 @@ namespace DellHardwareMonitor
             trayIcon.Visible = true;
             trayIcon.MouseClick += new MouseEventHandler(trayIcon_Click);
 
-            firstTick = true;
             pollingTimer = new Timer();
             pollingTimer.Tick += new EventHandler(polling_Tick);
-            pollingTimer.Interval = 2000;
-            pollingTimer.Enabled = true;
-            pollingTimer.Start();
+            pollingTimer.Interval = 1000;
         }
 
         #region Form functions
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Settings.Default.WindowOpacity = 0;
+            //Settings.Default.WindowOpacity = 0;
             if (Settings.Default.WindowOpacity == 0)
             {
                 Rectangle screenBounds = Screen.FromControl(this).Bounds;
@@ -77,6 +78,11 @@ namespace DellHardwareMonitor
             }
         }
 
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            Fader.FadeIn(this, Fader.FadeSpeed.Slow);
+        }
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (systemShutdown)
@@ -97,14 +103,21 @@ namespace DellHardwareMonitor
                 return;
             }
 
-            if (this.WindowState == FormWindowState.Normal)
+            Point initPos = this.Location;
+
+            if (this.Location.Y == 0) 
             {
-                this.WindowState = FormWindowState.Minimized;
+                for(int i = 0; i < 1251; i += 2)
+                {
+                    this.Location = new Point(initPos.X, i);
+                }
             }
             else
             {
-                this.WindowState = FormWindowState.Normal;
-                Activate();
+                for(int i = 1250; i >= 0; i -= 2)
+                {
+                    this.Location = new Point(initPos.X, i);
+                }
             }
         }
 
@@ -115,7 +128,11 @@ namespace DellHardwareMonitor
 
         private void OnExit(object sender, EventArgs e)
         {
-            //CleanUp();
+
+            if (backgroundWorker1.IsBusy)
+            {
+                backgroundWorker1.CancelAsync();
+            }
 
             trayIcon.Visible = false;
             trayIcon.Dispose();
@@ -128,8 +145,10 @@ namespace DellHardwareMonitor
         {
             //Console.WriteLine("width: " + Settings.Default.WindowSize.Width + " height: " + Settings.Default.WindowSize.Height);
             //Console.WriteLine("x: " + Settings.Default.WindowLocation.X + " y: " + Settings.Default.WindowLocation.Y);
+            pollingTimer.Stop();
+            pollingTimer.Dispose();
 
-            if(this.WindowState != FormWindowState.Minimized)
+            if(this.Location.Y == 0)
             {
                 Settings.Default.WindowLocation = this.Location;
                 Settings.Default.WindowSize = this.Size;
@@ -179,18 +198,13 @@ namespace DellHardwareMonitor
                 this.Opacity -= 0.05;
             }
         }
+
         #endregion
 
         #region Monitor functions
 
         private void polling_Tick(object sender, EventArgs e)
         {
-            if(firstTick)
-            {
-                Cursor.Current = Cursors.WaitCursor;
-                state = new HardwareState();
-            }
-
             state.CPU.Update(); 
             state.GPU.Update(); 
             state.RAM.Update(); 
@@ -286,12 +300,6 @@ namespace DellHardwareMonitor
             wifiBytesRecvLbl.Text = wifiBytesRecv.ToString("0.00");
             double wifiBytesSent = state.NetworkStates[1].Counters[1].NextValue() / 1048576d;
             wifiBytesSentLbl.Text = wifiBytesSent.ToString("0.00");
-
-            if (firstTick)
-            {
-                Cursor.Current = Cursors.Default;
-                firstTick = false;
-            }
         }
 
         private bool LoadDriver()
@@ -309,10 +317,46 @@ namespace DellHardwareMonitor
             DellSmbiosBzh.Shutdown();
             isDriverLoaded = false;
         }
-    }
 
-    #endregion
+        #endregion
 
+        #region Background worker
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            state = new HardwareState();
+
+            this.Invoke(new MethodInvoker(delegate {
+                polling_Tick(null, null);
+                pollingTimer.Enabled = true;
+                pollingTimer.Start();
+            }));
+
+
+            //Put in polling function? or create initial setup...
+            //worker.ReportProgress(i * 10);
+            //if (worker.CancellationPending == true)
+            //{
+            //    e.Cancel = true;
+            //    break;
+            //}
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            //show all controls 
+            foreach (Control c in this.Controls)
+            {
+                c.Visible = true;
+            }
+            loadingPictureBox.Visible = false;
+        }
+
+        #endregion
+
+    } 
 }
 
 #region Fan control 

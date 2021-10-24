@@ -157,18 +157,21 @@ namespace DellHardwareMonitor
             this.label66 = new System.Windows.Forms.Label();
             this.label67 = new System.Windows.Forms.Label();
             this.label68 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.fanPictureBox = new System.Windows.Forms.PictureBox();
             this.ssdProgressBar1 = new System.Windows.Forms.ProgressBar();
             this.hddProgressBar1 = new System.Windows.Forms.ProgressBar();
             this.label55 = new System.Windows.Forms.Label();
             this.label56 = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.loadingPictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.cpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ramPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ssdPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hddPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wifiPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fanPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loadingPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // cpuPictureBox
@@ -179,6 +182,7 @@ namespace DellHardwareMonitor
             this.cpuPictureBox.Size = new System.Drawing.Size(80, 80);
             this.cpuPictureBox.TabIndex = 1;
             this.cpuPictureBox.TabStop = false;
+            this.cpuPictureBox.Visible = false;
             // 
             // gpuPictureBox
             // 
@@ -188,6 +192,7 @@ namespace DellHardwareMonitor
             this.gpuPictureBox.Size = new System.Drawing.Size(80, 80);
             this.gpuPictureBox.TabIndex = 2;
             this.gpuPictureBox.TabStop = false;
+            this.gpuPictureBox.Visible = false;
             // 
             // ramPictureBox
             // 
@@ -197,6 +202,7 @@ namespace DellHardwareMonitor
             this.ramPictureBox.Size = new System.Drawing.Size(80, 80);
             this.ramPictureBox.TabIndex = 3;
             this.ramPictureBox.TabStop = false;
+            this.ramPictureBox.Visible = false;
             // 
             // ssdPictureBox
             // 
@@ -206,6 +212,7 @@ namespace DellHardwareMonitor
             this.ssdPictureBox.Size = new System.Drawing.Size(80, 80);
             this.ssdPictureBox.TabIndex = 4;
             this.ssdPictureBox.TabStop = false;
+            this.ssdPictureBox.Visible = false;
             // 
             // hddPictureBox
             // 
@@ -215,6 +222,7 @@ namespace DellHardwareMonitor
             this.hddPictureBox.Size = new System.Drawing.Size(80, 80);
             this.hddPictureBox.TabIndex = 5;
             this.hddPictureBox.TabStop = false;
+            this.hddPictureBox.Visible = false;
             // 
             // wifiPictureBox
             // 
@@ -224,6 +232,7 @@ namespace DellHardwareMonitor
             this.wifiPictureBox.Size = new System.Drawing.Size(80, 80);
             this.wifiPictureBox.TabIndex = 6;
             this.wifiPictureBox.TabStop = false;
+            this.wifiPictureBox.Visible = false;
             // 
             // cpuNameLbl
             // 
@@ -233,6 +242,7 @@ namespace DellHardwareMonitor
             this.cpuNameLbl.Size = new System.Drawing.Size(53, 13);
             this.cpuNameLbl.TabIndex = 7;
             this.cpuNameLbl.Text = "cpuName";
+            this.cpuNameLbl.Visible = false;
             // 
             // cpu1LoadLbl
             // 
@@ -242,6 +252,7 @@ namespace DellHardwareMonitor
             this.cpu1LoadLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu1LoadLbl.TabIndex = 8;
             this.cpu1LoadLbl.Text = "2.10";
+            this.cpu1LoadLbl.Visible = false;
             // 
             // cpu2LoadLbl
             // 
@@ -251,6 +262,7 @@ namespace DellHardwareMonitor
             this.cpu2LoadLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu2LoadLbl.TabIndex = 9;
             this.cpu2LoadLbl.Text = "2.10";
+            this.cpu2LoadLbl.Visible = false;
             // 
             // cpu3LoadLbl
             // 
@@ -260,6 +272,7 @@ namespace DellHardwareMonitor
             this.cpu3LoadLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu3LoadLbl.TabIndex = 10;
             this.cpu3LoadLbl.Text = "2.10";
+            this.cpu3LoadLbl.Visible = false;
             // 
             // cpu4LoadLbl
             // 
@@ -269,6 +282,7 @@ namespace DellHardwareMonitor
             this.cpu4LoadLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu4LoadLbl.TabIndex = 11;
             this.cpu4LoadLbl.Text = "2.10";
+            this.cpu4LoadLbl.Visible = false;
             // 
             // cpu5LoadLbl
             // 
@@ -278,6 +292,7 @@ namespace DellHardwareMonitor
             this.cpu5LoadLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu5LoadLbl.TabIndex = 12;
             this.cpu5LoadLbl.Text = "2.10";
+            this.cpu5LoadLbl.Visible = false;
             // 
             // cpu6LoadLbl
             // 
@@ -287,6 +302,7 @@ namespace DellHardwareMonitor
             this.cpu6LoadLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu6LoadLbl.TabIndex = 13;
             this.cpu6LoadLbl.Text = "2.10";
+            this.cpu6LoadLbl.Visible = false;
             // 
             // cpu6TempLbl
             // 
@@ -296,6 +312,7 @@ namespace DellHardwareMonitor
             this.cpu6TempLbl.Size = new System.Drawing.Size(19, 13);
             this.cpu6TempLbl.TabIndex = 19;
             this.cpu6TempLbl.Text = "21";
+            this.cpu6TempLbl.Visible = false;
             // 
             // cpu5TempLbl
             // 
@@ -305,6 +322,7 @@ namespace DellHardwareMonitor
             this.cpu5TempLbl.Size = new System.Drawing.Size(19, 13);
             this.cpu5TempLbl.TabIndex = 18;
             this.cpu5TempLbl.Text = "21";
+            this.cpu5TempLbl.Visible = false;
             // 
             // cpu4TempLbl
             // 
@@ -314,6 +332,7 @@ namespace DellHardwareMonitor
             this.cpu4TempLbl.Size = new System.Drawing.Size(19, 13);
             this.cpu4TempLbl.TabIndex = 17;
             this.cpu4TempLbl.Text = "21";
+            this.cpu4TempLbl.Visible = false;
             // 
             // cpu3TempLbl
             // 
@@ -323,6 +342,7 @@ namespace DellHardwareMonitor
             this.cpu3TempLbl.Size = new System.Drawing.Size(19, 13);
             this.cpu3TempLbl.TabIndex = 16;
             this.cpu3TempLbl.Text = "21";
+            this.cpu3TempLbl.Visible = false;
             // 
             // cpu2TempLbl
             // 
@@ -332,6 +352,7 @@ namespace DellHardwareMonitor
             this.cpu2TempLbl.Size = new System.Drawing.Size(19, 13);
             this.cpu2TempLbl.TabIndex = 15;
             this.cpu2TempLbl.Text = "21";
+            this.cpu2TempLbl.Visible = false;
             // 
             // cpu1TempLbl
             // 
@@ -341,6 +362,7 @@ namespace DellHardwareMonitor
             this.cpu1TempLbl.Size = new System.Drawing.Size(19, 13);
             this.cpu1TempLbl.TabIndex = 14;
             this.cpu1TempLbl.Text = "21";
+            this.cpu1TempLbl.Visible = false;
             // 
             // cpuTempHeaderLbl
             // 
@@ -350,6 +372,7 @@ namespace DellHardwareMonitor
             this.cpuTempHeaderLbl.Size = new System.Drawing.Size(34, 13);
             this.cpuTempHeaderLbl.TabIndex = 21;
             this.cpuTempHeaderLbl.Text = "Temp";
+            this.cpuTempHeaderLbl.Visible = false;
             // 
             // cpuLoadHeaderLbl
             // 
@@ -359,6 +382,7 @@ namespace DellHardwareMonitor
             this.cpuLoadHeaderLbl.TabIndex = 20;
             this.cpuLoadHeaderLbl.Text = "Load";
             this.cpuLoadHeaderLbl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.cpuLoadHeaderLbl.Visible = false;
             // 
             // cpuPackageTempLbl
             // 
@@ -368,6 +392,7 @@ namespace DellHardwareMonitor
             this.cpuPackageTempLbl.Size = new System.Drawing.Size(19, 13);
             this.cpuPackageTempLbl.TabIndex = 23;
             this.cpuPackageTempLbl.Text = "21";
+            this.cpuPackageTempLbl.Visible = false;
             // 
             // cpuTotalLoadLbl
             // 
@@ -377,6 +402,7 @@ namespace DellHardwareMonitor
             this.cpuTotalLoadLbl.Size = new System.Drawing.Size(28, 13);
             this.cpuTotalLoadLbl.TabIndex = 22;
             this.cpuTotalLoadLbl.Text = "2.10";
+            this.cpuTotalLoadLbl.Visible = false;
             // 
             // cpuPackagePwrLbl
             // 
@@ -386,6 +412,7 @@ namespace DellHardwareMonitor
             this.cpuPackagePwrLbl.Size = new System.Drawing.Size(22, 13);
             this.cpuPackagePwrLbl.TabIndex = 24;
             this.cpuPackagePwrLbl.Text = "2.1";
+            this.cpuPackagePwrLbl.Visible = false;
             // 
             // cpu6ClockLbl
             // 
@@ -395,6 +422,7 @@ namespace DellHardwareMonitor
             this.cpu6ClockLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu6ClockLbl.TabIndex = 30;
             this.cpu6ClockLbl.Text = "2.10";
+            this.cpu6ClockLbl.Visible = false;
             // 
             // cpu5ClockLbl
             // 
@@ -404,6 +432,7 @@ namespace DellHardwareMonitor
             this.cpu5ClockLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu5ClockLbl.TabIndex = 29;
             this.cpu5ClockLbl.Text = "2.10";
+            this.cpu5ClockLbl.Visible = false;
             // 
             // cpu4ClockLbl
             // 
@@ -413,6 +442,7 @@ namespace DellHardwareMonitor
             this.cpu4ClockLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu4ClockLbl.TabIndex = 28;
             this.cpu4ClockLbl.Text = "2.10";
+            this.cpu4ClockLbl.Visible = false;
             // 
             // cpu3ClockLbl
             // 
@@ -422,6 +452,7 @@ namespace DellHardwareMonitor
             this.cpu3ClockLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu3ClockLbl.TabIndex = 27;
             this.cpu3ClockLbl.Text = "2.10";
+            this.cpu3ClockLbl.Visible = false;
             // 
             // cpu2ClockLbl
             // 
@@ -431,6 +462,7 @@ namespace DellHardwareMonitor
             this.cpu2ClockLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu2ClockLbl.TabIndex = 26;
             this.cpu2ClockLbl.Text = "2.10";
+            this.cpu2ClockLbl.Visible = false;
             // 
             // cpu1ClockLbl
             // 
@@ -440,6 +472,7 @@ namespace DellHardwareMonitor
             this.cpu1ClockLbl.Size = new System.Drawing.Size(28, 13);
             this.cpu1ClockLbl.TabIndex = 25;
             this.cpu1ClockLbl.Text = "2.10";
+            this.cpu1ClockLbl.Visible = false;
             // 
             // gpuName
             // 
@@ -449,6 +482,7 @@ namespace DellHardwareMonitor
             this.gpuName.Size = new System.Drawing.Size(53, 13);
             this.gpuName.TabIndex = 31;
             this.gpuName.Text = "gpuName";
+            this.gpuName.Visible = false;
             // 
             // gpuTempLbl
             // 
@@ -458,6 +492,7 @@ namespace DellHardwareMonitor
             this.gpuTempLbl.TabIndex = 38;
             this.gpuTempLbl.Text = "35";
             this.gpuTempLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.gpuTempLbl.Visible = false;
             // 
             // gpuMemUsedLbl
             // 
@@ -467,6 +502,7 @@ namespace DellHardwareMonitor
             this.gpuMemUsedLbl.TabIndex = 37;
             this.gpuMemUsedLbl.Text = "2.10";
             this.gpuMemUsedLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.gpuMemUsedLbl.Visible = false;
             // 
             // gpuFreeMemLbl
             // 
@@ -476,6 +512,7 @@ namespace DellHardwareMonitor
             this.gpuFreeMemLbl.TabIndex = 36;
             this.gpuFreeMemLbl.Text = "2.10";
             this.gpuFreeMemLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.gpuFreeMemLbl.Visible = false;
             // 
             // gpuTotalMemLbl
             // 
@@ -485,6 +522,7 @@ namespace DellHardwareMonitor
             this.gpuTotalMemLbl.TabIndex = 35;
             this.gpuTotalMemLbl.Text = "2.10";
             this.gpuTotalMemLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.gpuTotalMemLbl.Visible = false;
             // 
             // gpuCoreLoadLbl
             // 
@@ -494,6 +532,7 @@ namespace DellHardwareMonitor
             this.gpuCoreLoadLbl.TabIndex = 34;
             this.gpuCoreLoadLbl.Text = "2.10";
             this.gpuCoreLoadLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.gpuCoreLoadLbl.Visible = false;
             // 
             // gpuMemClockLbl
             // 
@@ -503,6 +542,7 @@ namespace DellHardwareMonitor
             this.gpuMemClockLbl.TabIndex = 33;
             this.gpuMemClockLbl.Text = "2.10";
             this.gpuMemClockLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.gpuMemClockLbl.Visible = false;
             // 
             // gpuCoreClockLbl
             // 
@@ -512,6 +552,7 @@ namespace DellHardwareMonitor
             this.gpuCoreClockLbl.TabIndex = 32;
             this.gpuCoreClockLbl.Text = "2.10";
             this.gpuCoreClockLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.gpuCoreClockLbl.Visible = false;
             // 
             // ramLoadLbl
             // 
@@ -521,6 +562,7 @@ namespace DellHardwareMonitor
             this.ramLoadLbl.TabIndex = 43;
             this.ramLoadLbl.Text = "22.10";
             this.ramLoadLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.ramLoadLbl.Visible = false;
             // 
             // ramUsedLbl
             // 
@@ -530,6 +572,7 @@ namespace DellHardwareMonitor
             this.ramUsedLbl.TabIndex = 42;
             this.ramUsedLbl.Text = "22.10";
             this.ramUsedLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.ramUsedLbl.Visible = false;
             // 
             // ramHeaderLbl
             // 
@@ -539,6 +582,7 @@ namespace DellHardwareMonitor
             this.ramHeaderLbl.Size = new System.Drawing.Size(31, 13);
             this.ramHeaderLbl.TabIndex = 41;
             this.ramHeaderLbl.Text = "RAM";
+            this.ramHeaderLbl.Visible = false;
             // 
             // ramAvailableLbl
             // 
@@ -548,6 +592,7 @@ namespace DellHardwareMonitor
             this.ramAvailableLbl.TabIndex = 40;
             this.ramAvailableLbl.Text = "22.10";
             this.ramAvailableLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.ramAvailableLbl.Visible = false;
             // 
             // ramTotalLbl
             // 
@@ -557,6 +602,7 @@ namespace DellHardwareMonitor
             this.ramTotalLbl.TabIndex = 39;
             this.ramTotalLbl.Text = "22.10";
             this.ramTotalLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.ramTotalLbl.Visible = false;
             // 
             // ssdTempLbl
             // 
@@ -566,6 +612,7 @@ namespace DellHardwareMonitor
             this.ssdTempLbl.TabIndex = 50;
             this.ssdTempLbl.Text = "21";
             this.ssdTempLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.ssdTempLbl.Visible = false;
             // 
             // ssdUsedGBLbl
             // 
@@ -575,6 +622,7 @@ namespace DellHardwareMonitor
             this.ssdUsedGBLbl.TabIndex = 48;
             this.ssdUsedGBLbl.Text = "221.10";
             this.ssdUsedGBLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.ssdUsedGBLbl.Visible = false;
             // 
             // ssdTotalGBLbl
             // 
@@ -584,6 +632,7 @@ namespace DellHardwareMonitor
             this.ssdTotalGBLbl.TabIndex = 47;
             this.ssdTotalGBLbl.Text = "221.10";
             this.ssdTotalGBLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.ssdTotalGBLbl.Visible = false;
             // 
             // ssdNameLbl
             // 
@@ -593,6 +642,7 @@ namespace DellHardwareMonitor
             this.ssdNameLbl.Size = new System.Drawing.Size(51, 13);
             this.ssdNameLbl.TabIndex = 46;
             this.ssdNameLbl.Text = "ssdName";
+            this.ssdNameLbl.Visible = false;
             // 
             // ssdFreeGBLbl
             // 
@@ -602,6 +652,7 @@ namespace DellHardwareMonitor
             this.ssdFreeGBLbl.TabIndex = 44;
             this.ssdFreeGBLbl.Text = "221.10";
             this.ssdFreeGBLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.ssdFreeGBLbl.Visible = false;
             // 
             // cpuFanLbl
             // 
@@ -611,6 +662,7 @@ namespace DellHardwareMonitor
             this.cpuFanLbl.TabIndex = 51;
             this.cpuFanLbl.Text = "2100";
             this.cpuFanLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.cpuFanLbl.Visible = false;
             // 
             // gpuFanLbl
             // 
@@ -620,6 +672,7 @@ namespace DellHardwareMonitor
             this.gpuFanLbl.TabIndex = 52;
             this.gpuFanLbl.Text = "2100";
             this.gpuFanLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.gpuFanLbl.Visible = false;
             // 
             // hddTempLbl
             // 
@@ -629,6 +682,7 @@ namespace DellHardwareMonitor
             this.hddTempLbl.TabIndex = 59;
             this.hddTempLbl.Text = "21";
             this.hddTempLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.hddTempLbl.Visible = false;
             // 
             // hddUsedGBLbl
             // 
@@ -638,6 +692,7 @@ namespace DellHardwareMonitor
             this.hddUsedGBLbl.TabIndex = 57;
             this.hddUsedGBLbl.Text = "221.10";
             this.hddUsedGBLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.hddUsedGBLbl.Visible = false;
             // 
             // hddTotalGBLbl
             // 
@@ -647,6 +702,7 @@ namespace DellHardwareMonitor
             this.hddTotalGBLbl.TabIndex = 56;
             this.hddTotalGBLbl.Text = "221.10";
             this.hddTotalGBLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.hddTotalGBLbl.Visible = false;
             // 
             // hddNameLbl
             // 
@@ -656,6 +712,7 @@ namespace DellHardwareMonitor
             this.hddNameLbl.Size = new System.Drawing.Size(53, 13);
             this.hddNameLbl.TabIndex = 55;
             this.hddNameLbl.Text = "hddName";
+            this.hddNameLbl.Visible = false;
             // 
             // hddFreeGBLbl
             // 
@@ -665,6 +722,7 @@ namespace DellHardwareMonitor
             this.hddFreeGBLbl.TabIndex = 53;
             this.hddFreeGBLbl.Text = "221.10";
             this.hddFreeGBLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.hddFreeGBLbl.Visible = false;
             // 
             // wifiBytesSentLbl
             // 
@@ -675,6 +733,7 @@ namespace DellHardwareMonitor
             this.wifiBytesSentLbl.TabIndex = 62;
             this.wifiBytesSentLbl.Text = "0.00";
             this.wifiBytesSentLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.wifiBytesSentLbl.Visible = false;
             // 
             // wifiBytesRecvLbl
             // 
@@ -685,6 +744,7 @@ namespace DellHardwareMonitor
             this.wifiBytesRecvLbl.TabIndex = 61;
             this.wifiBytesRecvLbl.Text = "0.00";
             this.wifiBytesRecvLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.wifiBytesRecvLbl.Visible = false;
             // 
             // wifiHeaderLbl
             // 
@@ -694,6 +754,7 @@ namespace DellHardwareMonitor
             this.wifiHeaderLbl.Size = new System.Drawing.Size(31, 13);
             this.wifiHeaderLbl.TabIndex = 60;
             this.wifiHeaderLbl.Text = "Wi-Fi";
+            this.wifiHeaderLbl.Visible = false;
             // 
             // cpuClockHeaderLbl
             // 
@@ -703,6 +764,7 @@ namespace DellHardwareMonitor
             this.cpuClockHeaderLbl.Size = new System.Drawing.Size(68, 13);
             this.cpuClockHeaderLbl.TabIndex = 63;
             this.cpuClockHeaderLbl.Text = "Clock Speed";
+            this.cpuClockHeaderLbl.Visible = false;
             // 
             // label1
             // 
@@ -712,6 +774,7 @@ namespace DellHardwareMonitor
             this.label1.Size = new System.Drawing.Size(18, 13);
             this.label1.TabIndex = 69;
             this.label1.Text = "°C";
+            this.label1.Visible = false;
             // 
             // label2
             // 
@@ -721,6 +784,7 @@ namespace DellHardwareMonitor
             this.label2.Size = new System.Drawing.Size(18, 13);
             this.label2.TabIndex = 68;
             this.label2.Text = "°C";
+            this.label2.Visible = false;
             // 
             // label3
             // 
@@ -730,6 +794,7 @@ namespace DellHardwareMonitor
             this.label3.Size = new System.Drawing.Size(18, 13);
             this.label3.TabIndex = 67;
             this.label3.Text = "°C";
+            this.label3.Visible = false;
             // 
             // label4
             // 
@@ -739,6 +804,7 @@ namespace DellHardwareMonitor
             this.label4.Size = new System.Drawing.Size(18, 13);
             this.label4.TabIndex = 66;
             this.label4.Text = "°C";
+            this.label4.Visible = false;
             // 
             // label5
             // 
@@ -748,6 +814,7 @@ namespace DellHardwareMonitor
             this.label5.Size = new System.Drawing.Size(18, 13);
             this.label5.TabIndex = 65;
             this.label5.Text = "°C";
+            this.label5.Visible = false;
             // 
             // label6
             // 
@@ -757,6 +824,7 @@ namespace DellHardwareMonitor
             this.label6.Size = new System.Drawing.Size(18, 13);
             this.label6.TabIndex = 64;
             this.label6.Text = "°C";
+            this.label6.Visible = false;
             // 
             // label7
             // 
@@ -766,6 +834,7 @@ namespace DellHardwareMonitor
             this.label7.Size = new System.Drawing.Size(15, 13);
             this.label7.TabIndex = 75;
             this.label7.Text = "%";
+            this.label7.Visible = false;
             // 
             // label8
             // 
@@ -775,6 +844,7 @@ namespace DellHardwareMonitor
             this.label8.Size = new System.Drawing.Size(15, 13);
             this.label8.TabIndex = 74;
             this.label8.Text = "%";
+            this.label8.Visible = false;
             // 
             // label9
             // 
@@ -784,6 +854,7 @@ namespace DellHardwareMonitor
             this.label9.Size = new System.Drawing.Size(15, 13);
             this.label9.TabIndex = 73;
             this.label9.Text = "%";
+            this.label9.Visible = false;
             // 
             // label10
             // 
@@ -793,6 +864,7 @@ namespace DellHardwareMonitor
             this.label10.Size = new System.Drawing.Size(15, 13);
             this.label10.TabIndex = 72;
             this.label10.Text = "%";
+            this.label10.Visible = false;
             // 
             // label11
             // 
@@ -802,6 +874,7 @@ namespace DellHardwareMonitor
             this.label11.Size = new System.Drawing.Size(15, 13);
             this.label11.TabIndex = 71;
             this.label11.Text = "%";
+            this.label11.Visible = false;
             // 
             // label12
             // 
@@ -811,6 +884,7 @@ namespace DellHardwareMonitor
             this.label12.Size = new System.Drawing.Size(15, 13);
             this.label12.TabIndex = 70;
             this.label12.Text = "%";
+            this.label12.Visible = false;
             // 
             // label13
             // 
@@ -820,6 +894,7 @@ namespace DellHardwareMonitor
             this.label13.Size = new System.Drawing.Size(28, 13);
             this.label13.TabIndex = 81;
             this.label13.Text = "GHz";
+            this.label13.Visible = false;
             // 
             // label14
             // 
@@ -829,6 +904,7 @@ namespace DellHardwareMonitor
             this.label14.Size = new System.Drawing.Size(28, 13);
             this.label14.TabIndex = 80;
             this.label14.Text = "GHz";
+            this.label14.Visible = false;
             // 
             // label15
             // 
@@ -838,6 +914,7 @@ namespace DellHardwareMonitor
             this.label15.Size = new System.Drawing.Size(28, 13);
             this.label15.TabIndex = 79;
             this.label15.Text = "GHz";
+            this.label15.Visible = false;
             // 
             // label16
             // 
@@ -847,6 +924,7 @@ namespace DellHardwareMonitor
             this.label16.Size = new System.Drawing.Size(28, 13);
             this.label16.TabIndex = 78;
             this.label16.Text = "GHz";
+            this.label16.Visible = false;
             // 
             // label17
             // 
@@ -856,6 +934,7 @@ namespace DellHardwareMonitor
             this.label17.Size = new System.Drawing.Size(28, 13);
             this.label17.TabIndex = 77;
             this.label17.Text = "GHz";
+            this.label17.Visible = false;
             // 
             // label18
             // 
@@ -865,6 +944,7 @@ namespace DellHardwareMonitor
             this.label18.Size = new System.Drawing.Size(28, 13);
             this.label18.TabIndex = 76;
             this.label18.Text = "GHz";
+            this.label18.Visible = false;
             // 
             // cpuTotalLoadHeaderLbl
             // 
@@ -874,6 +954,7 @@ namespace DellHardwareMonitor
             this.cpuTotalLoadHeaderLbl.Size = new System.Drawing.Size(58, 13);
             this.cpuTotalLoadHeaderLbl.TabIndex = 82;
             this.cpuTotalLoadHeaderLbl.Text = "Total Load";
+            this.cpuTotalLoadHeaderLbl.Visible = false;
             // 
             // label19
             // 
@@ -883,6 +964,7 @@ namespace DellHardwareMonitor
             this.label19.Size = new System.Drawing.Size(15, 13);
             this.label19.TabIndex = 83;
             this.label19.Text = "%";
+            this.label19.Visible = false;
             // 
             // cpuPackageTempHeaderLbl
             // 
@@ -892,6 +974,7 @@ namespace DellHardwareMonitor
             this.cpuPackageTempHeaderLbl.Size = new System.Drawing.Size(80, 13);
             this.cpuPackageTempHeaderLbl.TabIndex = 84;
             this.cpuPackageTempHeaderLbl.Text = "Package Temp";
+            this.cpuPackageTempHeaderLbl.Visible = false;
             // 
             // label20
             // 
@@ -901,6 +984,7 @@ namespace DellHardwareMonitor
             this.label20.Size = new System.Drawing.Size(18, 13);
             this.label20.TabIndex = 85;
             this.label20.Text = "°C";
+            this.label20.Visible = false;
             // 
             // cpuPackagePwrHeaderLbl
             // 
@@ -910,6 +994,7 @@ namespace DellHardwareMonitor
             this.cpuPackagePwrHeaderLbl.Size = new System.Drawing.Size(37, 13);
             this.cpuPackagePwrHeaderLbl.TabIndex = 86;
             this.cpuPackagePwrHeaderLbl.Text = "Power";
+            this.cpuPackagePwrHeaderLbl.Visible = false;
             // 
             // label21
             // 
@@ -919,6 +1004,7 @@ namespace DellHardwareMonitor
             this.label21.Size = new System.Drawing.Size(18, 13);
             this.label21.TabIndex = 87;
             this.label21.Text = "W";
+            this.label21.Visible = false;
             // 
             // cpuFanHeaderLbl
             // 
@@ -928,6 +1014,7 @@ namespace DellHardwareMonitor
             this.cpuFanHeaderLbl.Size = new System.Drawing.Size(50, 13);
             this.cpuFanHeaderLbl.TabIndex = 88;
             this.cpuFanHeaderLbl.Text = "CPU Fan";
+            this.cpuFanHeaderLbl.Visible = false;
             // 
             // label22
             // 
@@ -937,6 +1024,7 @@ namespace DellHardwareMonitor
             this.label22.Size = new System.Drawing.Size(31, 13);
             this.label22.TabIndex = 89;
             this.label22.Text = "RPM";
+            this.label22.Visible = false;
             // 
             // label23
             // 
@@ -946,6 +1034,7 @@ namespace DellHardwareMonitor
             this.label23.Size = new System.Drawing.Size(51, 13);
             this.label23.TabIndex = 97;
             this.label23.Text = "GPU Fan";
+            this.label23.Visible = false;
             // 
             // label24
             // 
@@ -955,6 +1044,7 @@ namespace DellHardwareMonitor
             this.label24.Size = new System.Drawing.Size(34, 13);
             this.label24.TabIndex = 96;
             this.label24.Text = "Temp";
+            this.label24.Visible = false;
             // 
             // label25
             // 
@@ -964,6 +1054,7 @@ namespace DellHardwareMonitor
             this.label25.Size = new System.Drawing.Size(72, 13);
             this.label25.TabIndex = 95;
             this.label25.Text = "Used Memory";
+            this.label25.Visible = false;
             // 
             // label26
             // 
@@ -973,6 +1064,7 @@ namespace DellHardwareMonitor
             this.label26.Size = new System.Drawing.Size(68, 13);
             this.label26.TabIndex = 94;
             this.label26.Text = "Free Memory";
+            this.label26.Visible = false;
             // 
             // label27
             // 
@@ -982,6 +1074,7 @@ namespace DellHardwareMonitor
             this.label27.Size = new System.Drawing.Size(71, 13);
             this.label27.TabIndex = 93;
             this.label27.Text = "Total Memory";
+            this.label27.Visible = false;
             // 
             // label28
             // 
@@ -991,6 +1084,7 @@ namespace DellHardwareMonitor
             this.label28.Size = new System.Drawing.Size(56, 13);
             this.label28.TabIndex = 92;
             this.label28.Text = "Core Load";
+            this.label28.Visible = false;
             // 
             // label29
             // 
@@ -1000,6 +1094,7 @@ namespace DellHardwareMonitor
             this.label29.Size = new System.Drawing.Size(68, 13);
             this.label29.TabIndex = 91;
             this.label29.Text = "VRAM Clock";
+            this.label29.Visible = false;
             // 
             // label30
             // 
@@ -1009,6 +1104,7 @@ namespace DellHardwareMonitor
             this.label30.Size = new System.Drawing.Size(59, 13);
             this.label30.TabIndex = 90;
             this.label30.Text = "Core Clock";
+            this.label30.Visible = false;
             // 
             // label31
             // 
@@ -1018,6 +1114,7 @@ namespace DellHardwareMonitor
             this.label31.Size = new System.Drawing.Size(18, 13);
             this.label31.TabIndex = 98;
             this.label31.Text = "°C";
+            this.label31.Visible = false;
             // 
             // label32
             // 
@@ -1027,6 +1124,7 @@ namespace DellHardwareMonitor
             this.label32.Size = new System.Drawing.Size(28, 13);
             this.label32.TabIndex = 99;
             this.label32.Text = "GHz";
+            this.label32.Visible = false;
             // 
             // label33
             // 
@@ -1036,6 +1134,7 @@ namespace DellHardwareMonitor
             this.label33.Size = new System.Drawing.Size(28, 13);
             this.label33.TabIndex = 100;
             this.label33.Text = "GHz";
+            this.label33.Visible = false;
             // 
             // label34
             // 
@@ -1045,6 +1144,7 @@ namespace DellHardwareMonitor
             this.label34.Size = new System.Drawing.Size(31, 13);
             this.label34.TabIndex = 101;
             this.label34.Text = "RPM";
+            this.label34.Visible = false;
             // 
             // label35
             // 
@@ -1054,6 +1154,7 @@ namespace DellHardwareMonitor
             this.label35.Size = new System.Drawing.Size(15, 13);
             this.label35.TabIndex = 102;
             this.label35.Text = "%";
+            this.label35.Visible = false;
             // 
             // label36
             // 
@@ -1063,6 +1164,7 @@ namespace DellHardwareMonitor
             this.label36.Size = new System.Drawing.Size(22, 13);
             this.label36.TabIndex = 103;
             this.label36.Text = "GB";
+            this.label36.Visible = false;
             // 
             // label37
             // 
@@ -1072,6 +1174,7 @@ namespace DellHardwareMonitor
             this.label37.Size = new System.Drawing.Size(22, 13);
             this.label37.TabIndex = 104;
             this.label37.Text = "GB";
+            this.label37.Visible = false;
             // 
             // label38
             // 
@@ -1081,6 +1184,7 @@ namespace DellHardwareMonitor
             this.label38.Size = new System.Drawing.Size(22, 13);
             this.label38.TabIndex = 105;
             this.label38.Text = "GB";
+            this.label38.Visible = false;
             // 
             // label39
             // 
@@ -1090,6 +1194,7 @@ namespace DellHardwareMonitor
             this.label39.Size = new System.Drawing.Size(31, 13);
             this.label39.TabIndex = 109;
             this.label39.Text = "Load";
+            this.label39.Visible = false;
             // 
             // label40
             // 
@@ -1099,6 +1204,7 @@ namespace DellHardwareMonitor
             this.label40.Size = new System.Drawing.Size(32, 13);
             this.label40.TabIndex = 108;
             this.label40.Text = "Used";
+            this.label40.Visible = false;
             // 
             // label41
             // 
@@ -1108,6 +1214,7 @@ namespace DellHardwareMonitor
             this.label41.Size = new System.Drawing.Size(50, 13);
             this.label41.TabIndex = 107;
             this.label41.Text = "Available";
+            this.label41.Visible = false;
             // 
             // label42
             // 
@@ -1117,6 +1224,7 @@ namespace DellHardwareMonitor
             this.label42.Size = new System.Drawing.Size(31, 13);
             this.label42.TabIndex = 106;
             this.label42.Text = "Total";
+            this.label42.Visible = false;
             // 
             // label43
             // 
@@ -1126,6 +1234,7 @@ namespace DellHardwareMonitor
             this.label43.Size = new System.Drawing.Size(22, 13);
             this.label43.TabIndex = 113;
             this.label43.Text = "GB";
+            this.label43.Visible = false;
             // 
             // label44
             // 
@@ -1135,6 +1244,7 @@ namespace DellHardwareMonitor
             this.label44.Size = new System.Drawing.Size(22, 13);
             this.label44.TabIndex = 112;
             this.label44.Text = "GB";
+            this.label44.Visible = false;
             // 
             // label45
             // 
@@ -1144,6 +1254,7 @@ namespace DellHardwareMonitor
             this.label45.Size = new System.Drawing.Size(22, 13);
             this.label45.TabIndex = 111;
             this.label45.Text = "GB";
+            this.label45.Visible = false;
             // 
             // label46
             // 
@@ -1153,6 +1264,7 @@ namespace DellHardwareMonitor
             this.label46.Size = new System.Drawing.Size(22, 13);
             this.label46.TabIndex = 110;
             this.label46.Text = "GB";
+            this.label46.Visible = false;
             // 
             // label47
             // 
@@ -1162,6 +1274,7 @@ namespace DellHardwareMonitor
             this.label47.Size = new System.Drawing.Size(34, 13);
             this.label47.TabIndex = 119;
             this.label47.Text = "Temp";
+            this.label47.Visible = false;
             // 
             // label49
             // 
@@ -1171,6 +1284,7 @@ namespace DellHardwareMonitor
             this.label49.Size = new System.Drawing.Size(32, 13);
             this.label49.TabIndex = 117;
             this.label49.Text = "Used";
+            this.label49.Visible = false;
             // 
             // label50
             // 
@@ -1180,6 +1294,7 @@ namespace DellHardwareMonitor
             this.label50.Size = new System.Drawing.Size(31, 13);
             this.label50.TabIndex = 116;
             this.label50.Text = "Total";
+            this.label50.Visible = false;
             // 
             // label52
             // 
@@ -1189,6 +1304,7 @@ namespace DellHardwareMonitor
             this.label52.Size = new System.Drawing.Size(28, 13);
             this.label52.TabIndex = 114;
             this.label52.Text = "Free";
+            this.label52.Visible = false;
             // 
             // label48
             // 
@@ -1198,6 +1314,7 @@ namespace DellHardwareMonitor
             this.label48.Size = new System.Drawing.Size(22, 13);
             this.label48.TabIndex = 120;
             this.label48.Text = "GB";
+            this.label48.Visible = false;
             // 
             // label51
             // 
@@ -1207,6 +1324,7 @@ namespace DellHardwareMonitor
             this.label51.Size = new System.Drawing.Size(22, 13);
             this.label51.TabIndex = 121;
             this.label51.Text = "GB";
+            this.label51.Visible = false;
             // 
             // label53
             // 
@@ -1216,6 +1334,7 @@ namespace DellHardwareMonitor
             this.label53.Size = new System.Drawing.Size(22, 13);
             this.label53.TabIndex = 122;
             this.label53.Text = "GB";
+            this.label53.Visible = false;
             // 
             // label54
             // 
@@ -1225,6 +1344,7 @@ namespace DellHardwareMonitor
             this.label54.Size = new System.Drawing.Size(18, 13);
             this.label54.TabIndex = 123;
             this.label54.Text = "°C";
+            this.label54.Visible = false;
             // 
             // label57
             // 
@@ -1234,6 +1354,7 @@ namespace DellHardwareMonitor
             this.label57.Size = new System.Drawing.Size(34, 13);
             this.label57.TabIndex = 129;
             this.label57.Text = "Temp";
+            this.label57.Visible = false;
             // 
             // label58
             // 
@@ -1243,6 +1364,7 @@ namespace DellHardwareMonitor
             this.label58.Size = new System.Drawing.Size(32, 13);
             this.label58.TabIndex = 128;
             this.label58.Text = "Used";
+            this.label58.Visible = false;
             // 
             // label59
             // 
@@ -1252,6 +1374,7 @@ namespace DellHardwareMonitor
             this.label59.Size = new System.Drawing.Size(31, 13);
             this.label59.TabIndex = 127;
             this.label59.Text = "Total";
+            this.label59.Visible = false;
             // 
             // label60
             // 
@@ -1261,6 +1384,7 @@ namespace DellHardwareMonitor
             this.label60.Size = new System.Drawing.Size(28, 13);
             this.label60.TabIndex = 126;
             this.label60.Text = "Free";
+            this.label60.Visible = false;
             // 
             // label62
             // 
@@ -1270,6 +1394,7 @@ namespace DellHardwareMonitor
             this.label62.Size = new System.Drawing.Size(22, 13);
             this.label62.TabIndex = 131;
             this.label62.Text = "GB";
+            this.label62.Visible = false;
             // 
             // label63
             // 
@@ -1279,6 +1404,7 @@ namespace DellHardwareMonitor
             this.label63.Size = new System.Drawing.Size(22, 13);
             this.label63.TabIndex = 130;
             this.label63.Text = "GB";
+            this.label63.Visible = false;
             // 
             // label65
             // 
@@ -1288,6 +1414,7 @@ namespace DellHardwareMonitor
             this.label65.Size = new System.Drawing.Size(18, 13);
             this.label65.TabIndex = 134;
             this.label65.Text = "°C";
+            this.label65.Visible = false;
             // 
             // label66
             // 
@@ -1297,6 +1424,7 @@ namespace DellHardwareMonitor
             this.label66.Size = new System.Drawing.Size(22, 13);
             this.label66.TabIndex = 133;
             this.label66.Text = "GB";
+            this.label66.Visible = false;
             // 
             // label67
             // 
@@ -1306,6 +1434,7 @@ namespace DellHardwareMonitor
             this.label67.Size = new System.Drawing.Size(23, 13);
             this.label67.TabIndex = 137;
             this.label67.Text = "MB";
+            this.label67.Visible = false;
             // 
             // label68
             // 
@@ -1315,15 +1444,17 @@ namespace DellHardwareMonitor
             this.label68.Size = new System.Drawing.Size(23, 13);
             this.label68.TabIndex = 136;
             this.label68.Text = "MB";
+            this.label68.Visible = false;
             // 
-            // pictureBox1
+            // fanPictureBox
             // 
-            this.pictureBox1.Image = global::DellHardwareMonitor.Properties.Resources.fan;
-            this.pictureBox1.Location = new System.Drawing.Point(8, 440);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(80, 80);
-            this.pictureBox1.TabIndex = 138;
-            this.pictureBox1.TabStop = false;
+            this.fanPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.fan;
+            this.fanPictureBox.Location = new System.Drawing.Point(8, 440);
+            this.fanPictureBox.Name = "fanPictureBox";
+            this.fanPictureBox.Size = new System.Drawing.Size(80, 80);
+            this.fanPictureBox.TabIndex = 138;
+            this.fanPictureBox.TabStop = false;
+            this.fanPictureBox.Visible = false;
             // 
             // ssdProgressBar1
             // 
@@ -1331,6 +1462,7 @@ namespace DellHardwareMonitor
             this.ssdProgressBar1.Name = "ssdProgressBar1";
             this.ssdProgressBar1.Size = new System.Drawing.Size(176, 16);
             this.ssdProgressBar1.TabIndex = 139;
+            this.ssdProgressBar1.Visible = false;
             // 
             // hddProgressBar1
             // 
@@ -1338,6 +1470,7 @@ namespace DellHardwareMonitor
             this.hddProgressBar1.Name = "hddProgressBar1";
             this.hddProgressBar1.Size = new System.Drawing.Size(176, 16);
             this.hddProgressBar1.TabIndex = 141;
+            this.hddProgressBar1.Visible = false;
             // 
             // label55
             // 
@@ -1347,6 +1480,7 @@ namespace DellHardwareMonitor
             this.label55.Size = new System.Drawing.Size(41, 13);
             this.label55.TabIndex = 143;
             this.label55.Text = "Upload";
+            this.label55.Visible = false;
             // 
             // label56
             // 
@@ -1356,6 +1490,21 @@ namespace DellHardwareMonitor
             this.label56.Size = new System.Drawing.Size(58, 13);
             this.label56.TabIndex = 142;
             this.label56.Text = "Download:";
+            this.label56.Visible = false;
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
+            // loadingPictureBox
+            // 
+            this.loadingPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.loader;
+            this.loadingPictureBox.Location = new System.Drawing.Point(32, 368);
+            this.loadingPictureBox.Name = "loadingPictureBox";
+            this.loadingPictureBox.Size = new System.Drawing.Size(224, 32);
+            this.loadingPictureBox.TabIndex = 145;
+            this.loadingPictureBox.TabStop = false;
             // 
             // Form1
             // 
@@ -1363,11 +1512,12 @@ namespace DellHardwareMonitor
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(298, 1048);
+            this.Controls.Add(this.loadingPictureBox);
             this.Controls.Add(this.label55);
             this.Controls.Add(this.label56);
             this.Controls.Add(this.hddProgressBar1);
             this.Controls.Add(this.ssdProgressBar1);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.fanPictureBox);
             this.Controls.Add(this.label67);
             this.Controls.Add(this.label68);
             this.Controls.Add(this.label65);
@@ -1502,6 +1652,7 @@ namespace DellHardwareMonitor
             this.TransparencyKey = System.Drawing.Color.Silver;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.cpuPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gpuPictureBox)).EndInit();
@@ -1509,7 +1660,8 @@ namespace DellHardwareMonitor
             ((System.ComponentModel.ISupportInitialize)(this.ssdPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hddPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.wifiPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fanPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loadingPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1643,11 +1795,13 @@ namespace DellHardwareMonitor
         private System.Windows.Forms.Label label66;
         private System.Windows.Forms.Label label67;
         private System.Windows.Forms.Label label68;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox fanPictureBox;
         private System.Windows.Forms.ProgressBar ssdProgressBar1;
         private System.Windows.Forms.ProgressBar hddProgressBar1;
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.Label label56;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.PictureBox loadingPictureBox;
     }
 }
 

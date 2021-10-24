@@ -355,7 +355,6 @@ namespace DellHardwareMonitor
         }
 
         #endregion
-
     } 
 }
 

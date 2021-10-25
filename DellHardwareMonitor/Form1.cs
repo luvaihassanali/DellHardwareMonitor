@@ -45,7 +45,7 @@ namespace DellHardwareMonitor
 
             pollingTimer = new Timer();
             pollingTimer.Tick += new EventHandler(polling_Tick);
-            pollingTimer.Interval = 1000;
+            pollingTimer.Interval = 2000;
 
             form2 = new Form();
             form2.FormBorderStyle = FormBorderStyle.None;

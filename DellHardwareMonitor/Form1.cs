@@ -83,7 +83,7 @@ namespace DellHardwareMonitor
 
             if(!isDriverLoaded)
             {
-                MessageBox.Show("Failed to load DellSmbiosBzhLib driver.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to load DellSmbiosBzhLib driver. Check administrator priveleges.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
                 System.Environment.Exit(1);
             }

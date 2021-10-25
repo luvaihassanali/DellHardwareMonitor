@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Net;
 using System.Text.RegularExpressions;
 
 using LibreHardwareMonitor.Hardware;
@@ -25,8 +24,16 @@ namespace DellHardwareMonitor
 
         public HardwareState()
         {
-            localhost = Dns.GetHostEntry(Dns.GetHostName()).AddressList[1].ToString();
-            publicIpAddress = new WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
+            var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    localhost = ip.ToString();
+                    break;
+                }
+            }
+            publicIpAddress = new System.Net.WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
 
             computer = new Computer
             {

@@ -169,5 +169,20 @@
   <ItemGroup>
     <None Include="Resources\loading.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mouse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cleanmgr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\regedit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mycomput.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

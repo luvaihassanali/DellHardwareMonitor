@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -48,6 +49,7 @@ namespace DellHardwareMonitor
 
             form2 = new Form();
             form2.FormBorderStyle = FormBorderStyle.None;
+
             form2.StartPosition = FormStartPosition.Manual;
             form2.BackColor = Color.Black;
             form2.ShowInTaskbar = false;
@@ -109,6 +111,24 @@ namespace DellHardwareMonitor
             trayIcon.Dispose();
         }
 
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.Oemplus)
+            {
+                this.Opacity += 0.05;
+            }
+            if (e.Control && e.KeyCode == Keys.OemMinus)
+            {
+                this.Opacity -= 0.05;
+            }
+        }
+
+        private void Form2_MouseClick(object sender, MouseEventArgs e)
+        {
+            form2.Activate();
+            this.Activate();
+        }
+
         private void trayIcon_Click(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -146,7 +166,6 @@ namespace DellHardwareMonitor
 
         private void OnExit(object sender, EventArgs e)
         {
-
             if (backgroundWorker1.IsBusy)
             {
                 backgroundWorker1.CancelAsync();
@@ -161,8 +180,6 @@ namespace DellHardwareMonitor
 
         private void CleanUp()
         {
-            //Console.WriteLine("width: " + Settings.Default.WindowSize.Width + " height: " + Settings.Default.WindowSize.Height);
-            //Console.WriteLine("x: " + Settings.Default.WindowLocation.X + " y: " + Settings.Default.WindowLocation.Y);
             pollingTimer.Stop();
             pollingTimer.Dispose();
 
@@ -185,7 +202,6 @@ namespace DellHardwareMonitor
             }
         }
 
-        private static int WM_NCHITTEST = 0x84;
         private static int WM_QUERYENDSESSION = 0x11;
         private static bool systemShutdown = false;
         protected override void WndProc(ref Message message)
@@ -196,31 +212,6 @@ namespace DellHardwareMonitor
             }
 
             base.WndProc(ref message);
-
-            if (message.Msg == WM_NCHITTEST)
-            {
-                var cursor = this.PointToClient(Cursor.Position);
-
-                if (LeftSide.Contains(cursor)) message.Result = (IntPtr)10;
-            }
-        }
-
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control && e.KeyCode == Keys.Oemplus)
-            {
-                this.Opacity += 0.05;
-            }
-            if (e.Control && e.KeyCode == Keys.OemMinus)
-            {
-                this.Opacity -= 0.05;
-            }
-        }
-
-        private void Form2_MouseClick(object sender, MouseEventArgs e)
-        {
-            form2.Activate();
-            this.Activate();
         }
 
         #endregion
@@ -324,6 +315,8 @@ namespace DellHardwareMonitor
             wifiBytesRecvLbl.Text = wifiBytesRecv.ToString("0.00");
             double wifiBytesSent = state.NetworkStates[1].Counters[1].NextValue() / 1048576d;
             wifiBytesSentLbl.Text = wifiBytesSent.ToString("0.00");
+            publicIP.Text = state.PublicIpAddress;
+            localhost.Text = state.LocalHost;
         }
 
         private bool LoadDriver()
@@ -361,16 +354,51 @@ namespace DellHardwareMonitor
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            //show all controls 
             foreach (Control c in this.Controls)
             {
                 c.Visible = true;
             }
+
             loadingPictureBox.Visible = false;
         }
 
         #endregion
-    } 
+
+        #region Bottom row buttons
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"C:\Users\luv\Documents\MouseJiggler.exe");
+            label1.Focus();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"C:\Program Files (x86)\WinDirStat\windirstat.exe");
+            label1.Focus();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Process.Start("cleanmgr.exe");
+            label1.Focus();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Process.Start("regedit.exe");
+            label1.Focus();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Process.Start("compmgmt.msc");
+            label1.Focus();
+        }
+
+        #endregion
+
+    }
 }
 
 #region Fan control 

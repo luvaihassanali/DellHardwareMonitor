@@ -165,6 +165,15 @@ namespace DellHardwareMonitor
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.label61 = new System.Windows.Forms.Label();
             this.loadingPictureBox = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label64 = new System.Windows.Forms.Label();
+            this.label69 = new System.Windows.Forms.Label();
+            this.localhost = new System.Windows.Forms.Label();
+            this.publicIP = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.cpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ramPictureBox)).BeginInit();
@@ -179,7 +188,7 @@ namespace DellHardwareMonitor
             // 
             this.cpuPictureBox.BackColor = System.Drawing.SystemColors.ControlDark;
             this.cpuPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.cpu;
-            this.cpuPictureBox.Location = new System.Drawing.Point(32, 32);
+            this.cpuPictureBox.Location = new System.Drawing.Point(24, 32);
             this.cpuPictureBox.Name = "cpuPictureBox";
             this.cpuPictureBox.Size = new System.Drawing.Size(64, 64);
             this.cpuPictureBox.TabIndex = 1;
@@ -189,7 +198,7 @@ namespace DellHardwareMonitor
             // gpuPictureBox
             // 
             this.gpuPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.gpu;
-            this.gpuPictureBox.Location = new System.Drawing.Point(32, 232);
+            this.gpuPictureBox.Location = new System.Drawing.Point(24, 232);
             this.gpuPictureBox.Name = "gpuPictureBox";
             this.gpuPictureBox.Size = new System.Drawing.Size(64, 64);
             this.gpuPictureBox.TabIndex = 2;
@@ -199,7 +208,7 @@ namespace DellHardwareMonitor
             // ramPictureBox
             // 
             this.ramPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.ram;
-            this.ramPictureBox.Location = new System.Drawing.Point(32, 536);
+            this.ramPictureBox.Location = new System.Drawing.Point(24, 536);
             this.ramPictureBox.Name = "ramPictureBox";
             this.ramPictureBox.Size = new System.Drawing.Size(64, 64);
             this.ramPictureBox.TabIndex = 3;
@@ -209,7 +218,7 @@ namespace DellHardwareMonitor
             // ssdPictureBox
             // 
             this.ssdPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.ssd;
-            this.ssdPictureBox.Location = new System.Drawing.Point(32, 664);
+            this.ssdPictureBox.Location = new System.Drawing.Point(24, 664);
             this.ssdPictureBox.Name = "ssdPictureBox";
             this.ssdPictureBox.Size = new System.Drawing.Size(64, 64);
             this.ssdPictureBox.TabIndex = 4;
@@ -219,7 +228,7 @@ namespace DellHardwareMonitor
             // hddPictureBox
             // 
             this.hddPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.hdd;
-            this.hddPictureBox.Location = new System.Drawing.Point(32, 792);
+            this.hddPictureBox.Location = new System.Drawing.Point(24, 792);
             this.hddPictureBox.Name = "hddPictureBox";
             this.hddPictureBox.Size = new System.Drawing.Size(64, 64);
             this.hddPictureBox.TabIndex = 5;
@@ -229,7 +238,7 @@ namespace DellHardwareMonitor
             // wifiPictureBox
             // 
             this.wifiPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.wifi;
-            this.wifiPictureBox.Location = new System.Drawing.Point(32, 920);
+            this.wifiPictureBox.Location = new System.Drawing.Point(24, 920);
             this.wifiPictureBox.Name = "wifiPictureBox";
             this.wifiPictureBox.Size = new System.Drawing.Size(64, 64);
             this.wifiPictureBox.TabIndex = 6;
@@ -561,7 +570,7 @@ namespace DellHardwareMonitor
             // 
             // ramLoadLbl
             // 
-            this.ramLoadLbl.Location = new System.Drawing.Point(232, 584);
+            this.ramLoadLbl.Location = new System.Drawing.Point(232, 592);
             this.ramLoadLbl.Name = "ramLoadLbl";
             this.ramLoadLbl.Size = new System.Drawing.Size(42, 13);
             this.ramLoadLbl.TabIndex = 43;
@@ -571,7 +580,7 @@ namespace DellHardwareMonitor
             // 
             // ramUsedLbl
             // 
-            this.ramUsedLbl.Location = new System.Drawing.Point(232, 536);
+            this.ramUsedLbl.Location = new System.Drawing.Point(232, 544);
             this.ramUsedLbl.Name = "ramUsedLbl";
             this.ramUsedLbl.Size = new System.Drawing.Size(42, 13);
             this.ramUsedLbl.TabIndex = 42;
@@ -591,7 +600,7 @@ namespace DellHardwareMonitor
             // 
             // ramAvailableLbl
             // 
-            this.ramAvailableLbl.Location = new System.Drawing.Point(232, 512);
+            this.ramAvailableLbl.Location = new System.Drawing.Point(232, 520);
             this.ramAvailableLbl.Name = "ramAvailableLbl";
             this.ramAvailableLbl.Size = new System.Drawing.Size(42, 13);
             this.ramAvailableLbl.TabIndex = 40;
@@ -601,7 +610,7 @@ namespace DellHardwareMonitor
             // 
             // ramTotalLbl
             // 
-            this.ramTotalLbl.Location = new System.Drawing.Point(232, 560);
+            this.ramTotalLbl.Location = new System.Drawing.Point(232, 568);
             this.ramTotalLbl.Name = "ramTotalLbl";
             this.ramTotalLbl.Size = new System.Drawing.Size(42, 13);
             this.ramTotalLbl.TabIndex = 39;
@@ -611,7 +620,7 @@ namespace DellHardwareMonitor
             // 
             // ssdTempLbl
             // 
-            this.ssdTempLbl.Location = new System.Drawing.Point(144, 664);
+            this.ssdTempLbl.Location = new System.Drawing.Point(152, 664);
             this.ssdTempLbl.Name = "ssdTempLbl";
             this.ssdTempLbl.Size = new System.Drawing.Size(19, 13);
             this.ssdTempLbl.TabIndex = 50;
@@ -661,7 +670,7 @@ namespace DellHardwareMonitor
             // 
             // cpuFanLbl
             // 
-            this.cpuFanLbl.Location = new System.Drawing.Point(208, 424);
+            this.cpuFanLbl.Location = new System.Drawing.Point(232, 416);
             this.cpuFanLbl.Name = "cpuFanLbl";
             this.cpuFanLbl.Size = new System.Drawing.Size(31, 13);
             this.cpuFanLbl.TabIndex = 51;
@@ -671,7 +680,7 @@ namespace DellHardwareMonitor
             // 
             // gpuFanLbl
             // 
-            this.gpuFanLbl.Location = new System.Drawing.Point(208, 448);
+            this.gpuFanLbl.Location = new System.Drawing.Point(232, 440);
             this.gpuFanLbl.Name = "gpuFanLbl";
             this.gpuFanLbl.Size = new System.Drawing.Size(31, 13);
             this.gpuFanLbl.TabIndex = 52;
@@ -681,7 +690,7 @@ namespace DellHardwareMonitor
             // 
             // hddTempLbl
             // 
-            this.hddTempLbl.Location = new System.Drawing.Point(144, 792);
+            this.hddTempLbl.Location = new System.Drawing.Point(152, 792);
             this.hddTempLbl.Name = "hddTempLbl";
             this.hddTempLbl.Size = new System.Drawing.Size(19, 13);
             this.hddTempLbl.TabIndex = 59;
@@ -732,7 +741,7 @@ namespace DellHardwareMonitor
             // wifiBytesSentLbl
             // 
             this.wifiBytesSentLbl.AutoSize = true;
-            this.wifiBytesSentLbl.Location = new System.Drawing.Point(216, 960);
+            this.wifiBytesSentLbl.Location = new System.Drawing.Point(240, 984);
             this.wifiBytesSentLbl.Name = "wifiBytesSentLbl";
             this.wifiBytesSentLbl.Size = new System.Drawing.Size(31, 13);
             this.wifiBytesSentLbl.TabIndex = 62;
@@ -743,7 +752,7 @@ namespace DellHardwareMonitor
             // wifiBytesRecvLbl
             // 
             this.wifiBytesRecvLbl.AutoSize = true;
-            this.wifiBytesRecvLbl.Location = new System.Drawing.Point(216, 936);
+            this.wifiBytesRecvLbl.Location = new System.Drawing.Point(240, 960);
             this.wifiBytesRecvLbl.Name = "wifiBytesRecvLbl";
             this.wifiBytesRecvLbl.Size = new System.Drawing.Size(31, 13);
             this.wifiBytesRecvLbl.TabIndex = 61;
@@ -1014,7 +1023,7 @@ namespace DellHardwareMonitor
             // cpuFanHeaderLbl
             // 
             this.cpuFanHeaderLbl.AutoSize = true;
-            this.cpuFanHeaderLbl.Location = new System.Drawing.Point(136, 424);
+            this.cpuFanHeaderLbl.Location = new System.Drawing.Point(104, 416);
             this.cpuFanHeaderLbl.Name = "cpuFanHeaderLbl";
             this.cpuFanHeaderLbl.Size = new System.Drawing.Size(25, 13);
             this.cpuFanHeaderLbl.TabIndex = 88;
@@ -1024,7 +1033,7 @@ namespace DellHardwareMonitor
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(240, 424);
+            this.label22.Location = new System.Drawing.Point(264, 416);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(25, 13);
             this.label22.TabIndex = 89;
@@ -1034,7 +1043,7 @@ namespace DellHardwareMonitor
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(136, 448);
+            this.label23.Location = new System.Drawing.Point(104, 440);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(25, 13);
             this.label23.TabIndex = 97;
@@ -1144,7 +1153,7 @@ namespace DellHardwareMonitor
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(240, 448);
+            this.label34.Location = new System.Drawing.Point(264, 440);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(25, 13);
             this.label34.TabIndex = 101;
@@ -1194,7 +1203,7 @@ namespace DellHardwareMonitor
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(160, 584);
+            this.label39.Location = new System.Drawing.Point(104, 592);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(31, 13);
             this.label39.TabIndex = 109;
@@ -1204,7 +1213,7 @@ namespace DellHardwareMonitor
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(160, 536);
+            this.label40.Location = new System.Drawing.Point(104, 544);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(31, 13);
             this.label40.TabIndex = 108;
@@ -1214,7 +1223,7 @@ namespace DellHardwareMonitor
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(160, 512);
+            this.label41.Location = new System.Drawing.Point(104, 520);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(61, 13);
             this.label41.TabIndex = 107;
@@ -1224,7 +1233,7 @@ namespace DellHardwareMonitor
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(160, 560);
+            this.label42.Location = new System.Drawing.Point(104, 568);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(37, 13);
             this.label42.TabIndex = 106;
@@ -1234,7 +1243,7 @@ namespace DellHardwareMonitor
             // label43
             // 
             this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(272, 584);
+            this.label43.Location = new System.Drawing.Point(272, 592);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(19, 13);
             this.label43.TabIndex = 113;
@@ -1244,7 +1253,7 @@ namespace DellHardwareMonitor
             // label44
             // 
             this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(272, 536);
+            this.label44.Location = new System.Drawing.Point(272, 544);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(19, 13);
             this.label44.TabIndex = 112;
@@ -1254,7 +1263,7 @@ namespace DellHardwareMonitor
             // label45
             // 
             this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(272, 512);
+            this.label45.Location = new System.Drawing.Point(272, 520);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(19, 13);
             this.label45.TabIndex = 111;
@@ -1264,7 +1273,7 @@ namespace DellHardwareMonitor
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(272, 560);
+            this.label46.Location = new System.Drawing.Point(272, 568);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(19, 13);
             this.label46.TabIndex = 110;
@@ -1344,7 +1353,7 @@ namespace DellHardwareMonitor
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(160, 664);
+            this.label54.Location = new System.Drawing.Point(168, 664);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(19, 13);
             this.label54.TabIndex = 123;
@@ -1414,7 +1423,7 @@ namespace DellHardwareMonitor
             // label65
             // 
             this.label65.AutoSize = true;
-            this.label65.Location = new System.Drawing.Point(160, 792);
+            this.label65.Location = new System.Drawing.Point(168, 792);
             this.label65.Name = "label65";
             this.label65.Size = new System.Drawing.Size(19, 13);
             this.label65.TabIndex = 134;
@@ -1434,7 +1443,7 @@ namespace DellHardwareMonitor
             // label67
             // 
             this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(248, 960);
+            this.label67.Location = new System.Drawing.Point(272, 984);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(19, 13);
             this.label67.TabIndex = 137;
@@ -1444,7 +1453,7 @@ namespace DellHardwareMonitor
             // label68
             // 
             this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(248, 936);
+            this.label68.Location = new System.Drawing.Point(272, 960);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(19, 13);
             this.label68.TabIndex = 136;
@@ -1454,7 +1463,7 @@ namespace DellHardwareMonitor
             // fanPictureBox
             // 
             this.fanPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.fan;
-            this.fanPictureBox.Location = new System.Drawing.Point(32, 408);
+            this.fanPictureBox.Location = new System.Drawing.Point(24, 408);
             this.fanPictureBox.Name = "fanPictureBox";
             this.fanPictureBox.Size = new System.Drawing.Size(64, 64);
             this.fanPictureBox.TabIndex = 138;
@@ -1480,7 +1489,7 @@ namespace DellHardwareMonitor
             // label55
             // 
             this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(136, 960);
+            this.label55.Location = new System.Drawing.Point(104, 984);
             this.label55.Name = "label55";
             this.label55.Size = new System.Drawing.Size(43, 13);
             this.label55.TabIndex = 143;
@@ -1490,7 +1499,7 @@ namespace DellHardwareMonitor
             // label56
             // 
             this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(136, 936);
+            this.label56.Location = new System.Drawing.Point(104, 960);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(55, 13);
             this.label56.TabIndex = 142;
@@ -1521,12 +1530,151 @@ namespace DellHardwareMonitor
             this.loadingPictureBox.TabIndex = 147;
             this.loadingPictureBox.TabStop = false;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(8, 1024);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(24, 24);
+            this.button1.TabIndex = 148;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(104, 936);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(61, 13);
+            this.label64.TabIndex = 154;
+            this.label64.Text = "Localhost";
+            this.label64.Visible = false;
+            // 
+            // label69
+            // 
+            this.label69.AutoSize = true;
+            this.label69.Location = new System.Drawing.Point(104, 912);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(61, 13);
+            this.label69.TabIndex = 153;
+            this.label69.Text = "Public IP";
+            this.label69.Visible = false;
+            // 
+            // localhost
+            // 
+            this.localhost.Location = new System.Drawing.Point(192, 936);
+            this.localhost.Name = "localhost";
+            this.localhost.Size = new System.Drawing.Size(97, 13);
+            this.localhost.TabIndex = 156;
+            this.localhost.Text = "000.000.000.000";
+            this.localhost.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.localhost.Visible = false;
+            // 
+            // publicIP
+            // 
+            this.publicIP.Location = new System.Drawing.Point(192, 912);
+            this.publicIP.Name = "publicIP";
+            this.publicIP.Size = new System.Drawing.Size(97, 13);
+            this.publicIP.TabIndex = 155;
+            this.publicIP.Text = "000.000.000.000";
+            this.publicIP.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.publicIP.Visible = false;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Transparent;
+            this.button2.BackgroundImage = global::DellHardwareMonitor.Properties.Resources.tree;
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
+            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Location = new System.Drawing.Point(72, 1024);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(24, 24);
+            this.button2.TabIndex = 157;
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Visible = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.Transparent;
+            this.button3.BackgroundImage = global::DellHardwareMonitor.Properties.Resources.cleanmgr;
+            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
+            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Location = new System.Drawing.Point(136, 1024);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(24, 24);
+            this.button3.TabIndex = 159;
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Visible = false;
+            this.button3.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.Transparent;
+            this.button4.BackgroundImage = global::DellHardwareMonitor.Properties.Resources.regedit;
+            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button4.FlatAppearance.BorderSize = 0;
+            this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
+            this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Location = new System.Drawing.Point(200, 1024);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(24, 24);
+            this.button4.TabIndex = 158;
+            this.button4.UseVisualStyleBackColor = false;
+            this.button4.Visible = false;
+            this.button4.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.Color.Transparent;
+            this.button5.BackgroundImage = global::DellHardwareMonitor.Properties.Resources.mycomput;
+            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button5.FlatAppearance.BorderSize = 0;
+            this.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
+            this.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.Location = new System.Drawing.Point(264, 1024);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(24, 24);
+            this.button5.TabIndex = 160;
+            this.button5.UseVisualStyleBackColor = false;
+            this.button5.Visible = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(299, 1054);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.localhost);
+            this.Controls.Add(this.publicIP);
+            this.Controls.Add(this.label64);
+            this.Controls.Add(this.label69);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.loadingPictureBox);
             this.Controls.Add(this.label61);
             this.Controls.Add(this.cpuTotalLoadHeaderLbl);
@@ -1821,6 +1969,15 @@ namespace DellHardwareMonitor
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label label61;
         private System.Windows.Forms.PictureBox loadingPictureBox;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label64;
+        private System.Windows.Forms.Label label69;
+        private System.Windows.Forms.Label localhost;
+        private System.Windows.Forms.Label publicIP;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
     }
 }
 

@@ -164,7 +164,6 @@ namespace DellHardwareMonitor
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.label61 = new System.Windows.Forms.Label();
             this.loadingPictureBox = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.label64 = new System.Windows.Forms.Label();
             this.label69 = new System.Windows.Forms.Label();
             this.localhost = new System.Windows.Forms.Label();
@@ -176,6 +175,7 @@ namespace DellHardwareMonitor
             this.label70 = new System.Windows.Forms.Label();
             this.uploadPictureBox = new System.Windows.Forms.PictureBox();
             this.downloadPictureBox = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.cpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ramPictureBox)).BeginInit();
@@ -1522,24 +1522,6 @@ namespace DellHardwareMonitor
             this.loadingPictureBox.TabIndex = 147;
             this.loadingPictureBox.TabStop = false;
             // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(16, 1024);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(19, 19);
-            this.button1.TabIndex = 148;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Visible = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // label64
             // 
             this.label64.AutoSize = true;
@@ -1682,12 +1664,31 @@ namespace DellHardwareMonitor
             this.downloadPictureBox.TabStop = false;
             this.downloadPictureBox.Visible = false;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.BackgroundImage = global::DellHardwareMonitor.Properties.Resources.mouse;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(16, 1024);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(19, 19);
+            this.button1.TabIndex = 164;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(299, 1054);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.downloadPictureBox);
             this.Controls.Add(this.uploadPictureBox);
             this.Controls.Add(this.label70);
@@ -1699,7 +1700,6 @@ namespace DellHardwareMonitor
             this.Controls.Add(this.publicIP);
             this.Controls.Add(this.label64);
             this.Controls.Add(this.label69);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.loadingPictureBox);
             this.Controls.Add(this.label61);
             this.Controls.Add(this.cpuTotalLoadHeaderLbl);
@@ -1993,7 +1993,6 @@ namespace DellHardwareMonitor
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label label61;
         private System.Windows.Forms.PictureBox loadingPictureBox;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label64;
         private System.Windows.Forms.Label label69;
         private System.Windows.Forms.Label localhost;
@@ -2005,6 +2004,7 @@ namespace DellHardwareMonitor
         private System.Windows.Forms.Label label70;
         private System.Windows.Forms.PictureBox uploadPictureBox;
         private System.Windows.Forms.PictureBox downloadPictureBox;
+        private System.Windows.Forms.Button button1;
     }
 }
 

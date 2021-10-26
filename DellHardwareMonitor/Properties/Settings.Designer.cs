@@ -50,12 +50,24 @@ namespace DellHardwareMonitor.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public double WindowOpacity {
+        public double Opacity {
             get {
-                return ((double)(this["WindowOpacity"]));
+                return ((double)(this["Opacity"]));
             }
             set {
-                this["WindowOpacity"] = value;
+                this["Opacity"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2000")]
+        public int PollingInterval {
+            get {
+                return ((int)(this["PollingInterval"]));
+            }
+            set {
+                this["PollingInterval"] = value;
             }
         }
     }

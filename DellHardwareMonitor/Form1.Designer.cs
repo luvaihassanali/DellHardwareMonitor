@@ -1596,7 +1596,7 @@ namespace DellHardwareMonitor
             this.button3.TabIndex = 159;
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Visible = false;
-            this.button3.Click += new System.EventHandler(this.button4_Click);
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -1614,7 +1614,7 @@ namespace DellHardwareMonitor
             this.button4.TabIndex = 158;
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Visible = false;
-            this.button4.Click += new System.EventHandler(this.button3_Click);
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 

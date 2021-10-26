@@ -24,26 +24,6 @@ namespace DellHardwareMonitor
 
         public HardwareState()
         {
-            var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                {
-                    localhost = ip.ToString();
-                    break;
-                }
-            }
-
-            try
-            {
-                publicIpAddress = new System.Net.WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
-            }
-            catch
-            {
-                publicIpAddress = "NA";
-            }
-            
-
             computer = new Computer
             {
                 IsCpuEnabled = true,

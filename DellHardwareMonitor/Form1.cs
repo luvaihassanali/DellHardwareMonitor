@@ -6,6 +6,7 @@ using System.Windows.Forms;
 
 using DellFanManagement.DellSmbiozBzhLib;
 using DellHardwareMonitor.Properties;
+using log4net;
 
 namespace DellHardwareMonitor
 {
@@ -19,6 +20,7 @@ namespace DellHardwareMonitor
         //private ContextMenuStrip trayMenu2;
         private HardwareState state;
         private Form form2;
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public Form1()
         {
@@ -59,7 +61,7 @@ namespace DellHardwareMonitor
 
             pollingTimer = new Timer();
             pollingTimer.Tick += new EventHandler(polling_Tick);
-            pollingTimer.Interval = 2000;
+            //pollingTimer.Interval = 2000;
 
             form2 = new Form();
             form2.FormBorderStyle = FormBorderStyle.None;
@@ -73,20 +75,23 @@ namespace DellHardwareMonitor
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Settings.Default.WindowOpacity = 0;
-            if (Settings.Default.WindowOpacity == 0)
+            //Log.Info("Starting application");
+            //Settings.Default.Opacity = 0;
+            if (Settings.Default.Opacity == 0)
             {
                 Rectangle screenBounds = Screen.FromControl(this).Bounds;
                 this.Size = new Size(315, (screenBounds.Height - (10 * 3)));
                 this.Location = new Point(screenBounds.Width - this.Size.Width + 10, 0);
                 opacity = 0.7;
+                pollingTimer.Interval = 2000;
             }
             else
             {
 
                 this.Location = Settings.Default.WindowLocation;
                 this.Size = Settings.Default.WindowSize;
-                opacity = Settings.Default.WindowOpacity;
+                opacity = Settings.Default.Opacity;
+                pollingTimer.Interval = Settings.Default.PollingInterval;
             }
 
             form2.Location = new Point(this.Location.X, this.Location.Y);
@@ -107,12 +112,13 @@ namespace DellHardwareMonitor
             Fader.FadeInCustom(form2, Fader.FadeSpeed.Slowest, opacity);
             Fader.FadeIn(this, Fader.FadeSpeed.Slowest);
 
-            form2.BringToFront();
-            this.BringToFront();
+            form2.Activate();
+            this.Activate();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //Log.Info("Closing application");
             if (systemShutdown)
             {
                 CleanUp();
@@ -126,8 +132,8 @@ namespace DellHardwareMonitor
 
         private void Form2_MouseClick(object sender, MouseEventArgs e)
         {
-            form2.BringToFront();
-            this.BringToFront();
+            form2.Activate();
+            this.Activate();
         }
 
         private void trayIcon_Click(object sender, MouseEventArgs e)
@@ -149,8 +155,8 @@ namespace DellHardwareMonitor
             }
             else
             {
-                form2.BringToFront();
-                this.BringToFront();
+                form2.Activate();
+                this.Activate();
 
                 for (int i = 1250; i >= 0; i -= 2)
                 {
@@ -181,16 +187,19 @@ namespace DellHardwareMonitor
 
         private void CleanUp()
         {
-            pollingTimer.Stop();
-            pollingTimer.Dispose();
 
-            if(this.Location.Y == 0)
+            if (this.Location.Y == 0)
             {
                 Settings.Default.WindowLocation = this.Location;
                 Settings.Default.WindowSize = this.Size;
-                Settings.Default.WindowOpacity = form2.Opacity;
-                Settings.Default.Save();
             }
+            Settings.Default.PollingInterval = pollingTimer.Interval;
+            Settings.Default.Opacity = form2.Opacity;
+            Settings.Default.Save();
+            
+
+            pollingTimer.Stop();
+            pollingTimer.Dispose();
 
             if (isDriverLoaded)
             {
@@ -346,8 +355,27 @@ namespace DellHardwareMonitor
             {
                 uploadPictureBox.Visible = false;
             }
-            publicIP.Text = state.PublicIpAddress;
-            localhost.Text = state.LocalHost;
+
+            var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
+            foreach (var ipAddr in host.AddressList)
+            {
+                if (ipAddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    localhost.Text = ipAddr.ToString();
+                    break;
+                }
+            }
+
+            try
+            {
+                publicIP.Text = new System.Net.WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
+                //Log.Info("Ping good");
+            }
+            catch
+            {
+                publicIP.Text = "NA";
+                Log.Error("Failed network ping");
+            }
         }
 
         private bool LoadDriver()
@@ -430,6 +458,21 @@ namespace DellHardwareMonitor
         }
 
         #endregion
+    }
+
+    public class NoEmptyRollingFileAppender : log4net.Appender.RollingFileAppender
+    {
+        private bool firstRun = true;
+        
+        protected override void OpenFile(string fileName, bool append)
+        {
+            if(firstRun)
+            {
+                firstRun = false;
+                return;
+            }
+            base.OpenFile(fileName, append);
+        }
     }
 }
 

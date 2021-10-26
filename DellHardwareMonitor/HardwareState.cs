@@ -33,7 +33,16 @@ namespace DellHardwareMonitor
                     break;
                 }
             }
-            publicIpAddress = new System.Net.WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
+
+            try
+            {
+                publicIpAddress = new System.Net.WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
+            }
+            catch
+            {
+                publicIpAddress = "NA";
+            }
+            
 
             computer = new Computer
             {

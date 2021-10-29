@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -51,7 +50,6 @@ namespace DellHardwareMonitor
             menuStrip.Dock = DockStyle.Top;
             toolStripMenuItem.DropDown = trayMenu2;*/
             
-
             trayIcon = new NotifyIcon();
             trayIcon.Text = "DellHardwareMonitor";
             trayIcon.Icon = Resources.wrench;
@@ -61,7 +59,6 @@ namespace DellHardwareMonitor
 
             pollingTimer = new Timer();
             pollingTimer.Tick += new EventHandler(polling_Tick);
-            //pollingTimer.Interval = 2000;
 
             form2 = new Form();
             form2.FormBorderStyle = FormBorderStyle.None;
@@ -75,7 +72,6 @@ namespace DellHardwareMonitor
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Log.Info("Starting application");
             //Settings.Default.Opacity = 0;
             if (Settings.Default.Opacity == 0)
             {
@@ -118,7 +114,6 @@ namespace DellHardwareMonitor
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //Log.Info("Closing application");
             if (systemShutdown)
             {
                 CleanUp();
@@ -244,14 +239,44 @@ namespace DellHardwareMonitor
 
         private void polling_Tick(object sender, EventArgs e)
         {
-            state.CPU.Update(); 
-            state.GPU.Update(); 
-            state.RAM.Update(); 
-            state.SSD.Update(); 
-            state.HDD.Update(); 
+            //update libre hardware monitor hardware items
+            state.CPU.Update();
+            state.GPU.Update();
+            state.RAM.Update();
+            state.SSD.Update();
+            state.HDD.Update();
             state.WiFi.Update();
 
-            cpuNameLbl.Text = state.CPU.Name;
+            //first tick manually called with null parameter
+            //do not expect these values to change
+            if (sender == null)
+            {
+                var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
+                foreach (var ipAddr in host.AddressList)
+                {
+                    if (ipAddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    {
+                        localhost.Text = ipAddr.ToString();
+                        break;
+                    }
+                }
+
+                //if not connected to internet app will crash
+                try
+                {
+                    publicIP.Text = new System.Net.WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
+                }
+                catch
+                {
+                    publicIP.Text = "NA";
+                }
+
+                cpuNameLbl.Text = state.CPU.Name;
+                gpuName.Text = state.GPU.Name;
+                ssdNameLbl.Text = state.SSD.Name;
+                hddNameLbl.Text = state.HDD.Name;
+            }
+            
             float cpuOneLoad = (float) state.CPU.Sensors[0].Value;
             cpu1LoadLbl.Text = cpuOneLoad.ToString("0");
             float cpuTwoLoad = (float)state.CPU.Sensors[1].Value;
@@ -287,8 +312,7 @@ namespace DellHardwareMonitor
             cpu6ClockLbl.Text = cpuSixClock.ToString("0");
             float cpuPackagePower = (float)state.CPU.Sensors[28].Value;
             cpuPackagePwrLbl.Text = cpuPackagePower.ToString("0.00");
-            
-            gpuName.Text = state.GPU.Name;
+               
             gpuTempLbl.Text = state.GPU.Sensors[0].Value.ToString();
             gpuCoreClockLbl.Text = (state.GPU.Sensors[1].Value).Value.ToString("0");
             gpuMemClockLbl.Text = (state.GPU.Sensors[2].Value).Value.ToString("0");
@@ -310,7 +334,6 @@ namespace DellHardwareMonitor
             float memoryLoad = (float)state.RAM.Sensors[2].Value;
             ramLoadLbl.Text = memoryLoad.ToString("0");
 
-            ssdNameLbl.Text = state.SSD.Name;
             ssdTempLbl.Text = state.SSD.Sensors[0].Value.ToString();
             double ssdFreeGB = state.DriveStates[0].Counters[0].NextValue() / 1024d;
             ssdFreeGBLbl.Text = ssdFreeGB.ToString("0");
@@ -323,7 +346,6 @@ namespace DellHardwareMonitor
             double ssdUsedGB = ssdTotalGB - ssdFreeGB;
             ssdUsedGBLbl.Text = ssdUsedGB.ToString("0");
 
-            hddNameLbl.Text = state.HDD.Name;
             hddTempLbl.Text = state.HDD.Sensors[0].Value.ToString();
             double hddFreeGB = state.DriveStates[1].Counters[0].NextValue() / 1024d;
             hddFreeGBLbl.Text = hddFreeGB.ToString("0");
@@ -345,6 +367,7 @@ namespace DellHardwareMonitor
             {
                 downloadPictureBox.Visible = false;
             }
+
             double wifiBytesSent = state.NetworkStates[1].Counters[1].NextValue() / 1048576d;
             wifiBytesSentLbl.Text = wifiBytesSent.ToString("0.00");
             if(wifiBytesSent > 0.01)
@@ -354,27 +377,6 @@ namespace DellHardwareMonitor
             else
             {
                 uploadPictureBox.Visible = false;
-            }
-
-            var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
-            foreach (var ipAddr in host.AddressList)
-            {
-                if (ipAddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                {
-                    localhost.Text = ipAddr.ToString();
-                    break;
-                }
-            }
-
-            try
-            {
-                publicIP.Text = new System.Net.WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
-                //Log.Info("Ping good");
-            }
-            catch
-            {
-                publicIP.Text = "NA";
-                Log.Error("Failed network ping");
             }
         }
 
@@ -429,31 +431,31 @@ namespace DellHardwareMonitor
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Process.Start(@"C:\Users\luv\Documents\MouseJiggler.exe");
+            System.Diagnostics.Process.Start(@"C:\Users\luv\Documents\MouseJiggler.exe");
             label1.Focus();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Process.Start(@"C:\Program Files (x86)\WinDirStat\windirstat.exe");
+            System.Diagnostics.Process.Start(@"C:\Program Files (x86)\WinDirStat\windirstat.exe");
             label1.Focus();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Process.Start("cleanmgr.exe");
+            System.Diagnostics.Process.Start("cleanmgr.exe");
             label1.Focus();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Process.Start("regedit.exe");
+            System.Diagnostics.Process.Start("regedit.exe");
             label1.Focus();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Process.Start("compmgmt.msc");
+            System.Diagnostics.Process.Start("compmgmt.msc");
             label1.Focus();
         }
 

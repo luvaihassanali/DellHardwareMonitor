@@ -17,6 +17,7 @@ namespace DellHardwareMonitor
         private NotifyIcon trayIcon;
         private Timer pollingTimer;
         private Timer timeTimer;
+        private DateTime today;
         private bool isConnectedToInternet = true;
         private ContextMenu trayMenu;
         //private ContextMenuStrip trayMenu2;
@@ -235,8 +236,10 @@ namespace DellHardwareMonitor
                 form2.Opacity -= 0.05;
                 return true;
             }
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
         #endregion
 
         #region Monitor functions
@@ -248,16 +251,16 @@ namespace DellHardwareMonitor
                 try
                 {
                     string apiCall = new System.Net.WebClient().DownloadString("https://worldtimeapi.org/api/timezone/America/Toronto.txt");
-                    string dateTime = apiCall.Split('\n')[2];
-                    dateTime = dateTime.Replace("datetime: ", "");
-                    DateTime dt = DateTime.Parse(dateTime);
-                    string[] time = dt.ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture("en-us")).Split();
-                    timeLbl.Text = time[0] + "\n" + time[1] + " " + time[2];
+                    string dateString = apiCall.Split('\n')[2];
+                    dateString = dateString.Replace("datetime: ", "");
+                    today = DateTime.Parse(dateString);
+                    string time = today.ToString("T", System.Globalization.CultureInfo.CreateSpecificCulture("en-us"));
+                    timeBtn.Text = time;
                 }
                 catch (System.Net.WebException ex)
                 {
                     Log.Info("Network failure: " + ex.Message);
-                    timeLbl.Text = "N/A";
+                    timeBtn.Text = "N/A";
                     isConnectedToInternet = false;
                 }
             }
@@ -455,6 +458,7 @@ namespace DellHardwareMonitor
             loadingPictureBox.Visible = false;
             uploadPictureBox.Visible = false;
             downloadPictureBox.Visible = false;
+            monthCalendar1.Visible = false;
         }
 
         #endregion
@@ -491,7 +495,20 @@ namespace DellHardwareMonitor
             label1.Focus();
         }
 
+        private void timeBtn_Click(object sender, EventArgs e)
+        {
+            if(monthCalendar1.Visible)
+            {
+                monthCalendar1.Visible = false;
+            } 
+            else
+            {
+                monthCalendar1.Visible = true;
+            }
+        }
+
         #endregion
+
     }
 
     public class NoEmptyRollingFileAppender : log4net.Appender.RollingFileAppender

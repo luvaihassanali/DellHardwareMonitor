@@ -176,7 +176,8 @@ namespace DellHardwareMonitor
             this.uploadPictureBox = new System.Windows.Forms.PictureBox();
             this.downloadPictureBox = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.timeLbl = new System.Windows.Forms.Label();
+            this.timeBtn = new System.Windows.Forms.Button();
+            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             ((System.ComponentModel.ISupportInitialize)(this.cpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ramPictureBox)).BeginInit();
@@ -1568,12 +1569,13 @@ namespace DellHardwareMonitor
             this.button2.BackColor = System.Drawing.Color.Transparent;
             this.button2.BackgroundImage = global::DellHardwareMonitor.Properties.Resources.tree;
             this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(56, 1024);
+            this.button2.Location = new System.Drawing.Point(48, 1024);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(19, 19);
             this.button2.TabIndex = 157;
@@ -1586,12 +1588,13 @@ namespace DellHardwareMonitor
             this.button3.BackColor = System.Drawing.Color.Transparent;
             this.button3.BackgroundImage = global::DellHardwareMonitor.Properties.Resources.cleanmgr;
             this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(96, 1024);
+            this.button3.Location = new System.Drawing.Point(88, 1024);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(19, 19);
             this.button3.TabIndex = 159;
@@ -1604,12 +1607,13 @@ namespace DellHardwareMonitor
             this.button4.BackColor = System.Drawing.Color.Transparent;
             this.button4.BackgroundImage = global::DellHardwareMonitor.Properties.Resources.regedit;
             this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(136, 1024);
+            this.button4.Location = new System.Drawing.Point(128, 1024);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(19, 19);
             this.button4.TabIndex = 158;
@@ -1622,12 +1626,13 @@ namespace DellHardwareMonitor
             this.button5.BackColor = System.Drawing.Color.Transparent;
             this.button5.BackgroundImage = global::DellHardwareMonitor.Properties.Resources.mycomput;
             this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button5.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.button5.FlatAppearance.BorderSize = 0;
             this.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Location = new System.Drawing.Point(176, 1024);
+            this.button5.Location = new System.Drawing.Point(168, 1024);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(19, 19);
             this.button5.TabIndex = 160;
@@ -1670,12 +1675,13 @@ namespace DellHardwareMonitor
             this.button1.BackColor = System.Drawing.Color.Transparent;
             this.button1.BackgroundImage = global::DellHardwareMonitor.Properties.Resources.mouse;
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(16, 1024);
+            this.button1.Location = new System.Drawing.Point(8, 1024);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(19, 19);
             this.button1.TabIndex = 164;
@@ -1683,16 +1689,34 @@ namespace DellHardwareMonitor
             this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // timeLbl
+            // timeBtn
             // 
-            this.timeLbl.AutoSize = true;
-            this.timeLbl.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeLbl.Location = new System.Drawing.Point(224, 1016);
-            this.timeLbl.Name = "timeLbl";
-            this.timeLbl.Size = new System.Drawing.Size(189, 15);
-            this.timeLbl.TabIndex = 165;
-            this.timeLbl.Text = "10/29/2021, 20218:30:ss PM";
-            this.timeLbl.Visible = false;
+            this.timeBtn.AutoSize = true;
+            this.timeBtn.BackColor = System.Drawing.Color.Transparent;
+            this.timeBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.timeBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.timeBtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.timeBtn.FlatAppearance.BorderSize = 0;
+            this.timeBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
+            this.timeBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.timeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.timeBtn.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeBtn.Location = new System.Drawing.Point(200, 1016);
+            this.timeBtn.Name = "timeBtn";
+            this.timeBtn.Size = new System.Drawing.Size(106, 32);
+            this.timeBtn.TabIndex = 165;
+            this.timeBtn.Text = "12:30:00 AM";
+            this.timeBtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.timeBtn.UseVisualStyleBackColor = false;
+            this.timeBtn.Visible = false;
+            this.timeBtn.Click += new System.EventHandler(this.timeBtn_Click);
+            // 
+            // monthCalendar1
+            // 
+            this.monthCalendar1.Location = new System.Drawing.Point(72, 856);
+            this.monthCalendar1.Name = "monthCalendar1";
+            this.monthCalendar1.TabIndex = 166;
+            this.monthCalendar1.Visible = false;
             // 
             // Form1
             // 
@@ -1700,7 +1724,8 @@ namespace DellHardwareMonitor
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(299, 1054);
-            this.Controls.Add(this.timeLbl);
+            this.Controls.Add(this.monthCalendar1);
+            this.Controls.Add(this.timeBtn);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.downloadPictureBox);
             this.Controls.Add(this.uploadPictureBox);
@@ -2018,7 +2043,8 @@ namespace DellHardwareMonitor
         private System.Windows.Forms.PictureBox uploadPictureBox;
         private System.Windows.Forms.PictureBox downloadPictureBox;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label timeLbl;
+        private System.Windows.Forms.Button timeBtn;
+        private System.Windows.Forms.MonthCalendar monthCalendar1;
     }
 }
 

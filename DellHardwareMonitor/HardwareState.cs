@@ -77,7 +77,7 @@ namespace DellHardwareMonitor
             int index = 0; 
             foreach(string instance in allDriveInstances)
             {
-                if(driveRegex.IsMatch(instance))
+                if(driveRegex.IsMatch(instance) && !instance.Equals("E:"))
                 {
                     driveInstances[index] = instance;
                     index++;

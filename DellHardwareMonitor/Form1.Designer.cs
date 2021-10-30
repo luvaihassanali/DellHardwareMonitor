@@ -176,6 +176,7 @@ namespace DellHardwareMonitor
             this.uploadPictureBox = new System.Windows.Forms.PictureBox();
             this.downloadPictureBox = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.timeLbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.cpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ramPictureBox)).BeginInit();
@@ -1572,7 +1573,7 @@ namespace DellHardwareMonitor
             this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(80, 1024);
+            this.button2.Location = new System.Drawing.Point(56, 1024);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(19, 19);
             this.button2.TabIndex = 157;
@@ -1590,7 +1591,7 @@ namespace DellHardwareMonitor
             this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(144, 1024);
+            this.button3.Location = new System.Drawing.Point(96, 1024);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(19, 19);
             this.button3.TabIndex = 159;
@@ -1608,7 +1609,7 @@ namespace DellHardwareMonitor
             this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(208, 1024);
+            this.button4.Location = new System.Drawing.Point(136, 1024);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(19, 19);
             this.button4.TabIndex = 158;
@@ -1626,7 +1627,7 @@ namespace DellHardwareMonitor
             this.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Location = new System.Drawing.Point(272, 1024);
+            this.button5.Location = new System.Drawing.Point(176, 1024);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(19, 19);
             this.button5.TabIndex = 160;
@@ -1682,12 +1683,24 @@ namespace DellHardwareMonitor
             this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // timeLbl
+            // 
+            this.timeLbl.AutoSize = true;
+            this.timeLbl.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeLbl.Location = new System.Drawing.Point(224, 1016);
+            this.timeLbl.Name = "timeLbl";
+            this.timeLbl.Size = new System.Drawing.Size(189, 15);
+            this.timeLbl.TabIndex = 165;
+            this.timeLbl.Text = "10/29/2021, 20218:30:ss PM";
+            this.timeLbl.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(299, 1054);
+            this.Controls.Add(this.timeLbl);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.downloadPictureBox);
             this.Controls.Add(this.uploadPictureBox);
@@ -2005,6 +2018,7 @@ namespace DellHardwareMonitor
         private System.Windows.Forms.PictureBox uploadPictureBox;
         private System.Windows.Forms.PictureBox downloadPictureBox;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label timeLbl;
     }
 }
 

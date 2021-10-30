@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Configuration;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -15,6 +16,8 @@ namespace DellHardwareMonitor
         private bool isDriverLoaded;
         private NotifyIcon trayIcon;
         private Timer pollingTimer;
+        private Timer timeTimer;
+        private bool isConnectedToInternet = true;
         private ContextMenu trayMenu;
         //private ContextMenuStrip trayMenu2;
         private HardwareState state;
@@ -25,7 +28,7 @@ namespace DellHardwareMonitor
         {
             InitializeComponent();
 
-            backgroundWorker1.WorkerReportsProgress = true;
+            backgroundWorker1.WorkerReportsProgress = false;
             backgroundWorker1.WorkerSupportsCancellation = true;
             backgroundWorker1.RunWorkerAsync();
 
@@ -34,7 +37,7 @@ namespace DellHardwareMonitor
             this.SetStyle(ControlStyles.ResizeRedraw, true);
 
             trayMenu = new ContextMenu();
-            trayMenu.MenuItems.Add("Info", OnInfo);
+            trayMenu.MenuItems.Add("Show", OnShow);
             trayMenu.MenuItems.Add("Exit", OnExit);
 
             /*trayMenu2 = new ContextMenuStrip();
@@ -49,7 +52,7 @@ namespace DellHardwareMonitor
             menuStrip.Items.Add(toolStripMenuItem);
             menuStrip.Dock = DockStyle.Top;
             toolStripMenuItem.DropDown = trayMenu2;*/
-            
+
             trayIcon = new NotifyIcon();
             trayIcon.Text = "DellHardwareMonitor";
             trayIcon.Icon = Resources.wrench;
@@ -59,6 +62,8 @@ namespace DellHardwareMonitor
 
             pollingTimer = new Timer();
             pollingTimer.Tick += new EventHandler(polling_Tick);
+            timeTimer = new Timer();
+            timeTimer.Tick += new EventHandler(time_Tick);
 
             form2 = new Form();
             form2.FormBorderStyle = FormBorderStyle.None;
@@ -78,24 +83,24 @@ namespace DellHardwareMonitor
                 Rectangle screenBounds = Screen.FromControl(this).Bounds;
                 this.Size = new Size(315, (screenBounds.Height - (10 * 3)));
                 this.Location = new Point(screenBounds.Width - this.Size.Width + 10, 0);
-                opacity = 0.7;
-                pollingTimer.Interval = 2000;
+                opacity = 0.8;
             }
             else
             {
-
                 this.Location = Settings.Default.WindowLocation;
                 this.Size = Settings.Default.WindowSize;
                 opacity = Settings.Default.Opacity;
-                pollingTimer.Interval = Settings.Default.PollingInterval;
             }
+
+            pollingTimer.Interval = Int32.Parse(ConfigurationManager.AppSettings["PollingInterval"]);
+            timeTimer.Interval = Int32.Parse(ConfigurationManager.AppSettings["TimeInterval"]);
 
             form2.Location = new Point(this.Location.X, this.Location.Y);
             form2.Size = this.Size;
 
             isDriverLoaded = LoadDriver();
 
-            if(!isDriverLoaded)
+            if (!isDriverLoaded)
             {
                 MessageBox.Show("Failed to load DellSmbiosBzhLib driver. Check administrator priveleges.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
@@ -140,9 +145,9 @@ namespace DellHardwareMonitor
 
             Point initPos = this.Location;
 
-            if (this.Location.Y == 0) 
+            if (this.Location.Y == 0)
             {
-                for(int i = 0; i < 1251; i += 2)
+                for (int i = 0; i < 1251; i += 2)
                 {
                     this.Location = new Point(initPos.X, i);
                     form2.Location = new Point(initPos.X, i);
@@ -161,18 +166,14 @@ namespace DellHardwareMonitor
             }
         }
 
-        private void OnInfo(object sender, EventArgs e)
+        private void OnShow(object sender, EventArgs e)
         {
-            MessageBox.Show("Info line 1 \nInfo line 2\nInfo line 3");
+            form2.Activate();
+            this.Activate();
         }
 
         private void OnExit(object sender, EventArgs e)
         {
-            if (backgroundWorker1.IsBusy)
-            {
-                backgroundWorker1.CancelAsync();
-            }
-
             trayIcon.Visible = false;
             trayIcon.Dispose();
 
@@ -182,16 +183,19 @@ namespace DellHardwareMonitor
 
         private void CleanUp()
         {
+            if (backgroundWorker1.IsBusy)
+            {
+                backgroundWorker1.CancelAsync();
+            }
 
             if (this.Location.Y == 0)
             {
                 Settings.Default.WindowLocation = this.Location;
                 Settings.Default.WindowSize = this.Size;
             }
-            Settings.Default.PollingInterval = pollingTimer.Interval;
+
             Settings.Default.Opacity = form2.Opacity;
             Settings.Default.Save();
-            
 
             pollingTimer.Stop();
             pollingTimer.Dispose();
@@ -237,6 +241,28 @@ namespace DellHardwareMonitor
 
         #region Monitor functions
 
+        private void time_Tick(object sender, EventArgs e)
+        {
+            if (isConnectedToInternet)
+            {
+                try
+                {
+                    string apiCall = new System.Net.WebClient().DownloadString("https://worldtimeapi.org/api/timezone/America/Toronto.txt");
+                    string dateTime = apiCall.Split('\n')[2];
+                    dateTime = dateTime.Replace("datetime: ", "");
+                    DateTime dt = DateTime.Parse(dateTime);
+                    string[] time = dt.ToString("G", System.Globalization.CultureInfo.CreateSpecificCulture("en-us")).Split();
+                    timeLbl.Text = time[0] + "\n" + time[1] + " " + time[2];
+                }
+                catch (System.Net.WebException ex)
+                {
+                    Log.Info("Network failure: " + ex.Message);
+                    timeLbl.Text = "N/A";
+                    isConnectedToInternet = false;
+                }
+            }
+        }
+
         private void polling_Tick(object sender, EventArgs e)
         {
             //update libre hardware monitor hardware items
@@ -261,14 +287,15 @@ namespace DellHardwareMonitor
                     }
                 }
 
-                //if not connected to internet app will crash
+                //sometimes there's no internet
                 try
                 {
                     publicIP.Text = new System.Net.WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
                 }
-                catch
+                catch (System.Net.WebException ex)
                 {
-                    publicIP.Text = "NA";
+                    Log.Info("Network failure: " + ex.Message);
+                    publicIP.Text = "N/A";
                 }
 
                 cpuNameLbl.Text = state.CPU.Name;
@@ -276,8 +303,8 @@ namespace DellHardwareMonitor
                 ssdNameLbl.Text = state.SSD.Name;
                 hddNameLbl.Text = state.HDD.Name;
             }
-            
-            float cpuOneLoad = (float) state.CPU.Sensors[0].Value;
+
+            float cpuOneLoad = (float)state.CPU.Sensors[0].Value;
             cpu1LoadLbl.Text = cpuOneLoad.ToString("0");
             float cpuTwoLoad = (float)state.CPU.Sensors[1].Value;
             cpu2LoadLbl.Text = cpuTwoLoad.ToString("0");
@@ -312,7 +339,7 @@ namespace DellHardwareMonitor
             cpu6ClockLbl.Text = cpuSixClock.ToString("0");
             float cpuPackagePower = (float)state.CPU.Sensors[28].Value;
             cpuPackagePwrLbl.Text = cpuPackagePower.ToString("0.00");
-               
+
             gpuTempLbl.Text = state.GPU.Sensors[0].Value.ToString();
             gpuCoreClockLbl.Text = (state.GPU.Sensors[1].Value).Value.ToString("0");
             gpuMemClockLbl.Text = (state.GPU.Sensors[2].Value).Value.ToString("0");
@@ -351,7 +378,7 @@ namespace DellHardwareMonitor
             hddFreeGBLbl.Text = hddFreeGB.ToString("0");
             double hddFreePercent = state.DriveStates[1].Counters[1].NextValue();
             double hddUsedPercent = 100d - hddFreePercent;
-            hddProgressBar1.Value = (int)hddUsedPercent; 
+            hddProgressBar1.Value = (int)hddUsedPercent;
             double hddTotalGB = hddFreeGB / (hddFreePercent / 100d);
             hddTotalGBLbl.Text = hddTotalGB.ToString("0");
             double hddUsedGB = hddTotalGB - hddFreeGB;
@@ -359,10 +386,10 @@ namespace DellHardwareMonitor
 
             double wifiBytesRecv = state.NetworkStates[1].Counters[0].NextValue() / 1048576d;
             wifiBytesRecvLbl.Text = wifiBytesRecv.ToString("0.00");
-            if(wifiBytesRecv > 0.01)
+            if (wifiBytesRecv > 0.01)
             {
                 downloadPictureBox.Visible = true;
-            } 
+            }
             else
             {
                 downloadPictureBox.Visible = false;
@@ -370,10 +397,10 @@ namespace DellHardwareMonitor
 
             double wifiBytesSent = state.NetworkStates[1].Counters[1].NextValue() / 1048576d;
             wifiBytesSentLbl.Text = wifiBytesSent.ToString("0.00");
-            if(wifiBytesSent > 0.01)
+            if (wifiBytesSent > 0.01)
             {
                 uploadPictureBox.Visible = true;
-            } 
+            }
             else
             {
                 uploadPictureBox.Visible = false;
@@ -406,11 +433,16 @@ namespace DellHardwareMonitor
 
             state = new HardwareState();
 
-            this.Invoke(new MethodInvoker(delegate {
+            BeginInvoke((MethodInvoker)delegate
+            {
                 polling_Tick(null, null);
                 pollingTimer.Enabled = true;
                 pollingTimer.Start();
-            }));
+
+                time_Tick(null, null);
+                timeTimer.Enabled = true;
+                timeTimer.Start();
+            });
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -465,10 +497,10 @@ namespace DellHardwareMonitor
     public class NoEmptyRollingFileAppender : log4net.Appender.RollingFileAppender
     {
         private bool firstRun = true;
-        
+
         protected override void OpenFile(string fileName, bool append)
         {
-            if(firstRun)
+            if (firstRun)
             {
                 firstRun = false;
                 return;

@@ -178,6 +178,8 @@ namespace DellHardwareMonitor
             this.button1 = new System.Windows.Forms.Button();
             this.timeBtn = new System.Windows.Forms.Button();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.fanControlLbl = new System.Windows.Forms.Label();
+            this.label71 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.cpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ramPictureBox)).BeginInit();
@@ -674,7 +676,7 @@ namespace DellHardwareMonitor
             // 
             // cpuFanLbl
             // 
-            this.cpuFanLbl.Location = new System.Drawing.Point(232, 416);
+            this.cpuFanLbl.Location = new System.Drawing.Point(232, 432);
             this.cpuFanLbl.Name = "cpuFanLbl";
             this.cpuFanLbl.Size = new System.Drawing.Size(32, 13);
             this.cpuFanLbl.TabIndex = 51;
@@ -684,7 +686,7 @@ namespace DellHardwareMonitor
             // 
             // gpuFanLbl
             // 
-            this.gpuFanLbl.Location = new System.Drawing.Point(232, 440);
+            this.gpuFanLbl.Location = new System.Drawing.Point(232, 456);
             this.gpuFanLbl.Name = "gpuFanLbl";
             this.gpuFanLbl.Size = new System.Drawing.Size(32, 13);
             this.gpuFanLbl.TabIndex = 52;
@@ -1027,7 +1029,7 @@ namespace DellHardwareMonitor
             // cpuFanHeaderLbl
             // 
             this.cpuFanHeaderLbl.AutoSize = true;
-            this.cpuFanHeaderLbl.Location = new System.Drawing.Point(104, 416);
+            this.cpuFanHeaderLbl.Location = new System.Drawing.Point(104, 432);
             this.cpuFanHeaderLbl.Name = "cpuFanHeaderLbl";
             this.cpuFanHeaderLbl.Size = new System.Drawing.Size(25, 13);
             this.cpuFanHeaderLbl.TabIndex = 88;
@@ -1037,7 +1039,7 @@ namespace DellHardwareMonitor
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(264, 416);
+            this.label22.Location = new System.Drawing.Point(264, 432);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(25, 13);
             this.label22.TabIndex = 89;
@@ -1047,7 +1049,7 @@ namespace DellHardwareMonitor
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(104, 440);
+            this.label23.Location = new System.Drawing.Point(104, 456);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(25, 13);
             this.label23.TabIndex = 97;
@@ -1157,7 +1159,7 @@ namespace DellHardwareMonitor
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(264, 440);
+            this.label34.Location = new System.Drawing.Point(264, 456);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(25, 13);
             this.label34.TabIndex = 101;
@@ -1518,7 +1520,7 @@ namespace DellHardwareMonitor
             // loadingPictureBox
             // 
             this.loadingPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.loading;
-            this.loadingPictureBox.Location = new System.Drawing.Point(64, 416);
+            this.loadingPictureBox.Location = new System.Drawing.Point(64, 516);
             this.loadingPictureBox.Name = "loadingPictureBox";
             this.loadingPictureBox.Size = new System.Drawing.Size(144, 144);
             this.loadingPictureBox.TabIndex = 147;
@@ -1718,12 +1720,34 @@ namespace DellHardwareMonitor
             this.monthCalendar1.TabIndex = 166;
             this.monthCalendar1.Visible = false;
             // 
+            // fanControlLbl
+            // 
+            this.fanControlLbl.Location = new System.Drawing.Point(232, 408);
+            this.fanControlLbl.Name = "fanControlLbl";
+            this.fanControlLbl.Size = new System.Drawing.Size(56, 13);
+            this.fanControlLbl.TabIndex = 168;
+            this.fanControlLbl.Text = "Disabled";
+            this.fanControlLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.fanControlLbl.Visible = false;
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Location = new System.Drawing.Point(104, 408);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(73, 13);
+            this.label71.TabIndex = 167;
+            this.label71.Text = "Fan control";
+            this.label71.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(299, 1054);
+            this.Controls.Add(this.fanControlLbl);
+            this.Controls.Add(this.label71);
             this.Controls.Add(this.monthCalendar1);
             this.Controls.Add(this.timeBtn);
             this.Controls.Add(this.button1);
@@ -2045,6 +2069,8 @@ namespace DellHardwareMonitor
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button timeBtn;
         private System.Windows.Forms.MonthCalendar monthCalendar1;
+        private System.Windows.Forms.Label fanControlLbl;
+        private System.Windows.Forms.Label label71;
     }
 }
 

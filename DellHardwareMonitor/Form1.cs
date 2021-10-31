@@ -14,16 +14,14 @@ namespace DellHardwareMonitor
     {
         private double opacity;
         private bool isDriverLoaded;
+        private bool fanControl;
         private NotifyIcon trayIcon;
         private Timer pollingTimer;
         private Timer timeTimer;
-        private DateTime today;
-        private bool isConnectedToInternet = true;
         private ContextMenu trayMenu;
-        //private ContextMenuStrip trayMenu2;
         private HardwareState state;
         private Form form2;
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        //private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public Form1()
         {
@@ -38,21 +36,10 @@ namespace DellHardwareMonitor
             this.SetStyle(ControlStyles.ResizeRedraw, true);
 
             trayMenu = new ContextMenu();
+            trayMenu.MenuItems.Add("Fan control", FanControl);
+            trayMenu.MenuItems.Add("Reset network", ResetNetwork);
             trayMenu.MenuItems.Add("Show", OnShow);
             trayMenu.MenuItems.Add("Exit", OnExit);
-
-            /*trayMenu2 = new ContextMenuStrip();
-            trayMenu2.Opening += new CancelEventHandler(trayMenu_Opening);
-            ToolStrip toolStrip = new ToolStrip();
-            ToolStripDropDownButton btn = new ToolStripDropDownButton("test", null, null, "test");
-            toolStrip.Items.Add(btn);
-            toolStrip.Dock = DockStyle.Top;
-            btn.DropDown = trayMenu2;
-            MenuStrip menuStrip = new MenuStrip();
-            ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem("Test", null, null, "Test");
-            menuStrip.Items.Add(toolStripMenuItem);
-            menuStrip.Dock = DockStyle.Top;
-            toolStripMenuItem.DropDown = trayMenu2;*/
 
             trayIcon = new NotifyIcon();
             trayIcon.Text = "DellHardwareMonitor";
@@ -103,7 +90,14 @@ namespace DellHardwareMonitor
 
             if (!isDriverLoaded)
             {
-                MessageBox.Show("Failed to load DellSmbiosBzhLib driver. Check administrator priveleges.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (System.IO.File.Exists("bzh_dell_smm_io_x64.sys"))
+                {
+                    MessageBox.Show("Failed to load DellSmbiosBzhLib driver. Check administrator priveleges.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Failed to load DellSmbiosBzhLib driver. Check that bzh_dell_smm_io_x64.sys is in application directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 Application.Exit();
                 System.Environment.Exit(1);
             }
@@ -182,6 +176,65 @@ namespace DellHardwareMonitor
             System.Environment.Exit(1);
         }
 
+        private void ResetNetwork(object sender, EventArgs e)
+        {
+            try
+            {
+                publicIP.Text = new System.Net.WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
+            }
+            catch
+            {
+                publicIP.Text = "N/A";
+            }
+        }
+
+        private void FanControl(object sender, EventArgs e)
+        {
+            bool fanOneResult = true;
+            bool fanTwoResult = true;
+
+            if (fanControl)
+            {
+                fanControl = false;
+                trayMenu.MenuItems[0].Checked = false;
+
+                bool enableEc = DellSmbiosBzh.EnableAutomaticFanControl(false);
+                if (!enableEc)
+                {
+                    MessageBox.Show("Unable to enable automatic fan control.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                fanControlLbl.Text = "Disabled";
+
+            } 
+            else
+            {
+                fanControl = true;
+                trayMenu.MenuItems[0].Checked = true;
+
+                bool disableEc = DellSmbiosBzh.DisableAutomaticFanControl(false);
+
+                if (!disableEc)
+                {
+                    MessageBox.Show("Unable to disable automatic fan control.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    System.Environment.Exit(1);
+                }
+
+                fanControlLbl.Text = "Enable";
+
+                fanOneResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan1, BzhFanLevel.Level2);
+                fanTwoResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan2, BzhFanLevel.Level2);
+
+                if (!fanOneResult || !fanTwoResult)
+                {
+                    MessageBox.Show("Unable to change fan speed level.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    System.Environment.Exit(1);
+                }
+            }
+        }
+
         private void CleanUp()
         {
             if (backgroundWorker1.IsBusy)
@@ -246,24 +299,10 @@ namespace DellHardwareMonitor
 
         private void time_Tick(object sender, EventArgs e)
         {
-            if (isConnectedToInternet)
-            {
-                try
-                {
-                    string apiCall = new System.Net.WebClient().DownloadString("https://worldtimeapi.org/api/timezone/America/Toronto.txt");
-                    string dateString = apiCall.Split('\n')[2];
-                    dateString = dateString.Replace("datetime: ", "");
-                    today = DateTime.Parse(dateString);
-                    string time = today.ToString("T", System.Globalization.CultureInfo.CreateSpecificCulture("en-us"));
-                    timeBtn.Text = time;
-                }
-                catch (System.Net.WebException ex)
-                {
-                    Log.Info("Network failure: " + ex.Message);
-                    timeBtn.Text = "N/A";
-                    isConnectedToInternet = false;
-                }
-            }
+            var timeUtc = new DateTime(DateTime.Now.Ticks, DateTimeKind.Unspecified); //DateTime.Now;
+            TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            DateTime estDate = TimeZoneInfo.ConvertTimeFromUtc(timeUtc, easternZone);
+            timeBtn.Text = estDate.ToString("T", System.Globalization.CultureInfo.CreateSpecificCulture("en-us"));
         }
 
         private void polling_Tick(object sender, EventArgs e)
@@ -295,9 +334,8 @@ namespace DellHardwareMonitor
                 {
                     publicIP.Text = new System.Net.WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
                 }
-                catch (System.Net.WebException ex)
+                catch
                 {
-                    Log.Info("Network failure: " + ex.Message);
                     publicIP.Text = "N/A";
                 }
 
@@ -505,6 +543,7 @@ namespace DellHardwareMonitor
             {
                 monthCalendar1.Visible = true;
             }
+            label1.Focus();
         }
 
         #endregion

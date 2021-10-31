@@ -1520,7 +1520,7 @@ namespace DellHardwareMonitor
             // loadingPictureBox
             // 
             this.loadingPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.loading;
-            this.loadingPictureBox.Location = new System.Drawing.Point(64, 516);
+            this.loadingPictureBox.Location = new System.Drawing.Point(64, 416);
             this.loadingPictureBox.Name = "loadingPictureBox";
             this.loadingPictureBox.Size = new System.Drawing.Size(144, 144);
             this.loadingPictureBox.TabIndex = 147;

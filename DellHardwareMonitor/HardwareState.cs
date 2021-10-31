@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Text.RegularExpressions;
 
 using LibreHardwareMonitor.Hardware;
 
@@ -70,8 +69,6 @@ namespace DellHardwareMonitor
                 }
             }
 
-            //To-do remove hard coded 2 value (put back linq?)
-            Regex driveRegex = new Regex("^[A-Z]:$");
             string[] allDriveInstances = new PerformanceCounterCategory("LogicalDisk").GetInstanceNames();
             string[] driveInstances = new string[2];
             int index = 0; 

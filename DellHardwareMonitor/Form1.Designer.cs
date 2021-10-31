@@ -60,7 +60,7 @@ namespace DellHardwareMonitor
             this.cpu3ClockLbl = new System.Windows.Forms.Label();
             this.cpu2ClockLbl = new System.Windows.Forms.Label();
             this.cpu1ClockLbl = new System.Windows.Forms.Label();
-            this.gpuName = new System.Windows.Forms.Label();
+            this.gpuNameLbl = new System.Windows.Forms.Label();
             this.gpuTempLbl = new System.Windows.Forms.Label();
             this.gpuMemUsedLbl = new System.Windows.Forms.Label();
             this.gpuFreeMemLbl = new System.Windows.Forms.Label();
@@ -494,15 +494,15 @@ namespace DellHardwareMonitor
             this.cpu1ClockLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.cpu1ClockLbl.Visible = false;
             // 
-            // gpuName
+            // gpuNameLbl
             // 
-            this.gpuName.AutoSize = true;
-            this.gpuName.Location = new System.Drawing.Point(8, 208);
-            this.gpuName.Name = "gpuName";
-            this.gpuName.Size = new System.Drawing.Size(49, 13);
-            this.gpuName.TabIndex = 31;
-            this.gpuName.Text = "gpuName";
-            this.gpuName.Visible = false;
+            this.gpuNameLbl.AutoSize = true;
+            this.gpuNameLbl.Location = new System.Drawing.Point(8, 208);
+            this.gpuNameLbl.Name = "gpuNameLbl";
+            this.gpuNameLbl.Size = new System.Drawing.Size(49, 13);
+            this.gpuNameLbl.TabIndex = 31;
+            this.gpuNameLbl.Text = "gpuName";
+            this.gpuNameLbl.Visible = false;
             // 
             // gpuTempLbl
             // 
@@ -1888,7 +1888,7 @@ namespace DellHardwareMonitor
             this.Controls.Add(this.gpuCoreLoadLbl);
             this.Controls.Add(this.gpuMemClockLbl);
             this.Controls.Add(this.gpuCoreClockLbl);
-            this.Controls.Add(this.gpuName);
+            this.Controls.Add(this.gpuNameLbl);
             this.Controls.Add(this.wifiPictureBox);
             this.Controls.Add(this.hddPictureBox);
             this.Controls.Add(this.ssdPictureBox);
@@ -1950,7 +1950,7 @@ namespace DellHardwareMonitor
         private System.Windows.Forms.Label cpu3ClockLbl;
         private System.Windows.Forms.Label cpu2ClockLbl;
         private System.Windows.Forms.Label cpu1ClockLbl;
-        private System.Windows.Forms.Label gpuName;
+        private System.Windows.Forms.Label gpuNameLbl;
         private System.Windows.Forms.Label gpuTempLbl;
         private System.Windows.Forms.Label gpuMemUsedLbl;
         private System.Windows.Forms.Label gpuFreeMemLbl;

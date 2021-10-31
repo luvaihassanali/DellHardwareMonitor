@@ -6,7 +6,6 @@ using System.Windows.Forms;
 
 using DellFanManagement.DellSmbiozBzhLib;
 using DellHardwareMonitor.Properties;
-using log4net;
 
 namespace DellHardwareMonitor
 {
@@ -21,8 +20,10 @@ namespace DellHardwareMonitor
         private ContextMenu trayMenu;
         private HardwareState state;
         private Form form2;
-        //private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
+        private string cpuName = ConfigurationManager.AppSettings["cpuName"];
+        private string gpuName = ConfigurationManager.AppSettings["gpuName"];
+        private string ssdName = ConfigurationManager.AppSettings["ssdName"];
+        private string hddName = ConfigurationManager.AppSettings["hddName"];
         public Form1()
         {
             InitializeComponent();
@@ -80,9 +81,9 @@ namespace DellHardwareMonitor
                 opacity = Settings.Default.Opacity;
             }
 
-            pollingTimer.Interval = Int32.Parse(ConfigurationManager.AppSettings["PollingInterval"]);
-            timeTimer.Interval = Int32.Parse(ConfigurationManager.AppSettings["TimeInterval"]);
-
+            pollingTimer.Interval = Int32.Parse(ConfigurationManager.AppSettings["pollingInterval"]);
+            timeTimer.Interval = Int32.Parse(ConfigurationManager.AppSettings["timeInterval"]);
+            
             form2.Location = new Point(this.Location.X, this.Location.Y);
             form2.Size = this.Size;
 
@@ -340,7 +341,7 @@ namespace DellHardwareMonitor
                 }
 
                 cpuNameLbl.Text = state.CPU.Name;
-                gpuName.Text = state.GPU.Name;
+                gpuNameLbl.Text = state.GPU.Name;
                 ssdNameLbl.Text = state.SSD.Name;
                 hddNameLbl.Text = state.HDD.Name;
             }
@@ -472,7 +473,7 @@ namespace DellHardwareMonitor
         {
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            state = new HardwareState();
+            state = new HardwareState(cpuName, gpuName, ssdName, hddName);
 
             BeginInvoke((MethodInvoker)delegate
             {
@@ -548,21 +549,6 @@ namespace DellHardwareMonitor
 
         #endregion
 
-    }
-
-    public class NoEmptyRollingFileAppender : log4net.Appender.RollingFileAppender
-    {
-        private bool firstRun = true;
-
-        protected override void OpenFile(string fileName, bool append)
-        {
-            if (firstRun)
-            {
-                firstRun = false;
-                return;
-            }
-            base.OpenFile(fileName, append);
-        }
     }
 }
 

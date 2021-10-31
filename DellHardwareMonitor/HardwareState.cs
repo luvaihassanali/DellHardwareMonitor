@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 using LibreHardwareMonitor.Hardware;
 
@@ -21,7 +22,7 @@ namespace DellHardwareMonitor
         private string localhost;
         private string publicIpAddress;
 
-        public HardwareState()
+        public HardwareState(string cpuName, string gpuName, string ssdName, string hddName)
         {
             computer = new Computer
             {
@@ -37,24 +38,69 @@ namespace DellHardwareMonitor
             computer.Open();
             computer.Accept(new UpdateVisitor());
 
-            //To-do: map hardware strings to config for other systems
+            if(cpuName.Equals(String.Empty))
+            {
+                cpuName = "Intel Core i7-9750H";
+                gpuName = "NVIDIA GeForce RTX 2060";
+                ssdName = "KBG40ZNS512G NVMe KIOXIA 512GB";
+                hddName = "WDC WD10SPCX-21KHST0";
+            }
+
+            
             foreach (IHardware hardware in computer.Hardware)
             {
+                if(hardware.Name.Equals(cpuName))
+                {
+                    cpu = hardware;
+                }
+
+                if (hardware.Name.Equals(gpuName))
+                {
+                    gpu = hardware;
+                }
+
+                if (hardware.Name.Equals(ssdName))
+                {
+                    ssd = hardware;
+                }
+
+                if (hardware.Name.Equals(hddName))
+                {
+                    hdd = hardware;
+                }
+
+                if (hardware.Name.Equals("Generic Memory"))
+                {
+                    ram = hardware;
+                }
+
+                if (hardware.Name.Equals("Ethernet"))
+                {
+                    ethernet = hardware;
+                }
+
+                if (hardware.Name.Equals("Wi-Fi"))
+                {
+                    wifi = hardware;
+                }
+
+                #region switch 
+                /*
                 switch (hardware.Name)
                 {
-                    case "Intel Core i7-9750H": 
+                    case cpuName: //Constant value is expected
                         cpu = hardware;
                         break;
-                    case "NVIDIA GeForce RTX 2060": 
+                    case : 
                         gpu = hardware;
                         break;
                     case "Generic Memory": 
                         ram = hardware;
                         break;
-                    case "WDC WD10SPCX-21KHST0": 
+                    case : 
                         hdd = hardware;
                         break;
-                    case "KBG40ZNS512G NVMe KIOXIA 512GB": 
+                    case : 
                         ssd = hardware;
                         break;
                     case "Ethernet":
@@ -66,7 +112,8 @@ namespace DellHardwareMonitor
                     default:
                         //Local Area Connection, 1, and 10 network sensors available
                         break;
-                }
+                }*/
+                #endregion
             }
 
             string[] allDriveInstances = new PerformanceCounterCategory("LogicalDisk").GetInstanceNames();

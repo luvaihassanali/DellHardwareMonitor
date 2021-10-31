@@ -1693,7 +1693,6 @@ namespace DellHardwareMonitor
             // 
             // timeBtn
             // 
-            this.timeBtn.AutoSize = true;
             this.timeBtn.BackColor = System.Drawing.Color.Transparent;
             this.timeBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.timeBtn.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1705,7 +1704,7 @@ namespace DellHardwareMonitor
             this.timeBtn.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timeBtn.Location = new System.Drawing.Point(200, 1016);
             this.timeBtn.Name = "timeBtn";
-            this.timeBtn.Size = new System.Drawing.Size(106, 32);
+            this.timeBtn.Size = new System.Drawing.Size(106, 36);
             this.timeBtn.TabIndex = 165;
             this.timeBtn.Text = "12:30:00 AM";
             this.timeBtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1715,7 +1714,7 @@ namespace DellHardwareMonitor
             // 
             // monthCalendar1
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(72, 856);
+            this.monthCalendar1.Location = new System.Drawing.Point(64, 856);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.TabIndex = 166;
             this.monthCalendar1.Visible = false;

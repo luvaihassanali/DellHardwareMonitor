@@ -320,7 +320,7 @@ namespace DellHardwareMonitor
             state.RAM.Update();
             state.SSD.Update();
             state.HDD.Update();
-            state.WiFi.Update();
+            //state.WiFi.Update();
 
             //first tick manually called with null parameter
             //do not expect these values to change
@@ -359,33 +359,33 @@ namespace DellHardwareMonitor
             float cpuThreeLoad = (float)state.CPU.Sensors[2].Value;
             cpu3LoadLbl.Text = cpuThreeLoad.ToString("0");
             float cpuFourLoad = (float)state.CPU.Sensors[3].Value;
-            cpu4LoadLbl.Text = cpuFourLoad.ToString("0");
+            /*cpu4LoadLbl.Text = cpuFourLoad.ToString("0");
             float cpuFiveLoad = (float)state.CPU.Sensors[4].Value;
             cpu5LoadLbl.Text = cpuFiveLoad.ToString("0");
             float cpuSixLoad = (float)state.CPU.Sensors[5].Value;
-            cpu6LoadLbl.Text = cpuSixLoad.ToString("0");
-            float cpuTotalLoadF = (float)state.CPU.Sensors[6].Value;
+            cpu6LoadLbl.Text = cpuSixLoad.ToString("0");*/
+            float cpuTotalLoadF = (float)state.CPU.Sensors[4].Value;
             cpuTotalLoadLbl.Text = cpuTotalLoadF.ToString("0");
-            cpu1TempLbl.Text = state.CPU.Sensors[7].Value.ToString();
-            cpu2TempLbl.Text = state.CPU.Sensors[8].Value.ToString();
-            cpu3TempLbl.Text = state.CPU.Sensors[9].Value.ToString();
-            cpu4TempLbl.Text = state.CPU.Sensors[10].Value.ToString();
-            cpu5TempLbl.Text = state.CPU.Sensors[11].Value.ToString();
-            cpu6TempLbl.Text = state.CPU.Sensors[12].Value.ToString();
-            cpuPackageTempLbl.Text = state.CPU.Sensors[13].Value.ToString();
-            double cpuOneClock = (double)state.CPU.Sensors[22].Value;
+            cpu1TempLbl.Text = state.CPU.Sensors[5].Value.ToString();
+            cpu2TempLbl.Text = state.CPU.Sensors[6].Value.ToString();
+            cpu3TempLbl.Text = state.CPU.Sensors[7].Value.ToString();
+            cpu4TempLbl.Text = state.CPU.Sensors[8].Value.ToString();
+            //cpu5TempLbl.Text = state.CPU.Sensors[11].Value.ToString();
+            //cpu6TempLbl.Text = state.CPU.Sensors[12].Value.ToString();
+            cpuPackageTempLbl.Text = state.CPU.Sensors[9].Value.ToString();
+            double cpuOneClock = (double)state.CPU.Sensors[16].Value;
             cpu1ClockLbl.Text = cpuOneClock.ToString("0");
-            double cpuTwoClock = (double)state.CPU.Sensors[23].Value;
+            double cpuTwoClock = (double)state.CPU.Sensors[17].Value;
             cpu2ClockLbl.Text = cpuTwoClock.ToString("0");
-            double cpuThreeClock = (double)state.CPU.Sensors[24].Value;
+            double cpuThreeClock = (double)state.CPU.Sensors[18].Value;
             cpu3ClockLbl.Text = cpuThreeClock.ToString("0");
-            double cpuFourClock = (double)state.CPU.Sensors[25].Value;
+            double cpuFourClock = (double)state.CPU.Sensors[19].Value;
             cpu4ClockLbl.Text = cpuFourClock.ToString("0");
-            double cpuFiveClock = (double)state.CPU.Sensors[26].Value;
+            /*double cpuFiveClock = (double)state.CPU.Sensors[26].Value;
             cpu5ClockLbl.Text = cpuFiveClock.ToString("0");
             double cpuSixClock = (double)state.CPU.Sensors[27].Value;
-            cpu6ClockLbl.Text = cpuSixClock.ToString("0");
-            float cpuPackagePower = (float)state.CPU.Sensors[28].Value;
+            cpu6ClockLbl.Text = cpuSixClock.ToString("0");*/
+            float cpuPackagePower = (float)state.CPU.Sensors[20].Value;
             cpuPackagePwrLbl.Text = cpuPackagePower.ToString("0.00");
 
             gpuTempLbl.Text = state.GPU.Sensors[0].Value.ToString();
@@ -422,7 +422,7 @@ namespace DellHardwareMonitor
             ssdUsedGBLbl.Text = ssdUsedGB.ToString("0");
 
             hddTempLbl.Text = state.HDD.Sensors[0].Value.ToString();
-            double hddFreeGB = state.DriveStates[1].Counters[0].NextValue() / 1024d;
+            /*double hddFreeGB = state.DriveStates[1].Counters[0].NextValue() / 1024d;
             hddFreeGBLbl.Text = hddFreeGB.ToString("0");
             double hddFreePercent = state.DriveStates[1].Counters[1].NextValue();
             double hddUsedPercent = 100d - hddFreePercent;
@@ -430,7 +430,7 @@ namespace DellHardwareMonitor
             double hddTotalGB = hddFreeGB / (hddFreePercent / 100d);
             hddTotalGBLbl.Text = hddTotalGB.ToString("0");
             double hddUsedGB = hddTotalGB - hddFreeGB;
-            hddUsedGBLbl.Text = hddUsedGB.ToString("0");
+            hddUsedGBLbl.Text = hddUsedGB.ToString("0");*/
 
             double wifiBytesRecv = state.NetworkStates[1].Counters[0].NextValue() / 1048576d;
             wifiBytesRecvLbl.Text = wifiBytesRecv.ToString("0.00");
@@ -513,31 +513,31 @@ namespace DellHardwareMonitor
         private void button1_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(@"C:\Users\luv\Documents\MouseJiggler.exe");
-            label1.Focus();
+            label6.Focus();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(@"C:\Program Files (x86)\WinDirStat\windirstat.exe");
-            label1.Focus();
+            label6.Focus();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("cleanmgr.exe");
-            label1.Focus();
+            label6.Focus();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("regedit.exe");
-            label1.Focus();
+            label6.Focus();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("compmgmt.msc");
-            label1.Focus();
+            label6.Focus();
         }
 
         private void timeBtn_Click(object sender, EventArgs e)
@@ -550,7 +550,7 @@ namespace DellHardwareMonitor
             {
                 monthCalendar1.Visible = true;
             }
-            label1.Focus();
+            label6.Focus();
         }
 
         #endregion

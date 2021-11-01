@@ -41,10 +41,6 @@ namespace DellHardwareMonitor
             this.cpu2LoadLbl = new System.Windows.Forms.Label();
             this.cpu3LoadLbl = new System.Windows.Forms.Label();
             this.cpu4LoadLbl = new System.Windows.Forms.Label();
-            this.cpu5LoadLbl = new System.Windows.Forms.Label();
-            this.cpu6LoadLbl = new System.Windows.Forms.Label();
-            this.cpu6TempLbl = new System.Windows.Forms.Label();
-            this.cpu5TempLbl = new System.Windows.Forms.Label();
             this.cpu4TempLbl = new System.Windows.Forms.Label();
             this.cpu3TempLbl = new System.Windows.Forms.Label();
             this.cpu2TempLbl = new System.Windows.Forms.Label();
@@ -54,8 +50,6 @@ namespace DellHardwareMonitor
             this.cpuPackageTempLbl = new System.Windows.Forms.Label();
             this.cpuTotalLoadLbl = new System.Windows.Forms.Label();
             this.cpuPackagePwrLbl = new System.Windows.Forms.Label();
-            this.cpu6ClockLbl = new System.Windows.Forms.Label();
-            this.cpu5ClockLbl = new System.Windows.Forms.Label();
             this.cpu4ClockLbl = new System.Windows.Forms.Label();
             this.cpu3ClockLbl = new System.Windows.Forms.Label();
             this.cpu2ClockLbl = new System.Windows.Forms.Label();
@@ -89,20 +83,14 @@ namespace DellHardwareMonitor
             this.wifiBytesRecvLbl = new System.Windows.Forms.Label();
             this.wifiHeaderLbl = new System.Windows.Forms.Label();
             this.cpuClockHeaderLbl = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
@@ -303,46 +291,6 @@ namespace DellHardwareMonitor
             this.cpu4LoadLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.cpu4LoadLbl.Visible = false;
             // 
-            // cpu5LoadLbl
-            // 
-            this.cpu5LoadLbl.Location = new System.Drawing.Point(216, 136);
-            this.cpu5LoadLbl.Name = "cpu5LoadLbl";
-            this.cpu5LoadLbl.Size = new System.Drawing.Size(24, 13);
-            this.cpu5LoadLbl.TabIndex = 12;
-            this.cpu5LoadLbl.Text = "12";
-            this.cpu5LoadLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.cpu5LoadLbl.Visible = false;
-            // 
-            // cpu6LoadLbl
-            // 
-            this.cpu6LoadLbl.Location = new System.Drawing.Point(216, 160);
-            this.cpu6LoadLbl.Name = "cpu6LoadLbl";
-            this.cpu6LoadLbl.Size = new System.Drawing.Size(24, 13);
-            this.cpu6LoadLbl.TabIndex = 13;
-            this.cpu6LoadLbl.Text = "12";
-            this.cpu6LoadLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.cpu6LoadLbl.Visible = false;
-            // 
-            // cpu6TempLbl
-            // 
-            this.cpu6TempLbl.AutoSize = true;
-            this.cpu6TempLbl.Location = new System.Drawing.Point(264, 160);
-            this.cpu6TempLbl.Name = "cpu6TempLbl";
-            this.cpu6TempLbl.Size = new System.Drawing.Size(19, 13);
-            this.cpu6TempLbl.TabIndex = 19;
-            this.cpu6TempLbl.Text = "21";
-            this.cpu6TempLbl.Visible = false;
-            // 
-            // cpu5TempLbl
-            // 
-            this.cpu5TempLbl.AutoSize = true;
-            this.cpu5TempLbl.Location = new System.Drawing.Point(264, 136);
-            this.cpu5TempLbl.Name = "cpu5TempLbl";
-            this.cpu5TempLbl.Size = new System.Drawing.Size(19, 13);
-            this.cpu5TempLbl.TabIndex = 18;
-            this.cpu5TempLbl.Text = "21";
-            this.cpu5TempLbl.Visible = false;
-            // 
             // cpu4TempLbl
             // 
             this.cpu4TempLbl.AutoSize = true;
@@ -406,7 +354,7 @@ namespace DellHardwareMonitor
             // cpuPackageTempLbl
             // 
             this.cpuPackageTempLbl.AutoSize = true;
-            this.cpuPackageTempLbl.Location = new System.Drawing.Point(96, 112);
+            this.cpuPackageTempLbl.Location = new System.Drawing.Point(96, 104);
             this.cpuPackageTempLbl.Name = "cpuPackageTempLbl";
             this.cpuPackageTempLbl.Size = new System.Drawing.Size(19, 13);
             this.cpuPackageTempLbl.TabIndex = 23;
@@ -416,7 +364,7 @@ namespace DellHardwareMonitor
             // 
             // cpuTotalLoadLbl
             // 
-            this.cpuTotalLoadLbl.Location = new System.Drawing.Point(88, 160);
+            this.cpuTotalLoadLbl.Location = new System.Drawing.Point(88, 152);
             this.cpuTotalLoadLbl.Name = "cpuTotalLoadLbl";
             this.cpuTotalLoadLbl.Size = new System.Drawing.Size(31, 13);
             this.cpuTotalLoadLbl.TabIndex = 22;
@@ -426,33 +374,13 @@ namespace DellHardwareMonitor
             // 
             // cpuPackagePwrLbl
             // 
-            this.cpuPackagePwrLbl.Location = new System.Drawing.Point(80, 136);
+            this.cpuPackagePwrLbl.Location = new System.Drawing.Point(80, 128);
             this.cpuPackagePwrLbl.Name = "cpuPackagePwrLbl";
             this.cpuPackagePwrLbl.Size = new System.Drawing.Size(37, 13);
             this.cpuPackagePwrLbl.TabIndex = 24;
             this.cpuPackagePwrLbl.Text = "12.10";
             this.cpuPackagePwrLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.cpuPackagePwrLbl.Visible = false;
-            // 
-            // cpu6ClockLbl
-            // 
-            this.cpu6ClockLbl.Location = new System.Drawing.Point(144, 160);
-            this.cpu6ClockLbl.Name = "cpu6ClockLbl";
-            this.cpu6ClockLbl.Size = new System.Drawing.Size(40, 13);
-            this.cpu6ClockLbl.TabIndex = 30;
-            this.cpu6ClockLbl.Text = "22.10";
-            this.cpu6ClockLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.cpu6ClockLbl.Visible = false;
-            // 
-            // cpu5ClockLbl
-            // 
-            this.cpu5ClockLbl.Location = new System.Drawing.Point(144, 136);
-            this.cpu5ClockLbl.Name = "cpu5ClockLbl";
-            this.cpu5ClockLbl.Size = new System.Drawing.Size(40, 13);
-            this.cpu5ClockLbl.TabIndex = 29;
-            this.cpu5ClockLbl.Text = "22.10";
-            this.cpu5ClockLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.cpu5ClockLbl.Visible = false;
             // 
             // cpu4ClockLbl
             // 
@@ -786,26 +714,6 @@ namespace DellHardwareMonitor
             this.cpuClockHeaderLbl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.cpuClockHeaderLbl.Visible = false;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(280, 160);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(19, 13);
-            this.label1.TabIndex = 69;
-            this.label1.Text = "°C";
-            this.label1.Visible = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(280, 136);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(19, 13);
-            this.label2.TabIndex = 68;
-            this.label2.Text = "°C";
-            this.label2.Visible = false;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -846,26 +754,6 @@ namespace DellHardwareMonitor
             this.label6.Text = "°C";
             this.label6.Visible = false;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(240, 160);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(13, 13);
-            this.label7.TabIndex = 75;
-            this.label7.Text = "%";
-            this.label7.Visible = false;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(240, 136);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(13, 13);
-            this.label8.TabIndex = 74;
-            this.label8.Text = "%";
-            this.label8.Visible = false;
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -905,26 +793,6 @@ namespace DellHardwareMonitor
             this.label12.TabIndex = 70;
             this.label12.Text = "%";
             this.label12.Visible = false;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(184, 160);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(25, 13);
-            this.label13.TabIndex = 81;
-            this.label13.Text = "MHz";
-            this.label13.Visible = false;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(184, 136);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(25, 13);
-            this.label14.TabIndex = 80;
-            this.label14.Text = "MHz";
-            this.label14.Visible = false;
             // 
             // label15
             // 
@@ -969,7 +837,7 @@ namespace DellHardwareMonitor
             // cpuTotalLoadHeaderLbl
             // 
             this.cpuTotalLoadHeaderLbl.AutoSize = true;
-            this.cpuTotalLoadHeaderLbl.Location = new System.Drawing.Point(8, 160);
+            this.cpuTotalLoadHeaderLbl.Location = new System.Drawing.Point(8, 152);
             this.cpuTotalLoadHeaderLbl.Name = "cpuTotalLoadHeaderLbl";
             this.cpuTotalLoadHeaderLbl.Size = new System.Drawing.Size(67, 13);
             this.cpuTotalLoadHeaderLbl.TabIndex = 82;
@@ -979,7 +847,7 @@ namespace DellHardwareMonitor
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(120, 160);
+            this.label19.Location = new System.Drawing.Point(120, 152);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(13, 13);
             this.label19.TabIndex = 83;
@@ -989,7 +857,7 @@ namespace DellHardwareMonitor
             // cpuPackageTempHeaderLbl
             // 
             this.cpuPackageTempHeaderLbl.AutoSize = true;
-            this.cpuPackageTempHeaderLbl.Location = new System.Drawing.Point(8, 112);
+            this.cpuPackageTempHeaderLbl.Location = new System.Drawing.Point(8, 104);
             this.cpuPackageTempHeaderLbl.Name = "cpuPackageTempHeaderLbl";
             this.cpuPackageTempHeaderLbl.Size = new System.Drawing.Size(49, 13);
             this.cpuPackageTempHeaderLbl.TabIndex = 84;
@@ -999,7 +867,7 @@ namespace DellHardwareMonitor
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(112, 112);
+            this.label20.Location = new System.Drawing.Point(112, 104);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(19, 13);
             this.label20.TabIndex = 85;
@@ -1009,7 +877,7 @@ namespace DellHardwareMonitor
             // cpuPackagePwrHeaderLbl
             // 
             this.cpuPackagePwrHeaderLbl.AutoSize = true;
-            this.cpuPackagePwrHeaderLbl.Location = new System.Drawing.Point(8, 136);
+            this.cpuPackagePwrHeaderLbl.Location = new System.Drawing.Point(8, 128);
             this.cpuPackagePwrHeaderLbl.Name = "cpuPackagePwrHeaderLbl";
             this.cpuPackagePwrHeaderLbl.Size = new System.Drawing.Size(37, 13);
             this.cpuPackagePwrHeaderLbl.TabIndex = 86;
@@ -1019,7 +887,7 @@ namespace DellHardwareMonitor
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(120, 136);
+            this.label21.Location = new System.Drawing.Point(120, 128);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(13, 13);
             this.label21.TabIndex = 87;
@@ -1775,9 +1643,7 @@ namespace DellHardwareMonitor
             this.Controls.Add(this.ssdProgressBar1);
             this.Controls.Add(this.cpu4LoadLbl);
             this.Controls.Add(this.fanPictureBox);
-            this.Controls.Add(this.cpu5LoadLbl);
             this.Controls.Add(this.label67);
-            this.Controls.Add(this.cpu6LoadLbl);
             this.Controls.Add(this.label68);
             this.Controls.Add(this.cpu1TempLbl);
             this.Controls.Add(this.label65);
@@ -1787,9 +1653,7 @@ namespace DellHardwareMonitor
             this.Controls.Add(this.label62);
             this.Controls.Add(this.cpu4TempLbl);
             this.Controls.Add(this.label63);
-            this.Controls.Add(this.cpu5TempLbl);
             this.Controls.Add(this.label57);
-            this.Controls.Add(this.cpu6TempLbl);
             this.Controls.Add(this.label58);
             this.Controls.Add(this.cpuLoadHeaderLbl);
             this.Controls.Add(this.label59);
@@ -1809,9 +1673,7 @@ namespace DellHardwareMonitor
             this.Controls.Add(this.label49);
             this.Controls.Add(this.cpu4ClockLbl);
             this.Controls.Add(this.label50);
-            this.Controls.Add(this.cpu5ClockLbl);
             this.Controls.Add(this.label52);
-            this.Controls.Add(this.cpu6ClockLbl);
             this.Controls.Add(this.cpuClockHeaderLbl);
             this.Controls.Add(this.label44);
             this.Controls.Add(this.label6);
@@ -1822,9 +1684,7 @@ namespace DellHardwareMonitor
             this.Controls.Add(this.label39);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label40);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label41);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.label42);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label38);
@@ -1834,9 +1694,7 @@ namespace DellHardwareMonitor
             this.Controls.Add(this.label36);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label35);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.label34);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label32);
@@ -1846,9 +1704,7 @@ namespace DellHardwareMonitor
             this.Controls.Add(this.label23);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label24);
-            this.Controls.Add(this.label14);
             this.Controls.Add(this.label25);
-            this.Controls.Add(this.label13);
             this.Controls.Add(this.label26);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.label27);
@@ -1931,10 +1787,6 @@ namespace DellHardwareMonitor
         private System.Windows.Forms.Label cpu2LoadLbl;
         private System.Windows.Forms.Label cpu3LoadLbl;
         private System.Windows.Forms.Label cpu4LoadLbl;
-        private System.Windows.Forms.Label cpu5LoadLbl;
-        private System.Windows.Forms.Label cpu6LoadLbl;
-        private System.Windows.Forms.Label cpu6TempLbl;
-        private System.Windows.Forms.Label cpu5TempLbl;
         private System.Windows.Forms.Label cpu4TempLbl;
         private System.Windows.Forms.Label cpu3TempLbl;
         private System.Windows.Forms.Label cpu2TempLbl;
@@ -1944,8 +1796,6 @@ namespace DellHardwareMonitor
         private System.Windows.Forms.Label cpuPackageTempLbl;
         private System.Windows.Forms.Label cpuTotalLoadLbl;
         private System.Windows.Forms.Label cpuPackagePwrLbl;
-        private System.Windows.Forms.Label cpu6ClockLbl;
-        private System.Windows.Forms.Label cpu5ClockLbl;
         private System.Windows.Forms.Label cpu4ClockLbl;
         private System.Windows.Forms.Label cpu3ClockLbl;
         private System.Windows.Forms.Label cpu2ClockLbl;
@@ -1979,20 +1829,14 @@ namespace DellHardwareMonitor
         private System.Windows.Forms.Label wifiBytesRecvLbl;
         private System.Windows.Forms.Label wifiHeaderLbl;
         private System.Windows.Forms.Label cpuClockHeaderLbl;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;

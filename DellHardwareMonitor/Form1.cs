@@ -148,9 +148,15 @@ namespace DellHardwareMonitor
                     this.Location = new Point(initPos.X, i);
                     form2.Location = new Point(initPos.X, i);
                 }
+
+                pollingTimer.Stop();
+                timeTimer.Stop();
             }
             else
             {
+                pollingTimer.Start();
+                timeTimer.Start();
+
                 form2.Activate();
                 this.Activate();
 

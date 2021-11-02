@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using DellFanManagement.DellSmbiozBzhLib;
@@ -9,17 +10,35 @@ using DellHardwareMonitor.Properties;
 
 namespace DellHardwareMonitor
 {
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct SYSTEMTIME
+    {
+        public short wYear;
+        public short wMonth;
+        public short wDayOfWeek;
+        public short wDay;
+        public short wHour;
+        public short wMinute;
+        public short wSecond;
+        public short wMilliseconds;
+    }
+
     public partial class Form1 : Form
     {
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool SetSystemTime(ref SYSTEMTIME st);
+
         private double opacity;
         private bool isDriverLoaded;
         private bool fanControl;
+        private bool fanControlLow;
         private NotifyIcon trayIcon;
         private Timer pollingTimer;
-        private Timer timeTimer;
         private ContextMenu trayMenu;
         private HardwareState state;
         private Form form2;
+        private string dateString;
         private string cpuName = ConfigurationManager.AppSettings["cpuName"];
         private string gpuName = ConfigurationManager.AppSettings["gpuName"];
         private string ssdName = ConfigurationManager.AppSettings["ssdName"];
@@ -37,7 +56,8 @@ namespace DellHardwareMonitor
             this.SetStyle(ControlStyles.ResizeRedraw, true);
 
             trayMenu = new ContextMenu();
-            trayMenu.MenuItems.Add("Fan control", FanControl);
+            trayMenu.MenuItems.Add("Fan control high", FanControl);
+            trayMenu.MenuItems.Add("Fan control low", FanControlLow);
             trayMenu.MenuItems.Add("Reset network", ResetNetwork);
             trayMenu.MenuItems.Add("Show", OnShow);
             trayMenu.MenuItems.Add("Exit", OnExit);
@@ -51,8 +71,6 @@ namespace DellHardwareMonitor
 
             pollingTimer = new Timer();
             pollingTimer.Tick += new EventHandler(polling_Tick);
-            timeTimer = new Timer();
-            timeTimer.Tick += new EventHandler(time_Tick);
 
             form2 = new Form();
             form2.FormBorderStyle = FormBorderStyle.None;
@@ -82,8 +100,7 @@ namespace DellHardwareMonitor
             }
 
             pollingTimer.Interval = Int32.Parse(ConfigurationManager.AppSettings["pollingInterval"]);
-            timeTimer.Interval = Int32.Parse(ConfigurationManager.AppSettings["timeInterval"]);
-            
+
             form2.Location = new Point(this.Location.X, this.Location.Y);
             form2.Size = this.Size;
 
@@ -150,12 +167,10 @@ namespace DellHardwareMonitor
                 }
 
                 pollingTimer.Stop();
-                timeTimer.Stop();
             }
             else
             {
                 pollingTimer.Start();
-                timeTimer.Start();
 
                 form2.Activate();
                 this.Activate();
@@ -195,10 +210,92 @@ namespace DellHardwareMonitor
             }
         }
 
+        private void FanControlLow(object sender, EventArgs e)
+        {
+            bool fanOneResult = true;
+            bool fanTwoResult = true;
+
+            if (fanControl)
+            {
+                trayMenu.MenuItems[1].Checked = true;
+                trayMenu.MenuItems[0].Checked = false;
+                fanControl = false;
+                fanControlLow = true;
+
+                fanOneResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan1, BzhFanLevel.Level1);
+                fanTwoResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan2, BzhFanLevel.Level1);
+
+                return;
+            }
+
+            if (fanControlLow)
+            {
+                fanControlLow = false;
+                trayMenu.MenuItems[1].Checked = false;
+
+                bool enableEc = DellSmbiosBzh.EnableAutomaticFanControl(false);
+                if (!enableEc)
+                {
+                    MessageBox.Show("Unable to enable automatic fan control.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    System.Environment.Exit(1);
+                }
+
+                fanControlLbl.Text = "Disabled";
+
+            }
+            else
+            {
+                fanControlLow = true;
+                trayMenu.MenuItems[1].Checked = true;
+
+                bool disableEc = DellSmbiosBzh.DisableAutomaticFanControl(false);
+
+                if (!disableEc)
+                {
+                    MessageBox.Show("Unable to disable automatic fan control.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    System.Environment.Exit(1);
+                }
+
+                fanControlLbl.Text = "Enable";
+
+                fanOneResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan1, BzhFanLevel.Level1);
+                fanTwoResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan2, BzhFanLevel.Level1);
+
+                if (!fanOneResult || !fanTwoResult)
+                {
+                    MessageBox.Show("Unable to change fan speed level.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    System.Environment.Exit(1);
+                }
+            }
+        }
+
         private void FanControl(object sender, EventArgs e)
         {
             bool fanOneResult = true;
             bool fanTwoResult = true;
+
+            if (fanControlLow)
+            {
+                trayMenu.MenuItems[1].Checked = false;
+                trayMenu.MenuItems[0].Checked = true;
+                fanControlLow = false;
+                fanControl = true;
+
+                fanOneResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan1, BzhFanLevel.Level2);
+                fanTwoResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan2, BzhFanLevel.Level2);
+
+                if (!fanOneResult || !fanTwoResult)
+                {
+                    MessageBox.Show("Unable to change fan speed level.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    System.Environment.Exit(1);
+                }
+
+                return;
+            }
 
             if (fanControl)
             {
@@ -209,11 +306,13 @@ namespace DellHardwareMonitor
                 if (!enableEc)
                 {
                     MessageBox.Show("Unable to enable automatic fan control.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    System.Environment.Exit(1);
                 }
 
                 fanControlLbl.Text = "Disabled";
 
-            } 
+            }
             else
             {
                 fanControl = true;
@@ -304,14 +403,6 @@ namespace DellHardwareMonitor
 
         #region Monitor functions
 
-        private void time_Tick(object sender, EventArgs e)
-        {
-            var timeUtc = new DateTime(DateTime.Now.Ticks, DateTimeKind.Unspecified); //DateTime.Now;
-            TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-            DateTime estDate = TimeZoneInfo.ConvertTimeFromUtc(timeUtc, easternZone);
-            timeBtn.Text = estDate.ToString("T", System.Globalization.CultureInfo.CreateSpecificCulture("en-us"));
-        }
-
         private void polling_Tick(object sender, EventArgs e)
         {
             //update libre hardware monitor hardware items
@@ -340,6 +431,20 @@ namespace DellHardwareMonitor
                 try
                 {
                     publicIP.Text = new System.Net.WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
+                    dateString = new System.Net.WebClient().DownloadString("http://worldtimeapi.org/api/timezone/America/Toronto.txt");
+                    dateString = dateString.Split('\n')[2].Replace("datetime: ", "");
+                    dateString = dateString.Substring(0, dateString.Length - 6);
+                    DateTime dateValue = DateTime.Parse(dateString).ToUniversalTime();
+
+                    SYSTEMTIME st = new SYSTEMTIME();
+                    st.wYear = (short)dateValue.Year; // must be short
+                    st.wMonth = (short)dateValue.Month;
+                    st.wDay = (short)dateValue.Day;
+                    st.wHour = (short)dateValue.Hour;
+                    st.wMinute = (short)dateValue.Minute;
+                    st.wSecond = (short)dateValue.Second;
+
+                    SetSystemTime(ref st); // invoke this method.
                 }
                 catch
                 {
@@ -486,10 +591,6 @@ namespace DellHardwareMonitor
                 polling_Tick(null, null);
                 pollingTimer.Enabled = true;
                 pollingTimer.Start();
-
-                time_Tick(null, null);
-                timeTimer.Enabled = true;
-                timeTimer.Start();
             });
         }
 
@@ -503,7 +604,6 @@ namespace DellHardwareMonitor
             loadingPictureBox.Visible = false;
             uploadPictureBox.Visible = false;
             downloadPictureBox.Visible = false;
-            monthCalendar1.Visible = false;
         }
 
         #endregion
@@ -540,90 +640,7 @@ namespace DellHardwareMonitor
             label1.Focus();
         }
 
-        private void timeBtn_Click(object sender, EventArgs e)
-        {
-            if(monthCalendar1.Visible)
-            {
-                monthCalendar1.Visible = false;
-            } 
-            else
-            {
-                monthCalendar1.Visible = true;
-            }
-            label1.Focus();
-        }
-
         #endregion
 
     }
 }
-
-#region Fan control 
-
-/*
-// Attempt to load initialize driver
-bool success = LoadDriver();
-
-if (!success)
-{
-    Console.WriteLine("Failed to load driver properly. Press any key to exit.");
-    Console.ReadKey();
-    System.Environment.Exit(-1);
-}
-// Disable EC fan control.
-Console.WriteLine("Attempting to disable EC control of the fan...");
-
-success = DellSmbiosBzh.DisableAutomaticFanControl(false);
-
-if (!success)
-{
-    Console.Error.WriteLine("Failed.");
-    UnloadDriver();
-    Console.WriteLine("Press any key to exit.");
-    Console.ReadKey();
-    System.Environment.Exit(-1);
-}
-
-Console.WriteLine(" ...Success.");
-
-// Crank the fans up, for safety.
-Console.WriteLine("Setting fan 1 speed to maximum...");
-success = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan1, BzhFanLevel.Level2);
-if (!success)
-{
-    Console.Error.WriteLine("Failed.");
-    UnloadDriver();
-    Console.WriteLine("Press any key to exit.");
-    Console.ReadKey();
-    System.Environment.Exit(-1);
-}
-
-Console.WriteLine("Setting fan 2 speed to maximum...");
-success = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan2, BzhFanLevel.Level2);
-if (!success)
-{
-    Console.Error.WriteLine("Failed.");
-}
-
-Console.WriteLine("Press any key to continue");
-Console.ReadKey();
-
-// Enable EC fan control.
-// Console.WriteLine("Attempting to enable EC control of the fan...");
-
-success = DellSmbiosBzh.EnableAutomaticFanControl(false);
-
-if (!success)
-{
-    Console.Error.WriteLine("Failed.");
-    UnloadDriver();
-    System.Environment.Exit(-1);
-}
-
-
-UnloadDriver();
-Console.WriteLine("Press any key to exit.");
-Console.ReadKey();
-*/
-
-#endregion

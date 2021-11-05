@@ -63,7 +63,7 @@ namespace DellHardwareMonitor
             trayMenu.MenuItems.Add("Exit", OnExit);
 
             trayIcon = new NotifyIcon();
-            trayIcon.Text = "DellHardwareMonitor";
+            trayIcon.Text = "Dell Hardware Monitor";
             trayIcon.Icon = Resources.wrench;
             trayIcon.ContextMenu = trayMenu;
             trayIcon.Visible = true;
@@ -185,8 +185,25 @@ namespace DellHardwareMonitor
 
         private void OnShow(object sender, EventArgs e)
         {
+
             form2.Activate();
             this.Activate();
+
+            if (this.Location.Y != 0)
+            {
+                pollingTimer.Start();
+
+                form2.Activate();
+                this.Activate();
+
+                Point initPos = this.Location;
+
+                for (int i = 1250; i >= 0; i -= 2)
+                {
+                    this.Location = new Point(initPos.X, i);
+                    form2.Location = new Point(initPos.X, i);
+                }
+            }
         }
 
         private void OnExit(object sender, EventArgs e)
@@ -225,11 +242,19 @@ namespace DellHardwareMonitor
                 fanOneResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan1, BzhFanLevel.Level1);
                 fanTwoResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan2, BzhFanLevel.Level1);
 
+                if (!fanOneResult || !fanTwoResult)
+                {
+                    MessageBox.Show("Unable to change fan speed level.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    System.Environment.Exit(1);
+                }
+
                 return;
             }
 
             if (fanControlLow)
             {
+                trayIcon.Icon = Resources.wrench;
                 fanControlLow = false;
                 trayMenu.MenuItems[1].Checked = false;
 
@@ -246,6 +271,7 @@ namespace DellHardwareMonitor
             }
             else
             {
+                trayIcon.Icon = Resources.wrenchRed;
                 fanControlLow = true;
                 trayMenu.MenuItems[1].Checked = true;
 
@@ -277,6 +303,8 @@ namespace DellHardwareMonitor
             bool fanOneResult = true;
             bool fanTwoResult = true;
 
+            trayIcon.Icon = Resources.wrenchRed;
+
             if (fanControlLow)
             {
                 trayMenu.MenuItems[1].Checked = false;
@@ -299,6 +327,7 @@ namespace DellHardwareMonitor
 
             if (fanControl)
             {
+                trayIcon.Icon = Resources.wrench;
                 fanControl = false;
                 trayMenu.MenuItems[0].Checked = false;
 
@@ -315,6 +344,7 @@ namespace DellHardwareMonitor
             }
             else
             {
+                trayIcon.Icon = Resources.wrenchRed;
                 fanControl = true;
                 trayMenu.MenuItems[0].Checked = true;
 
@@ -411,7 +441,7 @@ namespace DellHardwareMonitor
             state.RAM.Update();
             state.SSD.Update();
             state.HDD.Update();
-            state.WiFi.Update();
+            //state.WiFi.Update();
 
             //first tick manually called with null parameter
             //do not expect these values to change

@@ -219,5 +219,15 @@ namespace DellHardwareMonitor.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon wrenchRed {
+            get {
+                object obj = ResourceManager.GetObject("wrenchRed", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

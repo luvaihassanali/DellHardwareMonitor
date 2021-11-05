@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using DellFanManagement.DellSmbiozBzhLib;
@@ -9,8 +10,25 @@ using DellHardwareMonitor.Properties;
 
 namespace DellHardwareMonitor
 {
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct SYSTEMTIME
+    {
+        public short wYear;
+        public short wMonth;
+        public short wDayOfWeek;
+        public short wDay;
+        public short wHour;
+        public short wMinute;
+        public short wSecond;
+        public short wMilliseconds;
+    }
+
     public partial class Form1 : Form
     {
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool SetSystemTime(ref SYSTEMTIME st);
+
         private double opacity;
         private bool isDriverLoaded;
         private bool fanControl;
@@ -20,7 +38,7 @@ namespace DellHardwareMonitor
         private ContextMenu trayMenu;
         private HardwareState state;
         private Form form2;
-
+        private string dateString;
         private string cpuName = ConfigurationManager.AppSettings["cpuName"];
         private string gpuName = ConfigurationManager.AppSettings["gpuName"];
         private string ssdName = ConfigurationManager.AppSettings["ssdName"];
@@ -206,13 +224,6 @@ namespace DellHardwareMonitor
 
                 fanOneResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan1, BzhFanLevel.Level1);
                 fanTwoResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan2, BzhFanLevel.Level1);
-
-                if (!fanOneResult || !fanTwoResult)
-                {
-                    MessageBox.Show("Unable to change fan speed level.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
-                    System.Environment.Exit(1);
-                }
 
                 return;
             }
@@ -420,6 +431,20 @@ namespace DellHardwareMonitor
                 try
                 {
                     publicIP.Text = new System.Net.WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
+                    dateString = new System.Net.WebClient().DownloadString("http://worldtimeapi.org/api/timezone/America/Toronto.txt");
+                    dateString = dateString.Split('\n')[2].Replace("datetime: ", "");
+                    dateString = dateString.Substring(0, dateString.Length - 6);
+                    DateTime dateValue = DateTime.Parse(dateString).ToUniversalTime();
+
+                    SYSTEMTIME st = new SYSTEMTIME();
+                    st.wYear = (short)dateValue.Year; // must be short
+                    st.wMonth = (short)dateValue.Month;
+                    st.wDay = (short)dateValue.Day;
+                    st.wHour = (short)dateValue.Hour;
+                    st.wMinute = (short)dateValue.Minute;
+                    st.wSecond = (short)dateValue.Second;
+
+                    SetSystemTime(ref st); // invoke this method.
                 }
                 catch
                 {
@@ -615,6 +640,22 @@ namespace DellHardwareMonitor
             label6.Focus();
         }
 
+<<<<<<< HEAD
+        private void timeBtn_Click(object sender, EventArgs e)
+        {
+            if(monthCalendar1.Visible)
+            {
+                monthCalendar1.Visible = false;
+            } 
+            else
+            {
+                monthCalendar1.Visible = true;
+            }
+            label6.Focus();
+        }
+
+=======
+>>>>>>> fef4a2e (remove time and add fan low setting)
         #endregion
 
     }

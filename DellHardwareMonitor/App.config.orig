@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <configSections>
+        <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler,Log4net"/>
+        <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+            <section name="DellHardwareMonitor.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false" />
+        </sectionGroup>
+    </configSections>
+    <appSettings>
+        <add key="pollingInterval" value="2000" />
+<<<<<<< HEAD
+        <add key="timeInterval" value="1000" />
+        <add key="cpuName" value="Intel Core i5-6300HQ" />
+        <add key="gpuName" value="NVIDIA GeForce GTX 960M" />
+        <add key="ssdName" value="WDC WDS250G1B0B-00AS40" />
+        <add key="hddName" value="HGST HTS721010A9E630" />
+=======
+        <add key="cpuName" value="" />
+        <add key="gpuName" value="" />
+        <add key="ssdName" value="" />
+        <add key="hddName" value="" />
+>>>>>>> fef4a2e (remove time and add fan low setting)
+    </appSettings>
+    <userSettings>
+        <DellHardwareMonitor.Properties.Settings>
+            <setting name="WindowSize" serializeAs="String">
+                <value>0, 0</value>
+            </setting>
+            <setting name="WindowLocation" serializeAs="String">
+                <value>0, 0</value>
+            </setting>
+            <setting name="Opacity" serializeAs="String">
+                <value>0</value>
+            </setting>
+        </DellHardwareMonitor.Properties.Settings>
+    </userSettings>
+    <startup> 
+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8" />
+    </startup>
+</configuration>

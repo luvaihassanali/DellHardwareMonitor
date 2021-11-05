@@ -45,7 +45,7 @@ namespace DellHardwareMonitor
             trayMenu.MenuItems.Add("Exit", OnExit);
 
             trayIcon = new NotifyIcon();
-            trayIcon.Text = "DellHardwareMonitor";
+            trayIcon.Text = "Dell Hardware Monitor";
             trayIcon.Icon = Resources.wrench;
             trayIcon.ContextMenu = trayMenu;
             trayIcon.Visible = true;
@@ -167,8 +167,25 @@ namespace DellHardwareMonitor
 
         private void OnShow(object sender, EventArgs e)
         {
+
             form2.Activate();
             this.Activate();
+
+            if (this.Location.Y != 0)
+            {
+                pollingTimer.Start();
+
+                form2.Activate();
+                this.Activate();
+
+                Point initPos = this.Location;
+
+                for (int i = 1250; i >= 0; i -= 2)
+                {
+                    this.Location = new Point(initPos.X, i);
+                    form2.Location = new Point(initPos.X, i);
+                }
+            }
         }
 
         private void OnExit(object sender, EventArgs e)
@@ -219,6 +236,7 @@ namespace DellHardwareMonitor
 
             if (fanControlLow)
             {
+                trayIcon.Icon = Resources.wrench;
                 fanControlLow = false;
                 trayMenu.MenuItems[1].Checked = false;
 
@@ -235,6 +253,7 @@ namespace DellHardwareMonitor
             }
             else
             {
+                trayIcon.Icon = Resources.wrenchRed;
                 fanControlLow = true;
                 trayMenu.MenuItems[1].Checked = true;
 
@@ -266,6 +285,8 @@ namespace DellHardwareMonitor
             bool fanOneResult = true;
             bool fanTwoResult = true;
 
+            trayIcon.Icon = Resources.wrenchRed;
+
             if (fanControlLow)
             {
                 trayMenu.MenuItems[1].Checked = false;
@@ -288,6 +309,7 @@ namespace DellHardwareMonitor
 
             if (fanControl)
             {
+                trayIcon.Icon = Resources.wrench;
                 fanControl = false;
                 trayMenu.MenuItems[0].Checked = false;
 
@@ -304,6 +326,7 @@ namespace DellHardwareMonitor
             }
             else
             {
+                trayIcon.Icon = Resources.wrenchRed;
                 fanControl = true;
                 trayMenu.MenuItems[0].Checked = true;
 

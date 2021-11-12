@@ -158,6 +158,7 @@ namespace DellHardwareMonitor
 
             Point initPos = this.Location;
 
+            
             if (this.Location.Y == 0)
             {
                 for (int i = 0; i < 1251; i += 2)
@@ -167,10 +168,18 @@ namespace DellHardwareMonitor
                 }
 
                 pollingTimer.Stop();
+                ShowInTaskbar = false;
+                Visible = false;
+                form2.ShowInTaskbar = false;
+                form2.Visible = false;
             }
             else
             {
                 pollingTimer.Start();
+                ShowInTaskbar = false;
+                Visible = true;
+                form2.ShowInTaskbar = false;
+                form2.Visible = true;
 
                 form2.Activate();
                 this.Activate();

@@ -1673,7 +1673,7 @@ namespace DellHardwareMonitor
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.BackgroundImage = global::DellHardwareMonitor.Properties.Resources.mouse;
+            this.button1.BackgroundImage = global::DellHardwareMonitor.Properties.Resources.pia;
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));

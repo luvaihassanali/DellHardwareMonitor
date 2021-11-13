@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
-using System.Runtime.InteropServices;
+using System.Management.Automation;
 using System.Windows.Forms;
 
 using DellFanManagement.DellSmbiozBzhLib;
@@ -661,7 +661,9 @@ namespace DellHardwareMonitor
 
         private void button1_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(@"C:\Users\luv\Documents\MouseJiggler.exe");
+            var script = "Enable-ScheduledTask -TaskName \"LaunchPia\";Start-ScheduledTask -TaskName \"LaunchPia\";Disable-ScheduledTask -TaskName \"LaunchPia\"";
+            var powerShell = PowerShell.Create().AddScript(script);
+            powerShell.Invoke();
             label1.Focus();
         }
 

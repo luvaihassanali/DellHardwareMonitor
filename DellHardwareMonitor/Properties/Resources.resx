@@ -139,11 +139,11 @@
   <data name="loading" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\loading.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mouse" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mouse.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="mycomput" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mycomput.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pia-client_1000-5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ram" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-ram-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

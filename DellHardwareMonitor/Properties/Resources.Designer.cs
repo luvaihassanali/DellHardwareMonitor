@@ -133,9 +133,9 @@ namespace DellHardwareMonitor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap mouse {
+        internal static System.Drawing.Bitmap mycomput {
             get {
-                object obj = ResourceManager.GetObject("mouse", resourceCulture);
+                object obj = ResourceManager.GetObject("mycomput", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +143,9 @@ namespace DellHardwareMonitor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap mycomput {
+        internal static System.Drawing.Bitmap pia {
             get {
-                object obj = ResourceManager.GetObject("mycomput", resourceCulture);
+                object obj = ResourceManager.GetObject("pia", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

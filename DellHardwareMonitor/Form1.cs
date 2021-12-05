@@ -67,7 +67,7 @@ namespace DellHardwareMonitor
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Settings.Default.Opacity = 0;
+            Settings.Default.Opacity = 0;
             if (Settings.Default.Opacity == 0)
             {
                 Rectangle screenBounds = Screen.FromControl(this).Bounds;

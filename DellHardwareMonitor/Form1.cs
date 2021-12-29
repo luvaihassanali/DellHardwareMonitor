@@ -58,6 +58,7 @@ namespace DellHardwareMonitor
             trayMenu = new ContextMenu();
             trayMenu.MenuItems.Add("Fan control high", FanControl);
             trayMenu.MenuItems.Add("Fan control low", FanControlLow);
+            trayMenu.MenuItems.Add("Reset orientation", ResetOrientation);
             trayMenu.MenuItems.Add("Reset network", ResetNetwork);
             trayMenu.MenuItems.Add("Show", OnShow);
             trayMenu.MenuItems.Add("Exit", OnExit);
@@ -222,6 +223,15 @@ namespace DellHardwareMonitor
 
             Application.Exit();
             System.Environment.Exit(1);
+        }
+
+        private void ResetOrientation(object sender, EventArgs e)
+        {
+            Rectangle screenBounds = Screen.FromControl(this).Bounds;
+            this.Size = new Size(315, (screenBounds.Height - (10 * 3)));
+            this.Location = new Point(screenBounds.Width - this.Size.Width + 10, 0);
+            form2.Size = new Size(315, (screenBounds.Height - (10 * 3)));
+            form2.Location = new Point(screenBounds.Width - this.Size.Width + 10, 0);
         }
 
         private void ResetNetwork(object sender, EventArgs e)

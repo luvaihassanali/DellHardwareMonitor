@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
 using System.Management.Automation;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using DellFanManagement.DellSmbiozBzhLib;

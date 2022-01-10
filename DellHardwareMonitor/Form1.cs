@@ -99,6 +99,7 @@ namespace DellHardwareMonitor
                 this.Location = Settings.Default.WindowLocation;
                 this.Size = Settings.Default.WindowSize;
                 opacity = Settings.Default.Opacity;
+                this.Location = new Point(this.Location.X, 1250);
             }
 
             pollingTimer.Interval = Int32.Parse(ConfigurationManager.AppSettings["pollingInterval"]);
@@ -163,6 +164,7 @@ namespace DellHardwareMonitor
             
             if (this.Location.Y == 0)
             {
+                //To-do: change to this.height for i < 1251
                 for (int i = 0; i < 1251; i += 2)
                 {
                     this.Location = new Point(initPos.X, i);

@@ -34,11 +34,14 @@ namespace DellHardwareMonitor
         private bool isDriverLoaded;
         private bool fanControl;
         private bool fanControlLow;
+        private bool backgroundWorkerCompleted;
+
         private NotifyIcon trayIcon;
         private Timer pollingTimer;
         private ContextMenu trayMenu;
         private HardwareState state;
         private Form form2;
+
         private string dateString;
         private string cpuName = ConfigurationManager.AppSettings["cpuName"];
         private string gpuName = ConfigurationManager.AppSettings["gpuName"];
@@ -48,6 +51,7 @@ namespace DellHardwareMonitor
         {
             InitializeComponent();
 
+            backgroundWorkerCompleted = false;
             backgroundWorker1.WorkerReportsProgress = false;
             backgroundWorker1.WorkerSupportsCancellation = true;
             backgroundWorker1.RunWorkerAsync();
@@ -179,7 +183,9 @@ namespace DellHardwareMonitor
             }
             else
             {
-                pollingTimer.Start();
+                if(backgroundWorkerCompleted) 
+                    pollingTimer.Start();
+
                 ShowInTaskbar = false;
                 Visible = true;
                 form2.ShowInTaskbar = false;
@@ -225,7 +231,7 @@ namespace DellHardwareMonitor
             trayIcon.Dispose();
 
             Application.Exit();
-            System.Environment.Exit(1);
+            System.Environment.Exit(0);
         }
 
         private void ResetOrientation(object sender, EventArgs e)
@@ -656,6 +662,7 @@ namespace DellHardwareMonitor
             loadingPictureBox.Visible = false;
             uploadPictureBox.Visible = false;
             downloadPictureBox.Visible = false;
+            backgroundWorkerCompleted = true;
         }
 
         #endregion

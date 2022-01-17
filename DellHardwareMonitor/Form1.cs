@@ -30,6 +30,17 @@ namespace DellHardwareMonitor
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool SetSystemTime(ref SYSTEMTIME st);
 
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+        (
+            int nLeftRect,     // x-coordinate of upper-left corner
+            int nTopRect,      // y-coordinate of upper-left corner
+            int nRightRect,    // x-coordinate of lower-right corner
+            int nBottomRect,   // y-coordinate of lower-right corner
+            int nWidthEllipse, // width of ellipse
+            int nHeightEllipse // height of ellipse
+        );
+
         private double opacity;
         private bool isDriverLoaded;
         private bool fanControl;
@@ -77,6 +88,7 @@ namespace DellHardwareMonitor
 
             pollingTimer = new Timer();
             pollingTimer.Tick += new EventHandler(polling_Tick);
+            pollingTimer.Interval = Int32.Parse(ConfigurationManager.AppSettings["pollingInterval"]);
 
             form2 = new Form();
             form2.FormBorderStyle = FormBorderStyle.None;
@@ -90,12 +102,12 @@ namespace DellHardwareMonitor
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Settings.Default.Opacity = 0;
+            Settings.Default.Opacity = 0;
             if (Settings.Default.Opacity == 0)
             {
                 Rectangle screenBounds = Screen.FromControl(this).Bounds;
-                this.Size = new Size(315, (screenBounds.Height - (10 * 3)));
-                this.Location = new Point(screenBounds.Width - this.Size.Width + 10, 0);
+                this.Size = new Size(320, screenBounds.Height - 50);
+                this.Location = new Point(screenBounds.Width - this.Size.Width - 10, 10);
                 opacity = 0.8;
             }
             else
@@ -103,16 +115,16 @@ namespace DellHardwareMonitor
                 this.Location = Settings.Default.WindowLocation;
                 this.Size = Settings.Default.WindowSize;
                 opacity = Settings.Default.Opacity;
-                this.Location = new Point(this.Location.X, 1250);
+                //Start minimized
+                //this.Location = new Point(this.Location.X, 1250);
             }
 
-            pollingTimer.Interval = Int32.Parse(ConfigurationManager.AppSettings["pollingInterval"]);
-
+            this.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20));
+            form2.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20));
             form2.Location = new Point(this.Location.X, this.Location.Y);
             form2.Size = this.Size;
 
             isDriverLoaded = LoadDriver();
-
             if (!isDriverLoaded)
             {
                 if (System.IO.File.Exists("bzh_dell_smm_io_x64.sys"))
@@ -165,7 +177,7 @@ namespace DellHardwareMonitor
 
             Point initPos = this.Location;
 
-            
+
             if (this.Location.Y == 0)
             {
                 //To-do: change to this.height for i < 1251
@@ -183,7 +195,7 @@ namespace DellHardwareMonitor
             }
             else
             {
-                if(backgroundWorkerCompleted) 
+                if (backgroundWorkerCompleted)
                     pollingTimer.Start();
 
                 ShowInTaskbar = false;

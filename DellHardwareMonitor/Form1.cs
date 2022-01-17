@@ -109,6 +109,7 @@ namespace DellHardwareMonitor
                 this.Size = new Size(320, screenBounds.Height - 50);
                 this.Location = new Point(screenBounds.Width - this.Size.Width - 10, 10);
                 opacity = 0.8;
+                Console.WriteLine(this.Location.ToString());
             }
             else
             {
@@ -170,15 +171,14 @@ namespace DellHardwareMonitor
 
         private void trayIcon_Click(object sender, MouseEventArgs e)
         {
+            //To-do: save location for minimize
             if (e != null && e.Button == MouseButtons.Right)
             {
                 return;
             }
 
             Point initPos = this.Location;
-
-
-            if (this.Location.Y == 0)
+            if (this.Location.Y == 10)
             {
                 //To-do: change to this.height for i < 1251
                 for (int i = 0; i < 1251; i += 2)
@@ -206,7 +206,7 @@ namespace DellHardwareMonitor
                 form2.Activate();
                 this.Activate();
 
-                for (int i = 1250; i >= 0; i -= 2)
+                for (int i = 1250; i >= 10; i -= 2)
                 {
                     this.Location = new Point(initPos.X, i);
                     form2.Location = new Point(initPos.X, i);
@@ -249,10 +249,10 @@ namespace DellHardwareMonitor
         private void ResetOrientation(object sender, EventArgs e)
         {
             Rectangle screenBounds = Screen.FromControl(this).Bounds;
-            this.Size = new Size(315, (screenBounds.Height - (10 * 3)));
-            this.Location = new Point(screenBounds.Width - this.Size.Width + 10, 0);
-            form2.Size = new Size(315, (screenBounds.Height - (10 * 3)));
-            form2.Location = new Point(screenBounds.Width - this.Size.Width + 10, 0);
+            this.Size = new Size(320, screenBounds.Height - 50);
+            this.Location = new Point(screenBounds.Width - this.Size.Width - 10, 10);
+            form2.Size = new Size(320, screenBounds.Height - 50);
+            form2.Location = new Point(screenBounds.Width - this.Size.Width - 10, 10);
         }
 
         private void ResetNetwork(object sender, EventArgs e)
@@ -418,7 +418,7 @@ namespace DellHardwareMonitor
                 backgroundWorker1.CancelAsync();
             }
 
-            if (this.Location.Y == 0)
+            if (this.Location.Y == 10)
             {
                 Settings.Default.WindowLocation = this.Location;
                 Settings.Default.WindowSize = this.Size;

@@ -157,8 +157,6 @@ namespace DellHardwareMonitor
             this.label67 = new System.Windows.Forms.Label();
             this.label68 = new System.Windows.Forms.Label();
             this.fanPictureBox = new System.Windows.Forms.PictureBox();
-            this.ssdProgressBar1 = new System.Windows.Forms.ProgressBar();
-            this.hddProgressBar1 = new System.Windows.Forms.ProgressBar();
             this.label55 = new System.Windows.Forms.Label();
             this.label56 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -178,6 +176,8 @@ namespace DellHardwareMonitor
             this.button1 = new System.Windows.Forms.Button();
             this.fanControlLbl = new System.Windows.Forms.Label();
             this.label71 = new System.Windows.Forms.Label();
+            this.hddProgressBar1 = new ColorProgressBar();
+            this.ssdProgressBar1 = new ColorProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.cpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ramPictureBox)).BeginInit();
@@ -1464,24 +1464,6 @@ namespace DellHardwareMonitor
             this.fanPictureBox.TabStop = false;
             this.fanPictureBox.Visible = false;
             // 
-            // ssdProgressBar1
-            // 
-            this.ssdProgressBar1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ssdProgressBar1.Location = new System.Drawing.Point(112, 712);
-            this.ssdProgressBar1.Name = "ssdProgressBar1";
-            this.ssdProgressBar1.Size = new System.Drawing.Size(176, 16);
-            this.ssdProgressBar1.TabIndex = 139;
-            this.ssdProgressBar1.Visible = false;
-            // 
-            // hddProgressBar1
-            // 
-            this.hddProgressBar1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.hddProgressBar1.Location = new System.Drawing.Point(112, 840);
-            this.hddProgressBar1.Name = "hddProgressBar1";
-            this.hddProgressBar1.Size = new System.Drawing.Size(176, 16);
-            this.hddProgressBar1.TabIndex = 141;
-            this.hddProgressBar1.Visible = false;
-            // 
             // label55
             // 
             this.label55.AutoSize = true;
@@ -1711,12 +1693,30 @@ namespace DellHardwareMonitor
             this.label71.Text = "Fan control";
             this.label71.Visible = false;
             // 
+            // hddProgressBar1
+            // 
+            this.hddProgressBar1.Location = new System.Drawing.Point(111, 840);
+            this.hddProgressBar1.Name = "hddProgressBar1";
+            this.hddProgressBar1.Size = new System.Drawing.Size(176, 16);
+            this.hddProgressBar1.TabIndex = 169;
+            this.hddProgressBar1.Visible = false;
+            // 
+            // ssdProgressBar1
+            // 
+            this.ssdProgressBar1.Location = new System.Drawing.Point(111, 712);
+            this.ssdProgressBar1.Name = "ssdProgressBar1";
+            this.ssdProgressBar1.Size = new System.Drawing.Size(176, 16);
+            this.ssdProgressBar1.TabIndex = 170;
+            this.ssdProgressBar1.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(299, 1054);
+            this.Controls.Add(this.ssdProgressBar1);
+            this.Controls.Add(this.hddProgressBar1);
             this.Controls.Add(this.fanControlLbl);
             this.Controls.Add(this.label71);
             this.Controls.Add(this.button1);
@@ -1740,9 +1740,7 @@ namespace DellHardwareMonitor
             this.Controls.Add(this.cpu1LoadLbl);
             this.Controls.Add(this.label56);
             this.Controls.Add(this.cpu2LoadLbl);
-            this.Controls.Add(this.hddProgressBar1);
             this.Controls.Add(this.cpu3LoadLbl);
-            this.Controls.Add(this.ssdProgressBar1);
             this.Controls.Add(this.cpu4LoadLbl);
             this.Controls.Add(this.fanPictureBox);
             this.Controls.Add(this.cpu5LoadLbl);
@@ -2019,8 +2017,6 @@ namespace DellHardwareMonitor
         private System.Windows.Forms.Label label67;
         private System.Windows.Forms.Label label68;
         private System.Windows.Forms.PictureBox fanPictureBox;
-        private System.Windows.Forms.ProgressBar ssdProgressBar1;
-        private System.Windows.Forms.ProgressBar hddProgressBar1;
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.Label label56;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
@@ -2040,6 +2036,8 @@ namespace DellHardwareMonitor
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label fanControlLbl;
         private System.Windows.Forms.Label label71;
+        private ColorProgressBar hddProgressBar1;
+        private ColorProgressBar ssdProgressBar1;
     }
 }
 

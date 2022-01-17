@@ -41,11 +41,15 @@ namespace DellHardwareMonitor
             int nHeightEllipse // height of ellipse
         );
 
+        private const int gripOffset = 16;
+        private const int menuBarOffset = 32;
+
         private double opacity;
         private bool isDriverLoaded;
         private bool fanControl;
         private bool fanControlLow;
         private bool backgroundWorkerCompleted;
+        private bool systemShutdown = false;
 
         private NotifyIcon trayIcon;
         private Timer pollingTimer;
@@ -244,11 +248,9 @@ namespace DellHardwareMonitor
             }
         }
 
-        private static int WM_QUERYENDSESSION = 0x11;
-        private static bool systemShutdown = false;
         protected override void WndProc(ref Message message)
         {
-            if (message.Msg == WM_QUERYENDSESSION)
+            if (message.Msg == 0x11) //WM_QUERYENDSESSION
             {
                 systemShutdown = true;
             }
@@ -726,24 +728,41 @@ namespace DellHardwareMonitor
     }
 }
 
-internal class ColorProgressBar : ProgressBar
+//https://stackoverflow.com/questions/778678/how-to-change-the-color-of-progressbar-in-c-sharp-net-3-5 William Daniel answer
+public class ColorProgressBar : ProgressBar
 {
     public ColorProgressBar()
     {
         this.SetStyle(ControlStyles.UserPaint, true);
     }
 
+    protected override void OnPaintBackground(PaintEventArgs pevent)
+    {
+        // None... Helps control the flicker.
+    }
+
     protected override void OnPaint(PaintEventArgs e)
     {
-        System.Drawing.Drawing2D.LinearGradientBrush brush = null;
-        Rectangle rec = new Rectangle(0, 0, this.Width, this.Height);
+        const int inset = 2; // A single inset value to control teh sizing of the inner rect.
 
-        if (ProgressBarRenderer.IsSupported)
-            ProgressBarRenderer.DrawHorizontalBar(e.Graphics, rec);
+        using (Image offscreenImage = new Bitmap(this.Width, this.Height))
+        {
+            using (Graphics offscreen = Graphics.FromImage(offscreenImage))
+            {
+                Rectangle rect = new Rectangle(0, 0, this.Width, this.Height);
 
-        rec.Width = (int)(rec.Width * ((double)base.Value / Maximum)) - 4;
-        rec.Height -= 4;
-        brush = new System.Drawing.Drawing2D.LinearGradientBrush(rec, this.ForeColor, this.BackColor, System.Drawing.Drawing2D.LinearGradientMode.Vertical);
-        e.Graphics.FillRectangle(brush, 2, 2, rec.Width, rec.Height);
+                if (ProgressBarRenderer.IsSupported)
+                    ProgressBarRenderer.DrawHorizontalBar(offscreen, rect);
+
+                rect.Inflate(new Size(-inset, -inset)); // Deflate inner rect.
+                rect.Width = (int)(rect.Width * ((double)this.Value / this.Maximum));
+                if (rect.Width == 0) rect.Width = 1; // Can't draw rec with width of 0.
+
+                System.Drawing.Drawing2D.LinearGradientBrush brush = new System.Drawing.Drawing2D.LinearGradientBrush(rect, this.BackColor, this.ForeColor, System.Drawing.Drawing2D.LinearGradientMode.Vertical);
+                offscreen.FillRectangle(brush, inset, inset, rect.Width, rect.Height);
+
+                e.Graphics.DrawImage(offscreenImage, 0, 0);
+            }
+        }
     }
 }

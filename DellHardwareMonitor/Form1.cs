@@ -98,7 +98,7 @@ namespace DellHardwareMonitor
             form2.MouseClick += Form2_MouseClick;
         }
 
-        #region Form functions
+        #region General form functions
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -214,6 +214,68 @@ namespace DellHardwareMonitor
             }
         }
 
+        private void CleanUp()
+        {
+            if (backgroundWorker1.IsBusy)
+            {
+                backgroundWorker1.CancelAsync();
+            }
+
+            if (this.Location.Y == 10)
+            {
+                Settings.Default.WindowLocation = this.Location;
+                Settings.Default.WindowSize = this.Size;
+            }
+
+            Settings.Default.Opacity = form2.Opacity;
+            Settings.Default.Save();
+
+            pollingTimer.Stop();
+            pollingTimer.Dispose();
+
+            if (isDriverLoaded)
+            {
+                UnloadDriver();
+            }
+
+            if (state != null && state.Computer != null)
+            {
+                state.Computer.Close();
+            }
+        }
+
+        private static int WM_QUERYENDSESSION = 0x11;
+        private static bool systemShutdown = false;
+        protected override void WndProc(ref Message message)
+        {
+            if (message.Msg == WM_QUERYENDSESSION)
+            {
+                systemShutdown = true;
+            }
+
+            base.WndProc(ref message);
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Oemplus)
+            {
+                form2.Opacity += 0.05;
+                return true;
+            }
+            if (keyData == Keys.OemMinus)
+            {
+                form2.Opacity -= 0.05;
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        #endregion
+
+        #region Context menu
+
         private void OnShow(object sender, EventArgs e)
         {
 
@@ -266,6 +328,8 @@ namespace DellHardwareMonitor
                 publicIP.Text = "N/A";
             }
         }
+
+        #region Fan control 
 
         private void FanControlLow(object sender, EventArgs e)
         {
@@ -411,63 +475,7 @@ namespace DellHardwareMonitor
             }
         }
 
-        private void CleanUp()
-        {
-            if (backgroundWorker1.IsBusy)
-            {
-                backgroundWorker1.CancelAsync();
-            }
-
-            if (this.Location.Y == 10)
-            {
-                Settings.Default.WindowLocation = this.Location;
-                Settings.Default.WindowSize = this.Size;
-            }
-
-            Settings.Default.Opacity = form2.Opacity;
-            Settings.Default.Save();
-
-            pollingTimer.Stop();
-            pollingTimer.Dispose();
-
-            if (isDriverLoaded)
-            {
-                UnloadDriver();
-            }
-
-            if (state != null && state.Computer != null)
-            {
-                state.Computer.Close();
-            }
-        }
-
-        private static int WM_QUERYENDSESSION = 0x11;
-        private static bool systemShutdown = false;
-        protected override void WndProc(ref Message message)
-        {
-            if (message.Msg == WM_QUERYENDSESSION)
-            {
-                systemShutdown = true;
-            }
-
-            base.WndProc(ref message);
-        }
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == Keys.Oemplus)
-            {
-                form2.Opacity += 0.05;
-                return true;
-            }
-            if (keyData == Keys.OemMinus)
-            {
-                form2.Opacity -= 0.05;
-                return true;
-            }
-
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
+        #endregion
 
         #endregion
 
@@ -715,5 +723,27 @@ namespace DellHardwareMonitor
 
         #endregion
 
+    }
+}
+
+internal class ColorProgressBar : ProgressBar
+{
+    public ColorProgressBar()
+    {
+        this.SetStyle(ControlStyles.UserPaint, true);
+    }
+
+    protected override void OnPaint(PaintEventArgs e)
+    {
+        System.Drawing.Drawing2D.LinearGradientBrush brush = null;
+        Rectangle rec = new Rectangle(0, 0, this.Width, this.Height);
+
+        if (ProgressBarRenderer.IsSupported)
+            ProgressBarRenderer.DrawHorizontalBar(e.Graphics, rec);
+
+        rec.Width = (int)(rec.Width * ((double)base.Value / Maximum)) - 4;
+        rec.Height -= 4;
+        brush = new System.Drawing.Drawing2D.LinearGradientBrush(rec, this.ForeColor, this.BackColor, System.Drawing.Drawing2D.LinearGradientMode.Vertical);
+        e.Graphics.FillRectangle(brush, 2, 2, rec.Width, rec.Height);
     }
 }

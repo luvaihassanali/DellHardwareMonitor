@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibreHardwareMonitorLib", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DellSmbiosBzhLib", "DellFanManagement\DellSmbiosBzhLib\DellSmbiosBzhLib.csproj", "{84CECE63-519A-406B-BB8F-2991F6191817}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{0C193340-3640-4A6F-A4B4-181E9E0C73EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{22DB47E1-BC9D-424E-A99D-798BE78B681F} = {0C193340-3640-4A6F-A4B4-181E9E0C73EE}
+		{84CECE63-519A-406B-BB8F-2991F6191817} = {0C193340-3640-4A6F-A4B4-181E9E0C73EE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D756668E-931C-4172-BD4A-09CB6355BA8E}

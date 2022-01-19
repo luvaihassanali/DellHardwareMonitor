@@ -34,6 +34,10 @@ namespace DellHardwareMonitor
         // (You can alternately use a custom float value)
         public static class FadeSpeed
         {
+            public static readonly float OneSlow = 1;
+            public static readonly float TwoSlow = 2;
+            public static readonly float ThreeSlow = 3;
+            public static readonly float FourSlow = 4;
             public static readonly float Slowest = 5;
             public static readonly float Slower = 10;
             public static readonly float Slow = 25;
@@ -140,6 +144,22 @@ namespace DellHardwareMonitor
             BeginFadeCustom(opacity);
         }
 
+        private void FadeOutCustom(float fadeSpeed, FadeCompleted finished, double opacity)
+        {
+            if (form.Opacity < 0.1)
+            {
+                finished?.Invoke();
+                return;
+            }
+
+            fadeFinished = finished;
+            form.Opacity = 100;
+            this.fadeSpeed = fadeSpeed;
+            fadeDirection = FadeDirection.Out;
+
+            BeginFadeCustom(opacity);
+        }
+
         private void BeginFadeCustom(double opacity)
         {
             UpdateOpacityCustom(opacity);
@@ -172,10 +192,10 @@ namespace DellHardwareMonitor
                     }
                     else
                     {
-                        if (!shouldClose)
-                            form.Hide();
-                        else
-                            form.Close();
+                        //if (!shouldClose)
+                            //form.Hide();
+                        //else
+                            //form.Close();
 
                         return;
                     }
@@ -270,6 +290,12 @@ namespace DellHardwareMonitor
         {
             Fader fader = new Fader(form);
             fader.FadeInCustom(fadeSpeed, null, opacity);
+        }
+
+        public static void FadeOutCustom(Form form, float fadeSpeed, FadeCompleted finished, double opacity)
+        {
+            Fader fader = new Fader(form);
+            fader.FadeOutCustom(fadeSpeed, finished, opacity);
         }
 
         /// <summary>

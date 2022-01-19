@@ -176,8 +176,13 @@ namespace DellHardwareMonitor
             this.button1 = new System.Windows.Forms.Button();
             this.fanControlLbl = new System.Windows.Forms.Label();
             this.label71 = new System.Windows.Forms.Label();
-            this.hddProgressBar1 = new ColorProgressBar();
+            this.separator1 = new System.Windows.Forms.Label();
+            this.separator2 = new System.Windows.Forms.Label();
+            this.separator3 = new System.Windows.Forms.Label();
+            this.separator4 = new System.Windows.Forms.Label();
+            this.separator5 = new System.Windows.Forms.Label();
             this.ssdProgressBar1 = new ColorProgressBar();
+            this.hddProgressBar1 = new ColorProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.cpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gpuPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ramPictureBox)).BeginInit();
@@ -193,60 +198,67 @@ namespace DellHardwareMonitor
             // cpuPictureBox
             // 
             this.cpuPictureBox.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.cpuPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.cpu;
+            this.cpuPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.default_processor;
             this.cpuPictureBox.Location = new System.Drawing.Point(24, 32);
             this.cpuPictureBox.Name = "cpuPictureBox";
-            this.cpuPictureBox.Size = new System.Drawing.Size(64, 64);
+            this.cpuPictureBox.Size = new System.Drawing.Size(48, 48);
+            this.cpuPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.cpuPictureBox.TabIndex = 1;
             this.cpuPictureBox.TabStop = false;
             this.cpuPictureBox.Visible = false;
             // 
             // gpuPictureBox
             // 
-            this.gpuPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.gpu;
-            this.gpuPictureBox.Location = new System.Drawing.Point(24, 232);
+            this.gpuPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.gpuPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.default_graphics;
+            this.gpuPictureBox.Location = new System.Drawing.Point(24, 237);
             this.gpuPictureBox.Name = "gpuPictureBox";
-            this.gpuPictureBox.Size = new System.Drawing.Size(64, 64);
+            this.gpuPictureBox.Size = new System.Drawing.Size(48, 48);
+            this.gpuPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.gpuPictureBox.TabIndex = 2;
             this.gpuPictureBox.TabStop = false;
             this.gpuPictureBox.Visible = false;
             // 
             // ramPictureBox
             // 
-            this.ramPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.ram;
+            this.ramPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.default_ram;
             this.ramPictureBox.Location = new System.Drawing.Point(24, 536);
             this.ramPictureBox.Name = "ramPictureBox";
-            this.ramPictureBox.Size = new System.Drawing.Size(64, 64);
+            this.ramPictureBox.Size = new System.Drawing.Size(48, 48);
+            this.ramPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.ramPictureBox.TabIndex = 3;
             this.ramPictureBox.TabStop = false;
             this.ramPictureBox.Visible = false;
             // 
             // ssdPictureBox
             // 
-            this.ssdPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.ssd;
+            this.ssdPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.default_ssd;
             this.ssdPictureBox.Location = new System.Drawing.Point(24, 664);
             this.ssdPictureBox.Name = "ssdPictureBox";
-            this.ssdPictureBox.Size = new System.Drawing.Size(64, 64);
+            this.ssdPictureBox.Size = new System.Drawing.Size(48, 48);
+            this.ssdPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.ssdPictureBox.TabIndex = 4;
             this.ssdPictureBox.TabStop = false;
             this.ssdPictureBox.Visible = false;
             // 
             // hddPictureBox
             // 
-            this.hddPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.hdd;
+            this.hddPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.default_hard;
             this.hddPictureBox.Location = new System.Drawing.Point(24, 792);
             this.hddPictureBox.Name = "hddPictureBox";
-            this.hddPictureBox.Size = new System.Drawing.Size(64, 64);
+            this.hddPictureBox.Size = new System.Drawing.Size(48, 48);
+            this.hddPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.hddPictureBox.TabIndex = 5;
             this.hddPictureBox.TabStop = false;
             this.hddPictureBox.Visible = false;
             // 
             // wifiPictureBox
             // 
-            this.wifiPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.wifi;
+            this.wifiPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.default_router;
             this.wifiPictureBox.Location = new System.Drawing.Point(24, 920);
             this.wifiPictureBox.Name = "wifiPictureBox";
-            this.wifiPictureBox.Size = new System.Drawing.Size(64, 64);
+            this.wifiPictureBox.Size = new System.Drawing.Size(48, 48);
+            this.wifiPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.wifiPictureBox.TabIndex = 6;
             this.wifiPictureBox.TabStop = false;
             this.wifiPictureBox.Visible = false;
@@ -254,6 +266,7 @@ namespace DellHardwareMonitor
             // cpuNameLbl
             // 
             this.cpuNameLbl.AutoSize = true;
+            this.cpuNameLbl.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cpuNameLbl.Location = new System.Drawing.Point(8, 8);
             this.cpuNameLbl.Name = "cpuNameLbl";
             this.cpuNameLbl.Size = new System.Drawing.Size(52, 16);
@@ -495,6 +508,7 @@ namespace DellHardwareMonitor
             // gpuNameLbl
             // 
             this.gpuNameLbl.AutoSize = true;
+            this.gpuNameLbl.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gpuNameLbl.Location = new System.Drawing.Point(8, 208);
             this.gpuNameLbl.Name = "gpuNameLbl";
             this.gpuNameLbl.Size = new System.Drawing.Size(52, 16);
@@ -595,6 +609,7 @@ namespace DellHardwareMonitor
             // ramHeaderLbl
             // 
             this.ramHeaderLbl.AutoSize = true;
+            this.ramHeaderLbl.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ramHeaderLbl.Location = new System.Drawing.Point(8, 512);
             this.ramHeaderLbl.Name = "ramHeaderLbl";
             this.ramHeaderLbl.Size = new System.Drawing.Size(27, 16);
@@ -655,6 +670,7 @@ namespace DellHardwareMonitor
             // ssdNameLbl
             // 
             this.ssdNameLbl.AutoSize = true;
+            this.ssdNameLbl.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ssdNameLbl.Location = new System.Drawing.Point(8, 640);
             this.ssdNameLbl.Name = "ssdNameLbl";
             this.ssdNameLbl.Size = new System.Drawing.Size(50, 16);
@@ -725,6 +741,7 @@ namespace DellHardwareMonitor
             // hddNameLbl
             // 
             this.hddNameLbl.AutoSize = true;
+            this.hddNameLbl.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hddNameLbl.Location = new System.Drawing.Point(8, 768);
             this.hddNameLbl.Name = "hddNameLbl";
             this.hddNameLbl.Size = new System.Drawing.Size(52, 16);
@@ -767,6 +784,7 @@ namespace DellHardwareMonitor
             // wifiHeaderLbl
             // 
             this.wifiHeaderLbl.AutoSize = true;
+            this.wifiHeaderLbl.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.wifiHeaderLbl.Location = new System.Drawing.Point(8, 896);
             this.wifiHeaderLbl.Name = "wifiHeaderLbl";
             this.wifiHeaderLbl.Size = new System.Drawing.Size(33, 16);
@@ -989,9 +1007,9 @@ namespace DellHardwareMonitor
             this.cpuPackageTempHeaderLbl.AutoSize = true;
             this.cpuPackageTempHeaderLbl.Location = new System.Drawing.Point(8, 112);
             this.cpuPackageTempHeaderLbl.Name = "cpuPackageTempHeaderLbl";
-            this.cpuPackageTempHeaderLbl.Size = new System.Drawing.Size(43, 16);
+            this.cpuPackageTempHeaderLbl.Size = new System.Drawing.Size(48, 16);
             this.cpuPackageTempHeaderLbl.TabIndex = 84;
-            this.cpuPackageTempHeaderLbl.Text = "P. Temp";
+            this.cpuPackageTempHeaderLbl.Text = "Package";
             this.cpuPackageTempHeaderLbl.Visible = false;
             // 
             // label20
@@ -1456,10 +1474,11 @@ namespace DellHardwareMonitor
             // 
             // fanPictureBox
             // 
-            this.fanPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.fan;
+            this.fanPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.default_fan;
             this.fanPictureBox.Location = new System.Drawing.Point(24, 408);
             this.fanPictureBox.Name = "fanPictureBox";
-            this.fanPictureBox.Size = new System.Drawing.Size(64, 64);
+            this.fanPictureBox.Size = new System.Drawing.Size(48, 48);
+            this.fanPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.fanPictureBox.TabIndex = 138;
             this.fanPictureBox.TabStop = false;
             this.fanPictureBox.Visible = false;
@@ -1492,6 +1511,7 @@ namespace DellHardwareMonitor
             // label61
             // 
             this.label61.AutoSize = true;
+            this.label61.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label61.Location = new System.Drawing.Point(8, 384);
             this.label61.Name = "label61";
             this.label61.Size = new System.Drawing.Size(30, 16);
@@ -1501,10 +1521,11 @@ namespace DellHardwareMonitor
             // 
             // loadingPictureBox
             // 
-            this.loadingPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.loading;
-            this.loadingPictureBox.Location = new System.Drawing.Point(64, 416);
+            this.loadingPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("loadingPictureBox.Image")));
+            this.loadingPictureBox.Location = new System.Drawing.Point(150, 584);
             this.loadingPictureBox.Name = "loadingPictureBox";
-            this.loadingPictureBox.Size = new System.Drawing.Size(144, 144);
+            this.loadingPictureBox.Size = new System.Drawing.Size(81, 72);
+            this.loadingPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.loadingPictureBox.TabIndex = 147;
             this.loadingPictureBox.TabStop = false;
             // 
@@ -1534,7 +1555,7 @@ namespace DellHardwareMonitor
             this.localhost.Name = "localhost";
             this.localhost.Size = new System.Drawing.Size(97, 13);
             this.localhost.TabIndex = 156;
-            this.localhost.Text = "000.000.000.000";
+            this.localhost.Text = "000.000.000";
             this.localhost.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.localhost.Visible = false;
             // 
@@ -1544,14 +1565,14 @@ namespace DellHardwareMonitor
             this.publicIP.Name = "publicIP";
             this.publicIP.Size = new System.Drawing.Size(97, 13);
             this.publicIP.TabIndex = 155;
-            this.publicIP.Text = "000.000.000.000";
+            this.publicIP.Text = "000.000.000";
             this.publicIP.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.publicIP.Visible = false;
             // 
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.BackgroundImage = global::DellHardwareMonitor.Properties.Resources.tree;
+            this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
             this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -1559,7 +1580,7 @@ namespace DellHardwareMonitor
             this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(80, 1024);
+            this.button2.Location = new System.Drawing.Point(83, 998);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(20, 20);
             this.button2.TabIndex = 157;
@@ -1570,7 +1591,7 @@ namespace DellHardwareMonitor
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.BackgroundImage = global::DellHardwareMonitor.Properties.Resources.cleanmgr;
+            this.button3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button3.BackgroundImage")));
             this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -1578,7 +1599,7 @@ namespace DellHardwareMonitor
             this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(144, 1024);
+            this.button3.Location = new System.Drawing.Point(147, 998);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(20, 20);
             this.button3.TabIndex = 159;
@@ -1589,7 +1610,7 @@ namespace DellHardwareMonitor
             // button4
             // 
             this.button4.BackColor = System.Drawing.Color.Transparent;
-            this.button4.BackgroundImage = global::DellHardwareMonitor.Properties.Resources.regedit;
+            this.button4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button4.BackgroundImage")));
             this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -1597,7 +1618,7 @@ namespace DellHardwareMonitor
             this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(208, 1024);
+            this.button4.Location = new System.Drawing.Point(211, 998);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(20, 20);
             this.button4.TabIndex = 158;
@@ -1608,7 +1629,7 @@ namespace DellHardwareMonitor
             // button5
             // 
             this.button5.BackColor = System.Drawing.Color.Transparent;
-            this.button5.BackgroundImage = global::DellHardwareMonitor.Properties.Resources.mycomput;
+            this.button5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button5.BackgroundImage")));
             this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button5.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -1616,7 +1637,7 @@ namespace DellHardwareMonitor
             this.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Location = new System.Drawing.Point(272, 1024);
+            this.button5.Location = new System.Drawing.Point(275, 998);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(20, 20);
             this.button5.TabIndex = 160;
@@ -1636,7 +1657,7 @@ namespace DellHardwareMonitor
             // 
             // uploadPictureBox
             // 
-            this.uploadPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.red;
+            this.uploadPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("uploadPictureBox.Image")));
             this.uploadPictureBox.Location = new System.Drawing.Point(224, 984);
             this.uploadPictureBox.Name = "uploadPictureBox";
             this.uploadPictureBox.Size = new System.Drawing.Size(16, 16);
@@ -1646,7 +1667,7 @@ namespace DellHardwareMonitor
             // 
             // downloadPictureBox
             // 
-            this.downloadPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.green;
+            this.downloadPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("downloadPictureBox.Image")));
             this.downloadPictureBox.Location = new System.Drawing.Point(224, 960);
             this.downloadPictureBox.Name = "downloadPictureBox";
             this.downloadPictureBox.Size = new System.Drawing.Size(16, 16);
@@ -1657,7 +1678,7 @@ namespace DellHardwareMonitor
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.BackgroundImage = global::DellHardwareMonitor.Properties.Resources.pia;
+            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -1665,7 +1686,7 @@ namespace DellHardwareMonitor
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(16, 1024);
+            this.button1.Location = new System.Drawing.Point(19, 998);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(20, 20);
             this.button1.TabIndex = 164;
@@ -1693,28 +1714,81 @@ namespace DellHardwareMonitor
             this.label71.Text = "Fan control";
             this.label71.Visible = false;
             // 
-            // hddProgressBar1
+            // separator1
             // 
-            this.hddProgressBar1.Location = new System.Drawing.Point(111, 840);
-            this.hddProgressBar1.Name = "hddProgressBar1";
-            this.hddProgressBar1.Size = new System.Drawing.Size(176, 16);
-            this.hddProgressBar1.TabIndex = 169;
-            this.hddProgressBar1.Visible = false;
+            this.separator1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.separator1.Location = new System.Drawing.Point(11, 195);
+            this.separator1.Name = "separator1";
+            this.separator1.Size = new System.Drawing.Size(297, 1);
+            this.separator1.TabIndex = 171;
+            this.separator1.Visible = false;
+            // 
+            // separator2
+            // 
+            this.separator2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.separator2.Location = new System.Drawing.Point(11, 373);
+            this.separator2.Name = "separator2";
+            this.separator2.Size = new System.Drawing.Size(297, 1);
+            this.separator2.TabIndex = 172;
+            this.separator2.Visible = false;
+            // 
+            // separator3
+            // 
+            this.separator3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.separator3.Location = new System.Drawing.Point(11, 497);
+            this.separator3.Name = "separator3";
+            this.separator3.Size = new System.Drawing.Size(297, 1);
+            this.separator3.TabIndex = 173;
+            this.separator3.Visible = false;
+            // 
+            // separator4
+            // 
+            this.separator4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.separator4.Location = new System.Drawing.Point(11, 623);
+            this.separator4.Name = "separator4";
+            this.separator4.Size = new System.Drawing.Size(297, 1);
+            this.separator4.TabIndex = 174;
+            this.separator4.Visible = false;
+            // 
+            // separator5
+            // 
+            this.separator5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.separator5.Location = new System.Drawing.Point(11, 880);
+            this.separator5.Name = "separator5";
+            this.separator5.Size = new System.Drawing.Size(297, 1);
+            this.separator5.TabIndex = 175;
+            this.separator5.Visible = false;
             // 
             // ssdProgressBar1
             // 
+            this.ssdProgressBar1.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ssdProgressBar1.Location = new System.Drawing.Point(111, 712);
             this.ssdProgressBar1.Name = "ssdProgressBar1";
-            this.ssdProgressBar1.Size = new System.Drawing.Size(176, 16);
+            this.ssdProgressBar1.Size = new System.Drawing.Size(176, 12);
             this.ssdProgressBar1.TabIndex = 170;
             this.ssdProgressBar1.Visible = false;
+            // 
+            // hddProgressBar1
+            // 
+            this.hddProgressBar1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.hddProgressBar1.Location = new System.Drawing.Point(111, 840);
+            this.hddProgressBar1.Name = "hddProgressBar1";
+            this.hddProgressBar1.Size = new System.Drawing.Size(176, 12);
+            this.hddProgressBar1.TabIndex = 169;
+            this.hddProgressBar1.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ClientSize = new System.Drawing.Size(299, 1054);
+            this.ClientSize = new System.Drawing.Size(320, 1030);
+            this.Controls.Add(this.separator5);
+            this.Controls.Add(this.separator4);
+            this.Controls.Add(this.separator3);
+            this.Controls.Add(this.separator2);
+            this.Controls.Add(this.separator1);
+            this.Controls.Add(this.loadingPictureBox);
             this.Controls.Add(this.ssdProgressBar1);
             this.Controls.Add(this.hddProgressBar1);
             this.Controls.Add(this.fanControlLbl);
@@ -1731,7 +1805,6 @@ namespace DellHardwareMonitor
             this.Controls.Add(this.publicIP);
             this.Controls.Add(this.label64);
             this.Controls.Add(this.label69);
-            this.Controls.Add(this.loadingPictureBox);
             this.Controls.Add(this.label61);
             this.Controls.Add(this.cpuTotalLoadHeaderLbl);
             this.Controls.Add(this.cpuPictureBox);
@@ -1869,7 +1942,7 @@ namespace DellHardwareMonitor
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.ShowInTaskbar = false;
-            this.Text = "Form1";
+            this.Text = "s";
             this.TransparencyKey = System.Drawing.SystemColors.ControlDark;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -2038,6 +2111,11 @@ namespace DellHardwareMonitor
         private System.Windows.Forms.Label label71;
         private ColorProgressBar hddProgressBar1;
         private ColorProgressBar ssdProgressBar1;
+        private System.Windows.Forms.Label separator1;
+        private System.Windows.Forms.Label separator2;
+        private System.Windows.Forms.Label separator3;
+        private System.Windows.Forms.Label separator4;
+        private System.Windows.Forms.Label separator5;
     }
 }
 

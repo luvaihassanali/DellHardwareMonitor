@@ -112,14 +112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="app.manifest" />
     <None Include="bzh_dell_smm_io_x64.sys">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -129,6 +124,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -152,40 +152,7 @@
     <None Include="Resources\wrench.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons8-fan-64.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-graphics-card-64.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-hard-disk-64.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-processor-64.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-ram-64.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-router-64.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-ssd-drive-64.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\loading.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\tree.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\cleanmgr.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\regedit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\mycomput.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\green.png" />
@@ -197,7 +164,110 @@
     <None Include="Resources\wrench-red.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\pia-client_1000-5.png" />
+    <None Include="Resources\iconset-default\default-fan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-default\default-graphics.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-default\default-hard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-default\default-processor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-default\default-ram.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-default\default-router.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-default\default-ssd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-white\white-fan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-white\white-graphics-card.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-white\white-hard-disk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-white\white-processor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-white\white-ram.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-white\white-router.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-white\white-ssd-drive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-64\64-fan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-64\64-graphics.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-64\64-hdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-64\64-processor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-64\64-ram.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-64\64-router.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-64\64-ssd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-60\60-cpu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-60\60-fan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-60\60-graphics.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-60\60-hard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-60\60-ram.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-60\60-router.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-60\60-ssd.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\iconset-48\48-fan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-48\48-hdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-48\48-processor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-48\48-ram.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-48\48-router.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-48\48-ssd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-48\48-video-card.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,46 +3,20 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
 using System.Management.Automation;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using DellFanManagement.DellSmbiozBzhLib;
-using DellHardwareMonitor.Properties;
 
 namespace DellHardwareMonitor
 {
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct SYSTEMTIME
-    {
-        public short wYear;
-        public short wMonth;
-        public short wDayOfWeek;
-        public short wDay;
-        public short wHour;
-        public short wMinute;
-        public short wSecond;
-        public short wMilliseconds;
-    }
-
     public partial class Form1 : Form
     {
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool SetSystemTime(ref SYSTEMTIME st);
-
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRgn
-        (
-            int nLeftRect,     // x-coordinate of upper-left corner
-            int nTopRect,      // y-coordinate of upper-left corner
-            int nRightRect,    // x-coordinate of lower-right corner
-            int nBottomRect,   // y-coordinate of lower-right corner
-            int nWidthEllipse, // width of ellipse
-            int nHeightEllipse // height of ellipse
-        );
-
-        private const int gripOffset = 16;
-        private const int menuBarOffset = 32;
+        private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
 
         private double opacity;
         private bool isDriverLoaded;
@@ -57,11 +31,13 @@ namespace DellHardwareMonitor
         private HardwareState state;
         private Form form2;
 
+        private string iconSet;
         private string dateString;
         private string cpuName = ConfigurationManager.AppSettings["cpuName"];
         private string gpuName = ConfigurationManager.AppSettings["gpuName"];
         private string ssdName = ConfigurationManager.AppSettings["ssdName"];
         private string hddName = ConfigurationManager.AppSettings["hddName"];
+
         public Form1()
         {
             InitializeComponent();
@@ -73,22 +49,81 @@ namespace DellHardwareMonitor
 
             this.FormBorderStyle = FormBorderStyle.None;
             this.DoubleBuffered = true;
-            this.SetStyle(ControlStyles.ResizeRedraw, true);
+            loadingPictureBox.Location = new System.Drawing.Point(this.Width / 2 - loadingPictureBox.Width / 2, this.Height / 2 - loadingPictureBox.Height / 2);
+
+            #region Tray menu
 
             trayMenu = new ContextMenu();
+
+            /*
+            MenuItem ideaMenuItem = new MenuItem();
+            ideaMenuItem.Text = "  Idea";
+            ideaMenuItem.Click += new EventHandler(OnIdea);
+            ideaMenuItem.OwnerDraw = true;
+            ideaMenuItem.DrawItem += new DrawItemEventHandler(DrawIdeaMenuItem);
+            ideaMenuItem.MeasureItem += new MeasureItemEventHandler(MeasureIdeaMenuItem);
+
+            MenuItem saveMenuItem = new MenuItem();
+            saveMenuItem.Text = "  Save";
+            saveMenuItem.Click += new EventHandler(OnSave);
+            saveMenuItem.OwnerDraw = true;
+            saveMenuItem.DrawItem += new DrawItemEventHandler(DrawSaveMenuItem);
+            saveMenuItem.MeasureItem += new MeasureItemEventHandler(MeasureSaveMenuItem);
+
+            MenuItem exitNoSaveMenuItem = new MenuItem();
+            exitNoSaveMenuItem.Text = "  Kill";
+            exitNoSaveMenuItem.Click += new EventHandler(OnExitNoSave);
+            exitNoSaveMenuItem.OwnerDraw = true;
+            exitNoSaveMenuItem.DrawItem += new DrawItemEventHandler(DrawExitNoSaveMenuItem);
+            exitNoSaveMenuItem.MeasureItem += new MeasureItemEventHandler(MeasureExitNoSaveMenuItem);
+
+            MenuItem exitMenuItem = new MenuItem();
+            exitMenuItem.Text = "  Exit";
+            exitMenuItem.Click += new EventHandler(OnExit);
+            exitMenuItem.OwnerDraw = true;
+            exitMenuItem.DrawItem += new DrawItemEventHandler(DrawExitMenuItem);
+            exitMenuItem.MeasureItem += new MeasureItemEventHandler(MeasureExitMenuItem);
+
+            MenuItem shutdownMenuItem = new MenuItem();
+            shutdownMenuItem.Text = "  Shutdown";
+            shutdownMenuItem.Click += new EventHandler(OnShutdown);
+            shutdownMenuItem.OwnerDraw = true;
+            shutdownMenuItem.DrawItem += new DrawItemEventHandler(DrawShutdownMenuItem);
+            shutdownMenuItem.MeasureItem += new MeasureItemEventHandler(MeasureShutdownMenuItem);
+
+            trayMenu.MenuItems.AddRange(new MenuItem[]
+            {
+                ideaMenuItem, exitNoSaveMenuItem, saveMenuItem,  exitMenuItem, shutdownMenuItem
+            });
+            */
+
+            trayMenu.MenuItems.Add("Icon set");
+            trayMenu.MenuItems[0].MenuItems.Add("default", OnIconSet);
+            trayMenu.MenuItems[0].MenuItems.Add("white", OnIconSet);
+            trayMenu.MenuItems[0].MenuItems.Add("iconset-48", OnIconSet);
+            trayMenu.MenuItems[0].MenuItems.Add("iconset-60", OnIconSet);
+            trayMenu.MenuItems[0].MenuItems.Add("iconset-64", OnIconSet);
+            trayMenu.MenuItems.Add("-");
             trayMenu.MenuItems.Add("Fan control high", FanControl);
+            trayMenu.MenuItems.Add("-");
             trayMenu.MenuItems.Add("Fan control low", FanControlLow);
+            trayMenu.MenuItems.Add("-");
             trayMenu.MenuItems.Add("Reset orientation", ResetOrientation);
+            trayMenu.MenuItems.Add("-");
             trayMenu.MenuItems.Add("Reset network", ResetNetwork);
+            trayMenu.MenuItems.Add("-");
             trayMenu.MenuItems.Add("Show", OnShow);
+            trayMenu.MenuItems.Add("-");
             trayMenu.MenuItems.Add("Exit", OnExit);
 
             trayIcon = new NotifyIcon();
             trayIcon.Text = "Dell Hardware Monitor";
-            trayIcon.Icon = Resources.wrench;
+            trayIcon.Icon = Properties.Resources.wrench;
             trayIcon.ContextMenu = trayMenu;
             trayIcon.Visible = true;
             trayIcon.MouseClick += new MouseEventHandler(trayIcon_Click);
+
+            #endregion
 
             pollingTimer = new Timer();
             pollingTimer.Tick += new EventHandler(polling_Tick);
@@ -99,6 +134,7 @@ namespace DellHardwareMonitor
             form2.StartPosition = FormStartPosition.Manual;
             form2.BackColor = Color.Black;
             form2.ShowInTaskbar = false;
+            typeof(Form).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, form2, new object[] { true });
             form2.MouseClick += Form2_MouseClick;
         }
 
@@ -106,39 +142,43 @@ namespace DellHardwareMonitor
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Settings.Default.Opacity = 0;
-            if (Settings.Default.Opacity == 0)
+            Properties.Settings.Default.Opacity = 0;
+            if (Properties.Settings.Default.Opacity == 0)
             {
                 Rectangle screenBounds = Screen.FromControl(this).Bounds;
                 this.Size = new Size(320, screenBounds.Height - 50);
                 this.Location = new Point(screenBounds.Width - this.Size.Width - 10, 10);
                 opacity = 0.8;
-                Console.WriteLine(this.Location.ToString());
             }
             else
             {
-                this.Location = Settings.Default.WindowLocation;
-                this.Size = Settings.Default.WindowSize;
-                opacity = Settings.Default.Opacity;
-                //Start minimized
-                //this.Location = new Point(this.Location.X, 1250);
+                this.Location = Properties.Settings.Default.WindowLocation;
+                this.Size = Properties.Settings.Default.WindowSize;
+                opacity = Properties.Settings.Default.Opacity;
             }
 
+            if(Properties.Settings.Default.IconSet.Equals("default"))
+            {
+                iconSet = "default";
+            }
+            OnIconSet(null, null);
+
             this.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20));
-            form2.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20));
+            form2.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20)); //20
             form2.Location = new Point(this.Location.X, this.Location.Y);
             form2.Size = this.Size;
+            //form2.Visible = true;
 
             isDriverLoaded = LoadDriver();
             if (!isDriverLoaded)
             {
                 if (System.IO.File.Exists("bzh_dell_smm_io_x64.sys"))
                 {
-                    MessageBox.Show("Failed to load DellSmbiosBzhLib driver. Check administrator priveleges.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Failed to load DellSmbiosBzhLib driver. Verify administrator priveleges.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    MessageBox.Show("Failed to load DellSmbiosBzhLib driver. Check that bzh_dell_smm_io_x64.sys is in application directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Failed to load DellSmbiosBzhLib driver. Verify that bzh_dell_smm_io_x64.sys is in application directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 Application.Exit();
                 System.Environment.Exit(1);
@@ -147,9 +187,8 @@ namespace DellHardwareMonitor
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            Fader.FadeInCustom(form2, Fader.FadeSpeed.Slowest, opacity);
-            Fader.FadeIn(this, Fader.FadeSpeed.Slowest);
-
+            Fader.FadeInCustom(form2, Fader.FadeSpeed.FourSlow, opacity);
+            Fader.FadeIn(this, Fader.FadeSpeed.FourSlow);
             form2.Activate();
             this.Activate();
         }
@@ -157,9 +196,7 @@ namespace DellHardwareMonitor
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (systemShutdown)
-            {
                 CleanUp();
-            }
 
             CleanUp();
 
@@ -177,14 +214,11 @@ namespace DellHardwareMonitor
         {
             //To-do: save location for minimize
             if (e != null && e.Button == MouseButtons.Right)
-            {
                 return;
-            }
 
             Point initPos = this.Location;
             if (this.Location.Y == 10)
             {
-                //To-do: change to this.height for i < 1251
                 for (int i = 0; i < 1251; i += 2)
                 {
                     this.Location = new Point(initPos.X, i);
@@ -221,39 +255,31 @@ namespace DellHardwareMonitor
         private void CleanUp()
         {
             if (backgroundWorker1.IsBusy)
-            {
                 backgroundWorker1.CancelAsync();
-            }
-
+            //To-do: save window loc/size on minimize
             if (this.Location.Y == 10)
             {
-                Settings.Default.WindowLocation = this.Location;
-                Settings.Default.WindowSize = this.Size;
+                Properties.Settings.Default.WindowLocation = this.Location;
+                Properties.Settings.Default.WindowSize = this.Size;
             }
-
-            Settings.Default.Opacity = form2.Opacity;
-            Settings.Default.Save();
+            Properties.Settings.Default.IconSet = iconSet;
+            Properties.Settings.Default.Opacity = form2.Opacity;
+            Properties.Settings.Default.Save();
 
             pollingTimer.Stop();
             pollingTimer.Dispose();
 
             if (isDriverLoaded)
-            {
                 UnloadDriver();
-            }
 
             if (state != null && state.Computer != null)
-            {
                 state.Computer.Close();
-            }
         }
 
         protected override void WndProc(ref Message message)
         {
             if (message.Msg == 0x11) //WM_QUERYENDSESSION
-            {
                 systemShutdown = true;
-            }
 
             base.WndProc(ref message);
         }
@@ -278,13 +304,70 @@ namespace DellHardwareMonitor
 
         #region Context menu
 
+        private void OnIconSet(object sender, EventArgs e)
+        {
+            if(sender != null)
+            {
+                MenuItem menuItem = sender as MenuItem;
+                iconSet = menuItem.Text;
+            } else
+            {
+                iconSet = Properties.Settings.Default.IconSet;
+            }
+
+            if(iconSet.Equals("iconset-48"))
+            {
+                cpuPictureBox.Image = Properties.Resources._48_processor;
+                gpuPictureBox.Image = Properties.Resources._48_video_card;
+                ramPictureBox.Image = Properties.Resources._48_ram;
+                fanPictureBox.Image = Properties.Resources._48_fan;
+                ssdPictureBox.Image = Properties.Resources._48_ssd;
+                hddPictureBox.Image = Properties.Resources._48_hdd;
+                wifiPictureBox.Image = Properties.Resources._48_router;
+                iconSet = "iconset-48";
+            } else if(iconSet.Equals("iconset-60"))
+            {
+                cpuPictureBox.Image = Properties.Resources._60_cpu;
+                gpuPictureBox.Image = Properties.Resources._60_graphics;
+                ramPictureBox.Image = Properties.Resources._60_ram;
+                fanPictureBox.Image = Properties.Resources._60_fan;
+                ssdPictureBox.Image = Properties.Resources._60_ssd;
+                hddPictureBox.Image = Properties.Resources._60_hard;
+                wifiPictureBox.Image = Properties.Resources._60_router;
+                iconSet = "iconset-60";
+            } else if(iconSet.Equals("iconset-64"))
+            {
+
+            } else if(iconSet.Equals("default"))
+            {
+                cpuPictureBox.Image = Properties.Resources.default_processor;
+                gpuPictureBox.Image = Properties.Resources.default_graphics;
+                ramPictureBox.Image = Properties.Resources.default_ram;
+                fanPictureBox.Image = Properties.Resources.default_fan;
+                ssdPictureBox.Image = Properties.Resources.default_ssd;
+                hddPictureBox.Image = Properties.Resources.default_hard;
+                wifiPictureBox.Image = Properties.Resources.default_router;
+                iconSet = "default";
+            } else if (iconSet.Equals("white"))
+            {
+                cpuPictureBox.Image = Properties.Resources.white_processor;
+                gpuPictureBox.Image = Properties.Resources.white_graphics_card;
+                ramPictureBox.Image = Properties.Resources.white_ram;
+                fanPictureBox.Image = Properties.Resources.white_fan;
+                ssdPictureBox.Image = Properties.Resources.white_ssd_drive;
+                hddPictureBox.Image = Properties.Resources.white_hard_disk;
+                wifiPictureBox.Image = Properties.Resources.white_router;
+                iconSet = "white";
+            }
+            this.Refresh();
+        }
+
         private void OnShow(object sender, EventArgs e)
         {
-
             form2.Activate();
             this.Activate();
 
-            if (this.Location.Y != 0)
+            if (this.Location.Y != 10)
             {
                 pollingTimer.Start();
 
@@ -293,7 +376,7 @@ namespace DellHardwareMonitor
 
                 Point initPos = this.Location;
 
-                for (int i = 1250; i >= 0; i -= 2)
+                for (int i = 1250; i >= 10; i -= 2)
                 {
                     this.Location = new Point(initPos.X, i);
                     form2.Location = new Point(initPos.X, i);
@@ -360,7 +443,7 @@ namespace DellHardwareMonitor
 
             if (fanControlLow)
             {
-                trayIcon.Icon = Resources.wrench;
+                trayIcon.Icon = Properties.Resources.wrench;
                 fanControlLow = false;
                 trayMenu.MenuItems[1].Checked = false;
 
@@ -377,7 +460,7 @@ namespace DellHardwareMonitor
             }
             else
             {
-                trayIcon.Icon = Resources.wrenchRed;
+                trayIcon.Icon = Properties.Resources.wrenchRed;
                 fanControlLow = true;
                 trayMenu.MenuItems[1].Checked = true;
 
@@ -409,7 +492,7 @@ namespace DellHardwareMonitor
             bool fanOneResult = true;
             bool fanTwoResult = true;
 
-            trayIcon.Icon = Resources.wrenchRed;
+            trayIcon.Icon = Properties.Resources.wrenchRed;
 
             if (fanControlLow)
             {
@@ -433,7 +516,7 @@ namespace DellHardwareMonitor
 
             if (fanControl)
             {
-                trayIcon.Icon = Resources.wrench;
+                trayIcon.Icon = Properties.Resources.wrench;
                 fanControl = false;
                 trayMenu.MenuItems[0].Checked = false;
 
@@ -450,7 +533,7 @@ namespace DellHardwareMonitor
             }
             else
             {
-                trayIcon.Icon = Resources.wrenchRed;
+                trayIcon.Icon = Properties.Resources.wrenchRed;
                 fanControl = true;
                 trayMenu.MenuItems[0].Checked = true;
 
@@ -502,10 +585,16 @@ namespace DellHardwareMonitor
                 {
                     if (ipAddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                     {
-                        localhost.Text = ipAddr.ToString();
-                        break;
+                        string ipString = ipAddr.ToString();
+                        if (ipString.Contains("192.168"))
+                        {
+                            localhost.Text = ipString;
+                            break;
+                        }
                     }
                 }
+
+                wifiHeaderLbl.Text = GetSSID();
 
                 //sometimes there's no internet
                 try
@@ -532,7 +621,7 @@ namespace DellHardwareMonitor
                 }
 
                 cpuNameLbl.Text = state.CPU.Name;
-                gpuNameLbl.Text = state.GPU.Name;
+                gpuNameLbl.Text = state.GPU.Name.Replace("NVIDIA", "NVIDIA ");
                 ssdNameLbl.Text = state.SSD.Name;
                 hddNameLbl.Text = state.HDD.Name;
             }
@@ -656,6 +745,34 @@ namespace DellHardwareMonitor
             isDriverLoaded = false;
         }
 
+        private string GetSSID()
+        {
+            var process = new System.Diagnostics.Process
+            {
+                StartInfo = { FileName = "netsh.exe", Arguments = "wlan show interfaces", UseShellExecute = false, RedirectStandardOutput = true, CreateNoWindow = true }
+            };
+            process.Start();
+
+            string output = process.StandardOutput.ReadToEnd();
+            string[] lines = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            string line = null;
+            foreach (string tempLine in lines)
+            {
+                if (tempLine.Contains("SSID") && !tempLine.Contains("BSSID"))
+                {
+                    line = tempLine;
+                    break;
+                }
+            }
+
+            if (line == null)
+            {
+                return "SSID: N/A";
+            }
+
+            string ssid = line.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries)[1].TrimStart();
+            return "SSID: " + ssid;
+        }
         #endregion
 
         #region Background worker
@@ -663,9 +780,7 @@ namespace DellHardwareMonitor
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-
             state = new HardwareState(cpuName, gpuName, ssdName, hddName);
-
             BeginInvoke((MethodInvoker)delegate
             {
                 polling_Tick(null, null);
@@ -681,7 +796,8 @@ namespace DellHardwareMonitor
                 c.Visible = true;
             }
 
-            loadingPictureBox.Visible = false;
+            //Fader.FadeOutCustom(form2, Fader.FadeSpeed.ThreeSlow, null, opacity);
+            loadingPictureBox.Dispose();
             uploadPictureBox.Visible = false;
             downloadPictureBox.Visible = false;
             backgroundWorkerCompleted = true;
@@ -726,6 +842,19 @@ namespace DellHardwareMonitor
         #endregion
 
     }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct SYSTEMTIME
+{
+    public short wYear;
+    public short wMonth;
+    public short wDayOfWeek;
+    public short wDay;
+    public short wHour;
+    public short wMinute;
+    public short wSecond;
+    public short wMilliseconds;
 }
 
 //https://stackoverflow.com/questions/778678/how-to-change-the-color-of-progressbar-in-c-sharp-net-3-5 William Daniel answer

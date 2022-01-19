@@ -201,8 +201,8 @@ namespace DellHardwareMonitor
             this.cpuPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.default_processor;
             this.cpuPictureBox.Location = new System.Drawing.Point(24, 32);
             this.cpuPictureBox.Name = "cpuPictureBox";
-            this.cpuPictureBox.Size = new System.Drawing.Size(48, 48);
-            this.cpuPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.cpuPictureBox.Size = new System.Drawing.Size(52, 52);
+            this.cpuPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.cpuPictureBox.TabIndex = 1;
             this.cpuPictureBox.TabStop = false;
             this.cpuPictureBox.Visible = false;
@@ -213,8 +213,8 @@ namespace DellHardwareMonitor
             this.gpuPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.default_graphics;
             this.gpuPictureBox.Location = new System.Drawing.Point(24, 237);
             this.gpuPictureBox.Name = "gpuPictureBox";
-            this.gpuPictureBox.Size = new System.Drawing.Size(48, 48);
-            this.gpuPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.gpuPictureBox.Size = new System.Drawing.Size(52, 52);
+            this.gpuPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.gpuPictureBox.TabIndex = 2;
             this.gpuPictureBox.TabStop = false;
             this.gpuPictureBox.Visible = false;
@@ -224,8 +224,8 @@ namespace DellHardwareMonitor
             this.ramPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.default_ram;
             this.ramPictureBox.Location = new System.Drawing.Point(24, 536);
             this.ramPictureBox.Name = "ramPictureBox";
-            this.ramPictureBox.Size = new System.Drawing.Size(48, 48);
-            this.ramPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.ramPictureBox.Size = new System.Drawing.Size(52, 52);
+            this.ramPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ramPictureBox.TabIndex = 3;
             this.ramPictureBox.TabStop = false;
             this.ramPictureBox.Visible = false;
@@ -235,8 +235,8 @@ namespace DellHardwareMonitor
             this.ssdPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.default_ssd;
             this.ssdPictureBox.Location = new System.Drawing.Point(24, 664);
             this.ssdPictureBox.Name = "ssdPictureBox";
-            this.ssdPictureBox.Size = new System.Drawing.Size(48, 48);
-            this.ssdPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.ssdPictureBox.Size = new System.Drawing.Size(52, 52);
+            this.ssdPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ssdPictureBox.TabIndex = 4;
             this.ssdPictureBox.TabStop = false;
             this.ssdPictureBox.Visible = false;
@@ -246,8 +246,8 @@ namespace DellHardwareMonitor
             this.hddPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.default_hard;
             this.hddPictureBox.Location = new System.Drawing.Point(24, 792);
             this.hddPictureBox.Name = "hddPictureBox";
-            this.hddPictureBox.Size = new System.Drawing.Size(48, 48);
-            this.hddPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.hddPictureBox.Size = new System.Drawing.Size(52, 52);
+            this.hddPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.hddPictureBox.TabIndex = 5;
             this.hddPictureBox.TabStop = false;
             this.hddPictureBox.Visible = false;
@@ -257,8 +257,8 @@ namespace DellHardwareMonitor
             this.wifiPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.default_router;
             this.wifiPictureBox.Location = new System.Drawing.Point(24, 920);
             this.wifiPictureBox.Name = "wifiPictureBox";
-            this.wifiPictureBox.Size = new System.Drawing.Size(48, 48);
-            this.wifiPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.wifiPictureBox.Size = new System.Drawing.Size(52, 52);
+            this.wifiPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.wifiPictureBox.TabIndex = 6;
             this.wifiPictureBox.TabStop = false;
             this.wifiPictureBox.Visible = false;
@@ -518,9 +518,9 @@ namespace DellHardwareMonitor
             // 
             // gpuTempLbl
             // 
-            this.gpuTempLbl.Location = new System.Drawing.Point(256, 240);
+            this.gpuTempLbl.Location = new System.Drawing.Point(243, 240);
             this.gpuTempLbl.Name = "gpuTempLbl";
-            this.gpuTempLbl.Size = new System.Drawing.Size(19, 13);
+            this.gpuTempLbl.Size = new System.Drawing.Size(32, 16);
             this.gpuTempLbl.TabIndex = 38;
             this.gpuTempLbl.Text = "35";
             this.gpuTempLbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -1477,8 +1477,8 @@ namespace DellHardwareMonitor
             this.fanPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.default_fan;
             this.fanPictureBox.Location = new System.Drawing.Point(24, 408);
             this.fanPictureBox.Name = "fanPictureBox";
-            this.fanPictureBox.Size = new System.Drawing.Size(48, 48);
-            this.fanPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.fanPictureBox.Size = new System.Drawing.Size(52, 52);
+            this.fanPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.fanPictureBox.TabIndex = 138;
             this.fanPictureBox.TabStop = false;
             this.fanPictureBox.Visible = false;

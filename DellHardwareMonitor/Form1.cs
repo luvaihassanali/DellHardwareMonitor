@@ -27,6 +27,7 @@ namespace DellHardwareMonitor
 
         private NotifyIcon trayIcon;
         private Timer pollingTimer;
+        private Timer singleClickTimer;
         private ContextMenu trayMenu;
         private HardwareState state;
         private Form form2;
@@ -122,12 +123,16 @@ namespace DellHardwareMonitor
             trayIcon.ContextMenu = trayMenu;
             trayIcon.Visible = true;
             trayIcon.MouseClick += new MouseEventHandler(trayIcon_Click);
+            trayIcon.MouseDoubleClick += new MouseEventHandler(TrayIcon_MouseDoubleClick);
 
             #endregion
 
             pollingTimer = new Timer();
             pollingTimer.Tick += new EventHandler(polling_Tick);
             pollingTimer.Interval = Int32.Parse(ConfigurationManager.AppSettings["pollingInterval"]);
+            singleClickTimer = new System.Windows.Forms.Timer();
+            //singleClickTimer.Interval = (int)(SystemInformation.DoubleClickTime / 2); // is 100 ms
+            singleClickTimer.Tick += SingleClickTimer_Tick;
 
             form2 = new Form();
             form2.FormBorderStyle = FormBorderStyle.None;
@@ -212,10 +217,27 @@ namespace DellHardwareMonitor
 
         private void trayIcon_Click(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Left)
+                singleClickTimer.Start();
+            
             //To-do: save location for minimize
             if (e != null && e.Button == MouseButtons.Right)
                 return;
+        }
 
+        private void TrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                singleClickTimer.Stop();
+                form2.Activate();
+                this.Activate();
+            }
+        }
+
+        private void SingleClickTimer_Tick(object sender, EventArgs e)
+        {
+            singleClickTimer.Stop();
             Point initPos = this.Location;
             if (this.Location.Y == 10)
             {

@@ -50,8 +50,7 @@ namespace DellHardwareMonitor
 
             this.FormBorderStyle = FormBorderStyle.None;
             this.DoubleBuffered = true;
-            loadingPictureBox.Location = new System.Drawing.Point(this.Width / 2 - loadingPictureBox.Width / 2, this.Height / 2 - loadingPictureBox.Height / 2);
-
+            
             #region Tray menu
 
             trayMenu = new ContextMenu();
@@ -151,8 +150,8 @@ namespace DellHardwareMonitor
             if (Properties.Settings.Default.Opacity == 0)
             {
                 Rectangle screenBounds = Screen.FromControl(this).Bounds;
-                this.Size = new Size(320, screenBounds.Height - 50);
-                this.Location = new Point(screenBounds.Width - this.Size.Width - 10, 10);
+                this.Size = new Size(309, screenBounds.Height - 45);
+                this.Location = new Point(screenBounds.Width - this.Size.Width - 10, 8);
                 opacity = 0.8;
             }
             else
@@ -172,7 +171,7 @@ namespace DellHardwareMonitor
             form2.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20)); //20
             form2.Location = new Point(this.Location.X, this.Location.Y);
             form2.Size = this.Size;
-            //form2.Visible = true;
+            loadingPictureBox.Location = new System.Drawing.Point(this.Width / 2 - loadingPictureBox.Width / 2, this.Height / 2 - loadingPictureBox.Height / 2);
 
             isDriverLoaded = LoadDriver();
             if (!isDriverLoaded)
@@ -225,6 +224,8 @@ namespace DellHardwareMonitor
                 return;
         }
 
+        #region Tray icon functions
+
         private void TrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -273,6 +274,8 @@ namespace DellHardwareMonitor
                 }
             }
         }
+
+        #endregion 
 
         private void CleanUp()
         {
@@ -359,16 +362,23 @@ namespace DellHardwareMonitor
                 iconSet = "iconset-60";
             } else if(iconSet.Equals("iconset-64"))
             {
-
+                cpuPictureBox.Image = Properties.Resources._64_processor;
+                gpuPictureBox.Image = Properties.Resources._64_graphics;
+                ramPictureBox.Image = Properties.Resources._64_ram;
+                fanPictureBox.Image = Properties.Resources._64_fan;
+                ssdPictureBox.Image = Properties.Resources._64_ssd;
+                hddPictureBox.Image = Properties.Resources._64_hdd;
+                wifiPictureBox.Image = Properties.Resources._64_router;
+                iconSet = "iconset-64";
             } else if(iconSet.Equals("default"))
             {
                 cpuPictureBox.Image = Properties.Resources.default_processor;
                 gpuPictureBox.Image = Properties.Resources.default_graphics;
-                ramPictureBox.Image = Properties.Resources.default_ram;
-                fanPictureBox.Image = Properties.Resources.default_fan;
+                ramPictureBox.Image = Properties.Resources.default_ram_blue;
+                fanPictureBox.Image = Properties.Resources.default_fan_edit;
                 ssdPictureBox.Image = Properties.Resources.default_ssd;
-                hddPictureBox.Image = Properties.Resources.default_hard;
-                wifiPictureBox.Image = Properties.Resources.default_router;
+                hddPictureBox.Image = Properties.Resources.default_hdd_horizontal;
+                wifiPictureBox.Image = Properties.Resources.default_router_edit;
                 iconSet = "default";
             } else if (iconSet.Equals("white"))
             {
@@ -418,10 +428,10 @@ namespace DellHardwareMonitor
         private void ResetOrientation(object sender, EventArgs e)
         {
             Rectangle screenBounds = Screen.FromControl(this).Bounds;
-            this.Size = new Size(320, screenBounds.Height - 50);
-            this.Location = new Point(screenBounds.Width - this.Size.Width - 10, 10);
-            form2.Size = new Size(320, screenBounds.Height - 50);
-            form2.Location = new Point(screenBounds.Width - this.Size.Width - 10, 10);
+            this.Size = new Size(309, screenBounds.Height - 45);
+            this.Location = new Point(screenBounds.Width - this.Size.Width - 10, 8);
+            form2.Size = new Size(309, screenBounds.Height - 45);
+            form2.Location = new Point(screenBounds.Width - this.Size.Width - 10, 8);
         }
 
         private void ResetNetwork(object sender, EventArgs e)
@@ -700,7 +710,7 @@ namespace DellHardwareMonitor
             float memoryUsed = (float)state.RAM.Sensors[0].Value;
             ramUsedLbl.Text = memoryUsed.ToString("0.00");
             float memoryAvailable = (float)state.RAM.Sensors[1].Value;
-            ramAvailableLbl.Text = memoryAvailable.ToString("0.00");
+            //ramAvailableLbl.Text = memoryAvailable.ToString("0.00");
             ramTotalLbl.Text = (memoryUsed + memoryAvailable).ToString("0.00");
             float memoryLoad = (float)state.RAM.Sensors[2].Value;
             ramLoadLbl.Text = memoryLoad.ToString("0");
@@ -789,11 +799,11 @@ namespace DellHardwareMonitor
 
             if (line == null)
             {
-                return "SSID: N/A";
+                return "N/A";
             }
 
             string ssid = line.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries)[1].TrimStart();
-            return "SSID: " + ssid;
+            return ssid;
         }
         #endregion
 

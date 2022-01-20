@@ -283,6 +283,16 @@ namespace DellHardwareMonitor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap default_fan_edit {
+            get {
+                object obj = ResourceManager.GetObject("default_fan_edit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap default_graphics {
             get {
                 object obj = ResourceManager.GetObject("default_graphics", resourceCulture);
@@ -296,6 +306,16 @@ namespace DellHardwareMonitor.Properties {
         internal static System.Drawing.Bitmap default_hard {
             get {
                 object obj = ResourceManager.GetObject("default_hard", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap default_hdd_horizontal {
+            get {
+                object obj = ResourceManager.GetObject("default_hdd_horizontal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -323,9 +343,29 @@ namespace DellHardwareMonitor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap default_ram_blue {
+            get {
+                object obj = ResourceManager.GetObject("default_ram_blue", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap default_router {
             get {
                 object obj = ResourceManager.GetObject("default_router", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap default_router_edit {
+            get {
+                object obj = ResourceManager.GetObject("default_router_edit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -247,7 +247,9 @@
   <ItemGroup>
     <None Include="Resources\iconset-60\60-ssd.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\iconset-default\default-hdd-horizontal.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\iconset-48\48-fan.png" />
   </ItemGroup>
@@ -268,6 +270,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\iconset-48\48-video-card.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-default\default-ram-blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-default\default-router-edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-default\default-fan-edit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

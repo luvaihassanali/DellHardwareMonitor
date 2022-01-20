@@ -97,19 +97,13 @@ namespace DellHardwareMonitor
             });
             */
 
-            trayMenu.MenuItems.Add("Icon set");
-            trayMenu.MenuItems[0].MenuItems.Add("default", OnIconSet);
-            trayMenu.MenuItems[0].MenuItems.Add("white", OnIconSet);
-            trayMenu.MenuItems[0].MenuItems.Add("iconset-48", OnIconSet);
-            trayMenu.MenuItems[0].MenuItems.Add("iconset-60", OnIconSet);
-            trayMenu.MenuItems[0].MenuItems.Add("iconset-64", OnIconSet);
-            trayMenu.MenuItems.Add("-");
+            //trayMenu.MenuItems.Add("Icon set");
+            //trayMenu.MenuItems[0].MenuItems.Add("Default", OnIconSet);
+            //trayMenu.MenuItems.Add("-");
             trayMenu.MenuItems.Add("Fan control high", FanControl);
-            trayMenu.MenuItems.Add("-");
             trayMenu.MenuItems.Add("Fan control low", FanControlLow);
             trayMenu.MenuItems.Add("-");
             trayMenu.MenuItems.Add("Reset orientation", ResetOrientation);
-            trayMenu.MenuItems.Add("-");
             trayMenu.MenuItems.Add("Reset network", ResetNetwork);
             trayMenu.MenuItems.Add("-");
             trayMenu.MenuItems.Add("Show", OnShow);
@@ -161,9 +155,9 @@ namespace DellHardwareMonitor
                 opacity = Properties.Settings.Default.Opacity;
             }
 
-            if(Properties.Settings.Default.IconSet.Equals("default"))
+            if(Properties.Settings.Default.IconSet.Equals("Default"))
             {
-                iconSet = "default";
+                iconSet = "Default";
             }
             OnIconSet(null, null);
 
@@ -331,7 +325,7 @@ namespace DellHardwareMonitor
 
         private void OnIconSet(object sender, EventArgs e)
         {
-            if(sender != null)
+            if (sender != null)
             {
                 MenuItem menuItem = sender as MenuItem;
                 iconSet = menuItem.Text;
@@ -340,56 +334,19 @@ namespace DellHardwareMonitor
                 iconSet = Properties.Settings.Default.IconSet;
             }
 
-            if(iconSet.Equals("iconset-48"))
-            {
-                cpuPictureBox.Image = Properties.Resources._48_processor;
-                gpuPictureBox.Image = Properties.Resources._48_video_card;
-                ramPictureBox.Image = Properties.Resources._48_ram;
-                fanPictureBox.Image = Properties.Resources._48_fan;
-                ssdPictureBox.Image = Properties.Resources._48_ssd;
-                hddPictureBox.Image = Properties.Resources._48_hdd;
-                wifiPictureBox.Image = Properties.Resources._48_router;
-                iconSet = "iconset-48";
-            } else if(iconSet.Equals("iconset-60"))
-            {
-                cpuPictureBox.Image = Properties.Resources._60_cpu;
-                gpuPictureBox.Image = Properties.Resources._60_graphics;
-                ramPictureBox.Image = Properties.Resources._60_ram;
-                fanPictureBox.Image = Properties.Resources._60_fan;
-                ssdPictureBox.Image = Properties.Resources._60_ssd;
-                hddPictureBox.Image = Properties.Resources._60_hard;
-                wifiPictureBox.Image = Properties.Resources._60_router;
-                iconSet = "iconset-60";
-            } else if(iconSet.Equals("iconset-64"))
-            {
-                cpuPictureBox.Image = Properties.Resources._64_processor;
-                gpuPictureBox.Image = Properties.Resources._64_graphics;
-                ramPictureBox.Image = Properties.Resources._64_ram;
-                fanPictureBox.Image = Properties.Resources._64_fan;
-                ssdPictureBox.Image = Properties.Resources._64_ssd;
-                hddPictureBox.Image = Properties.Resources._64_hdd;
-                wifiPictureBox.Image = Properties.Resources._64_router;
-                iconSet = "iconset-64";
-            } else if(iconSet.Equals("default"))
+            if (iconSet.Equals("Default"))
             {
                 cpuPictureBox.Image = Properties.Resources.default_processor;
                 gpuPictureBox.Image = Properties.Resources.default_graphics;
-                ramPictureBox.Image = Properties.Resources.default_ram_blue;
-                fanPictureBox.Image = Properties.Resources.default_fan_edit;
+                ramPictureBox.Image = Properties.Resources.default_ram;
+                fanPictureBox.Image = Properties.Resources.default_fan;
                 ssdPictureBox.Image = Properties.Resources.default_ssd;
-                hddPictureBox.Image = Properties.Resources.default_hdd_horizontal;
-                wifiPictureBox.Image = Properties.Resources.default_router_edit;
-                iconSet = "default";
-            } else if (iconSet.Equals("white"))
+                hddPictureBox.Image = Properties.Resources.default_hdd;
+                wifiPictureBox.Image = Properties.Resources.default_router;
+                iconSet = "Default";
+            } else if (iconSet.Equals("Black"))
             {
-                cpuPictureBox.Image = Properties.Resources.white_processor;
-                gpuPictureBox.Image = Properties.Resources.white_graphics_card;
-                ramPictureBox.Image = Properties.Resources.white_ram;
-                fanPictureBox.Image = Properties.Resources.white_fan;
-                ssdPictureBox.Image = Properties.Resources.white_ssd_drive;
-                hddPictureBox.Image = Properties.Resources.white_hard_disk;
-                wifiPictureBox.Image = Properties.Resources.white_router;
-                iconSet = "white";
+
             }
             this.Refresh();
         }
@@ -455,8 +412,9 @@ namespace DellHardwareMonitor
 
             if (fanControl)
             {
-                trayMenu.MenuItems[1].Checked = true;
-                trayMenu.MenuItems[0].Checked = false;
+                trayIcon.Icon = Properties.Resources.wrench_yellow;
+                //trayMenu.MenuItems[3].Checked = true;
+                //trayMenu.MenuItems[2].Checked = false;
                 fanControl = false;
                 fanControlLow = true;
 
@@ -477,7 +435,7 @@ namespace DellHardwareMonitor
             {
                 trayIcon.Icon = Properties.Resources.wrench;
                 fanControlLow = false;
-                trayMenu.MenuItems[1].Checked = false;
+                //trayMenu.MenuItems[3].Checked = false;
 
                 bool enableEc = DellSmbiosBzh.EnableAutomaticFanControl(false);
                 if (!enableEc)
@@ -490,11 +448,12 @@ namespace DellHardwareMonitor
                 fanControlLbl.Text = "Disabled";
 
             }
+
             else
             {
-                trayIcon.Icon = Properties.Resources.wrenchRed;
+                trayIcon.Icon = Properties.Resources.wrench_yellow;
                 fanControlLow = true;
-                trayMenu.MenuItems[1].Checked = true;
+                //trayMenu.MenuItems[3].Checked = true;
 
                 bool disableEc = DellSmbiosBzh.DisableAutomaticFanControl(false);
 
@@ -505,7 +464,7 @@ namespace DellHardwareMonitor
                     System.Environment.Exit(1);
                 }
 
-                fanControlLbl.Text = "Enable";
+                fanControlLbl.Text = "Enabled";
 
                 fanOneResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan1, BzhFanLevel.Level1);
                 fanTwoResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan2, BzhFanLevel.Level1);
@@ -524,12 +483,11 @@ namespace DellHardwareMonitor
             bool fanOneResult = true;
             bool fanTwoResult = true;
 
-            trayIcon.Icon = Properties.Resources.wrenchRed;
-
             if (fanControlLow)
             {
-                trayMenu.MenuItems[1].Checked = false;
-                trayMenu.MenuItems[0].Checked = true;
+                trayIcon.Icon = Properties.Resources.wrench_red;
+                //trayMenu.MenuItems[3].Checked = false;
+                //trayMenu.MenuItems[2].Checked = true;
                 fanControlLow = false;
                 fanControl = true;
 
@@ -550,7 +508,7 @@ namespace DellHardwareMonitor
             {
                 trayIcon.Icon = Properties.Resources.wrench;
                 fanControl = false;
-                trayMenu.MenuItems[0].Checked = false;
+                //trayMenu.MenuItems[2].Checked = false;
 
                 bool enableEc = DellSmbiosBzh.EnableAutomaticFanControl(false);
                 if (!enableEc)
@@ -565,9 +523,9 @@ namespace DellHardwareMonitor
             }
             else
             {
-                trayIcon.Icon = Properties.Resources.wrenchRed;
+                trayIcon.Icon = Properties.Resources.wrench_red;
                 fanControl = true;
-                trayMenu.MenuItems[0].Checked = true;
+                //trayMenu.MenuItems[2].Checked = true;
 
                 bool disableEc = DellSmbiosBzh.DisableAutomaticFanControl(false);
 
@@ -578,7 +536,7 @@ namespace DellHardwareMonitor
                     System.Environment.Exit(1);
                 }
 
-                fanControlLbl.Text = "Enable";
+                fanControlLbl.Text = "Enabled";
 
                 fanOneResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan1, BzhFanLevel.Level2);
                 fanTwoResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan2, BzhFanLevel.Level2);
@@ -855,20 +813,54 @@ namespace DellHardwareMonitor
 
         private void button3_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("cleanmgr.exe");
+            System.Diagnostics.Process.Start("regedit.exe");
             label1.Focus();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("regedit.exe");
+            System.Diagnostics.Process.Start("compmgmt.msc");
             label1.Focus();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void roundButton1_MouseEnter(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("compmgmt.msc");
-            label1.Focus();
+            roundButton1.BackgroundImage = Properties.Resources.pia;
+        }
+
+        private void roundButton1_MouseLeave(object sender, EventArgs e)
+        {
+            roundButton1.BackgroundImage = Properties.Resources.pia_b;
+        }
+
+        private void roundButton2_MouseEnter(object sender, EventArgs e)
+        {
+            roundButton2.BackgroundImage = Properties.Resources.windir;
+        }
+
+        private void roundButton2_MouseLeave(object sender, EventArgs e)
+        {
+            roundButton2.BackgroundImage = Properties.Resources.windir_b;
+        }
+
+        private void roundButton3_MouseEnter(object sender, EventArgs e)
+        {
+            roundButton3.BackgroundImage = Properties.Resources.regedit;
+        }
+
+        private void roundButton3_MouseLeave(object sender, EventArgs e)
+        {
+            roundButton3.BackgroundImage = Properties.Resources.regedit_b;
+        }
+
+        private void roundButton4_MouseEnter(object sender, EventArgs e)
+        {
+            roundButton4.BackgroundImage = Properties.Resources.computer;
+        }
+
+        private void roundButton4_MouseLeave(object sender, EventArgs e)
+        {
+            roundButton4.BackgroundImage = Properties.Resources.computer_b;
         }
 
         #endregion
@@ -925,5 +917,17 @@ public class ColorProgressBar : ProgressBar
                 e.Graphics.DrawImage(offscreenImage, 0, 0);
             }
         }
+    }
+}
+
+public class RoundButton : Button
+{
+    //https://stackoverflow.com/questions/3708113/round-shaped-buttons
+    protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
+    {
+        System.Drawing.Drawing2D.GraphicsPath grPath = new System.Drawing.Drawing2D.GraphicsPath();
+        grPath.AddEllipse(0, 0, ClientSize.Width, ClientSize.Height);
+        this.Region = new System.Drawing.Region(grPath);
+        base.OnPaint(e);
     }
 }

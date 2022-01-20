@@ -63,9 +63,9 @@ namespace DellHardwareMonitor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _48_fan {
+        internal static System.Drawing.Bitmap computer {
             get {
-                object obj = ResourceManager.GetObject("_48_fan", resourceCulture);
+                object obj = ResourceManager.GetObject("computer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,199 +73,9 @@ namespace DellHardwareMonitor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _48_hdd {
+        internal static System.Drawing.Bitmap computer_b {
             get {
-                object obj = ResourceManager.GetObject("_48_hdd", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _48_processor {
-            get {
-                object obj = ResourceManager.GetObject("_48_processor", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _48_ram {
-            get {
-                object obj = ResourceManager.GetObject("_48_ram", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _48_router {
-            get {
-                object obj = ResourceManager.GetObject("_48_router", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _48_ssd {
-            get {
-                object obj = ResourceManager.GetObject("_48_ssd", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _48_video_card {
-            get {
-                object obj = ResourceManager.GetObject("_48_video_card", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _60_cpu {
-            get {
-                object obj = ResourceManager.GetObject("_60_cpu", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _60_fan {
-            get {
-                object obj = ResourceManager.GetObject("_60_fan", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _60_graphics {
-            get {
-                object obj = ResourceManager.GetObject("_60_graphics", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _60_hard {
-            get {
-                object obj = ResourceManager.GetObject("_60_hard", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _60_ram {
-            get {
-                object obj = ResourceManager.GetObject("_60_ram", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _60_router {
-            get {
-                object obj = ResourceManager.GetObject("_60_router", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _60_ssd {
-            get {
-                object obj = ResourceManager.GetObject("_60_ssd", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _64_fan {
-            get {
-                object obj = ResourceManager.GetObject("_64_fan", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _64_graphics {
-            get {
-                object obj = ResourceManager.GetObject("_64_graphics", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _64_hdd {
-            get {
-                object obj = ResourceManager.GetObject("_64_hdd", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _64_processor {
-            get {
-                object obj = ResourceManager.GetObject("_64_processor", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _64_ram {
-            get {
-                object obj = ResourceManager.GetObject("_64_ram", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _64_router {
-            get {
-                object obj = ResourceManager.GetObject("_64_router", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _64_ssd {
-            get {
-                object obj = ResourceManager.GetObject("_64_ssd", resourceCulture);
+                object obj = ResourceManager.GetObject("computer_b", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -283,16 +93,6 @@ namespace DellHardwareMonitor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap default_fan_edit {
-            get {
-                object obj = ResourceManager.GetObject("default_fan_edit", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap default_graphics {
             get {
                 object obj = ResourceManager.GetObject("default_graphics", resourceCulture);
@@ -303,19 +103,9 @@ namespace DellHardwareMonitor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap default_hard {
+        internal static System.Drawing.Bitmap default_hdd {
             get {
-                object obj = ResourceManager.GetObject("default_hard", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap default_hdd_horizontal {
-            get {
-                object obj = ResourceManager.GetObject("default_hdd_horizontal", resourceCulture);
+                object obj = ResourceManager.GetObject("default_hdd", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -343,29 +133,9 @@ namespace DellHardwareMonitor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap default_ram_blue {
-            get {
-                object obj = ResourceManager.GetObject("default_ram_blue", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap default_router {
             get {
                 object obj = ResourceManager.GetObject("default_router", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap default_router_edit {
-            get {
-                object obj = ResourceManager.GetObject("default_router_edit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -403,6 +173,26 @@ namespace DellHardwareMonitor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap pia {
+            get {
+                object obj = ResourceManager.GetObject("pia", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pia_b {
+            get {
+                object obj = ResourceManager.GetObject("pia_b", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap red {
             get {
                 object obj = ResourceManager.GetObject("red", resourceCulture);
@@ -413,9 +203,9 @@ namespace DellHardwareMonitor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap white_fan {
+        internal static System.Drawing.Bitmap regedit {
             get {
-                object obj = ResourceManager.GetObject("white_fan", resourceCulture);
+                object obj = ResourceManager.GetObject("regedit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -423,9 +213,9 @@ namespace DellHardwareMonitor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap white_graphics_card {
+        internal static System.Drawing.Bitmap regedit_b {
             get {
-                object obj = ResourceManager.GetObject("white_graphics_card", resourceCulture);
+                object obj = ResourceManager.GetObject("regedit_b", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -433,9 +223,9 @@ namespace DellHardwareMonitor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap white_hard_disk {
+        internal static System.Drawing.Bitmap windir {
             get {
-                object obj = ResourceManager.GetObject("white_hard_disk", resourceCulture);
+                object obj = ResourceManager.GetObject("windir", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -443,39 +233,9 @@ namespace DellHardwareMonitor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap white_processor {
+        internal static System.Drawing.Bitmap windir_b {
             get {
-                object obj = ResourceManager.GetObject("white_processor", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap white_ram {
-            get {
-                object obj = ResourceManager.GetObject("white_ram", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap white_router {
-            get {
-                object obj = ResourceManager.GetObject("white_router", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap white_ssd_drive {
-            get {
-                object obj = ResourceManager.GetObject("white_ssd_drive", resourceCulture);
+                object obj = ResourceManager.GetObject("windir_b", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -493,9 +253,19 @@ namespace DellHardwareMonitor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon wrenchRed {
+        internal static System.Drawing.Icon wrench_red {
             get {
-                object obj = ResourceManager.GetObject("wrenchRed", resourceCulture);
+                object obj = ResourceManager.GetObject("wrench_red", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon wrench_yellow {
+            get {
+                object obj = ResourceManager.GetObject("wrench_yellow", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

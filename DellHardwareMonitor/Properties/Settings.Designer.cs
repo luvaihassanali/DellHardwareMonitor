@@ -61,7 +61,7 @@ namespace DellHardwareMonitor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("default")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Default")]
         public string IconSet {
             get {
                 return ((string)(this["IconSet"]));

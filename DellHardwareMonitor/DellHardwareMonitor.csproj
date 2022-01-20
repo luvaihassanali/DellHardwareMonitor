@@ -164,9 +164,6 @@
     <None Include="Resources\wrench-red.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\iconset-default\default-fan.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\iconset-default\default-graphics.png" />
   </ItemGroup>
   <ItemGroup>
@@ -176,109 +173,46 @@
     <None Include="Resources\iconset-default\default-processor.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\iconset-default\default-ssd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-default\default-hdd.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\iconset-default\default-ram.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\iconset-default\default-router.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\iconset-default\default-ssd.png" />
+    <None Include="Resources\iconset-default\default-fan.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\iconset-white\white-fan.png" />
+    <None Include="Resources\wrench-yellow.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\iconset-white\white-graphics-card.png" />
+    <None Include="Resources\buttons\computer.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\iconset-white\white-hard-disk.png" />
+    <None Include="Resources\buttons\computer_b.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\iconset-white\white-processor.png" />
+    <None Include="Resources\buttons\pia.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\iconset-white\white-ram.png" />
+    <None Include="Resources\buttons\pia_b.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\iconset-white\white-router.png" />
+    <None Include="Resources\buttons\regedit.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\iconset-white\white-ssd-drive.png" />
+    <None Include="Resources\buttons\regedit_b.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\iconset-64\64-fan.png" />
+    <None Include="Resources\buttons\windir.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\iconset-64\64-graphics.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-64\64-hdd.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-64\64-processor.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-64\64-ram.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-64\64-router.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-64\64-ssd.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-60\60-cpu.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-60\60-fan.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-60\60-graphics.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-60\60-hard.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-60\60-ram.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-60\60-router.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-60\60-ssd.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-default\default-hdd-horizontal.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-48\48-fan.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-48\48-hdd.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-48\48-processor.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-48\48-ram.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-48\48-router.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-48\48-ssd.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-48\48-video-card.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-default\default-ram-blue.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-default\default-router-edit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\iconset-default\default-fan-edit.png" />
+    <None Include="Resources\buttons\windir_b.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

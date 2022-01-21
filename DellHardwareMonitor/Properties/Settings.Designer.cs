@@ -58,17 +58,5 @@ namespace DellHardwareMonitor.Properties {
                 this["Opacity"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Default")]
-        public string IconSet {
-            get {
-                return ((string)(this["IconSet"]));
-            }
-            set {
-                this["IconSet"] = value;
-            }
-        }
     }
 }

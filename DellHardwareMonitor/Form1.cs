@@ -18,6 +18,7 @@ namespace DellHardwareMonitor
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
 
+        private const int yValue = 8;
         private double opacity;
         private bool isDriverLoaded;
         private bool fanControl;
@@ -32,7 +33,6 @@ namespace DellHardwareMonitor
         private HardwareState state;
         private Form form2;
 
-        private string iconSet;
         private string dateString;
         private string cpuName = ConfigurationManager.AppSettings["cpuName"];
         private string gpuName = ConfigurationManager.AppSettings["gpuName"];
@@ -55,70 +55,10 @@ namespace DellHardwareMonitor
 
             trayMenu = new ContextMenu();
 
-            /*
-            MenuItem fanControlHighMenuItem = new MenuItem();
-            fanControlHighMenuItem.Text = "  Idea";
-            fanControlHighMenuItem.Click += new EventHandler(OnIdea);
-            fanControlHighMenuItem.OwnerDraw = true;
-            fanControlHighMenuItem.DrawItem += new DrawItemEventHandler(DrawfanControlHighMenuItem);
-            fanControlHighMenuItem.MeasureItem += new MeasureItemEventHandler(MeasurefanControlHighMenuItem);
-
-            MenuItem saveMenuItem = new MenuItem();
-            saveMenuItem.Text = "  Save";
-            saveMenuItem.Click += new EventHandler(OnSave);
-            saveMenuItem.OwnerDraw = true;
-            saveMenuItem.DrawItem += new DrawItemEventHandler(DrawSaveMenuItem);
-            saveMenuItem.MeasureItem += new MeasureItemEventHandler(MeasureSaveMenuItem);
-
-            MenuItem exitNoSaveMenuItem = new MenuItem();
-            exitNoSaveMenuItem.Text = "  Kill";
-            exitNoSaveMenuItem.Click += new EventHandler(OnExitNoSave);
-            exitNoSaveMenuItem.OwnerDraw = true;
-            exitNoSaveMenuItem.DrawItem += new DrawItemEventHandler(DrawExitNoSaveMenuItem);
-            exitNoSaveMenuItem.MeasureItem += new MeasureItemEventHandler(MeasureExitNoSaveMenuItem);
-
-            MenuItem exitMenuItem = new MenuItem();
-            exitMenuItem.Text = "  Exit";
-            exitMenuItem.Click += new EventHandler(OnExit);
-            exitMenuItem.OwnerDraw = true;
-            exitMenuItem.DrawItem += new DrawItemEventHandler(DrawExitMenuItem);
-            exitMenuItem.MeasureItem += new MeasureItemEventHandler(MeasureExitMenuItem);
-
-            MenuItem shutdownMenuItem = new MenuItem();
-            shutdownMenuItem.Text = "  Shutdown";
-            shutdownMenuItem.Click += new EventHandler(OnShutdown);
-            shutdownMenuItem.OwnerDraw = true;
-            shutdownMenuItem.DrawItem += new DrawItemEventHandler(DrawShutdownMenuItem);
-            shutdownMenuItem.MeasureItem += new MeasureItemEventHandler(MeasureShutdownMenuItem);
-
-            trayMenu.MenuItems.AddRange(new MenuItem[]
-            {
-                fanControlHighMenuItem, exitNoSaveMenuItem, saveMenuItem,  exitMenuItem, shutdownMenuItem
-            });
-            */
-
-            //trayMenu.MenuItems.Add("Icon set");
-            //trayMenu.MenuItems[0].MenuItems.Add("Default", OnIconSet);
-            //trayMenu.MenuItems.Add("-");
-            //trayMenu.MenuItems.Add("Fan control high", FanControl);
-            //trayMenu.MenuItems.Add("Fan control low", FanControlLow);
-
-            MenuItem fanControlHighMenuItem = new MenuItem();
-            fanControlHighMenuItem.Text = "Fan control high";
-            fanControlHighMenuItem.Click += new EventHandler(FanControl);
-            fanControlHighMenuItem.OwnerDraw = true;
-            fanControlHighMenuItem.DrawItem += new DrawItemEventHandler(DrawFanControlHighMenuItem);
-            fanControlHighMenuItem.MeasureItem += new MeasureItemEventHandler(MeasureFanControlHighMenuItem);
-
-            MenuItem fanControlLowMenuItem = new MenuItem();
-            fanControlLowMenuItem.Text = "Fan control low";
-            fanControlLowMenuItem.Click += new EventHandler(FanControlLow);
-            fanControlLowMenuItem.OwnerDraw = true;
-            fanControlLowMenuItem.DrawItem += new DrawItemEventHandler(DrawFanControlLowMenuItem);
-            fanControlLowMenuItem.MeasureItem += new MeasureItemEventHandler(MeasureFanControlLowMenuItem);
-
-            trayMenu.MenuItems.Add(fanControlHighMenuItem);
-            trayMenu.MenuItems.Add(fanControlLowMenuItem);
+            trayMenu.MenuItems.Add("Fan control high", FanControl);
+            trayMenu.MenuItems.Add("Fan control low", FanControlLow);
+            trayMenu.MenuItems.Add("Fan control off", FanControlOff);
+            trayMenu.MenuItems[2].Checked = true;
             trayMenu.MenuItems.Add("-");
             trayMenu.MenuItems.Add("Reset orientation", ResetOrientation);
             trayMenu.MenuItems.Add("Reset network", ResetNetwork);
@@ -141,7 +81,6 @@ namespace DellHardwareMonitor
             pollingTimer.Tick += new EventHandler(polling_Tick);
             pollingTimer.Interval = Int32.Parse(ConfigurationManager.AppSettings["pollingInterval"]);
             singleClickTimer = new System.Windows.Forms.Timer();
-            //singleClickTimer.Interval = (int)(SystemInformation.DoubleClickTime / 2); // is 100 ms
             singleClickTimer.Tick += SingleClickTimer_Tick;
 
             form2 = new Form();
@@ -157,12 +96,12 @@ namespace DellHardwareMonitor
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Opacity = 0;
+            //Properties.Settings.Default.Opacity = 0;
             if (Properties.Settings.Default.Opacity == 0)
             {
                 Rectangle screenBounds = Screen.FromControl(this).Bounds;
                 this.Size = new Size(309, screenBounds.Height - 45);
-                this.Location = new Point(screenBounds.Width - this.Size.Width - 10, 8);
+                this.Location = new Point(screenBounds.Width - this.Size.Width - 10, yValue);
                 opacity = 0.8;
             }
             else
@@ -171,12 +110,6 @@ namespace DellHardwareMonitor
                 this.Size = Properties.Settings.Default.WindowSize;
                 opacity = Properties.Settings.Default.Opacity;
             }
-
-            if(Properties.Settings.Default.IconSet.Equals("Default"))
-            {
-                iconSet = "Default";
-            }
-            OnIconSet(null, null);
 
             this.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20));
             form2.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20)); //20
@@ -235,7 +168,6 @@ namespace DellHardwareMonitor
             if (e.Button == MouseButtons.Left)
                 singleClickTimer.Start();
             
-            //To-do: save location for minimize
             if (e != null && e.Button == MouseButtons.Right)
                 return;
         }
@@ -258,8 +190,11 @@ namespace DellHardwareMonitor
             label1.Focus();
             singleClickTimer.Stop();
             Point initPos = this.Location;
-            if (this.Location.Y == 10)
+            if (this.Location.Y == yValue)
             {
+                Properties.Settings.Default.WindowLocation = this.Location;
+                Properties.Settings.Default.WindowSize = this.Size;
+
                 for (int i = 0; i < 1251; i += 2)
                 {
                     this.Location = new Point(initPos.X, i);
@@ -285,7 +220,7 @@ namespace DellHardwareMonitor
                 form2.Activate();
                 this.Activate();
 
-                for (int i = 1250; i >= 10; i -= 2)
+                for (int i = 1250; i >= yValue; i -= 2)
                 {
                     this.Location = new Point(initPos.X, i);
                     form2.Location = new Point(initPos.X, i);
@@ -299,13 +234,13 @@ namespace DellHardwareMonitor
         {
             if (backgroundWorker1.IsBusy)
                 backgroundWorker1.CancelAsync();
-            //To-do: save window loc/size on minimize
-            if (this.Location.Y == 10)
+
+            if (this.Location.Y == yValue)
             {
                 Properties.Settings.Default.WindowLocation = this.Location;
                 Properties.Settings.Default.WindowSize = this.Size;
             }
-            Properties.Settings.Default.IconSet = iconSet;
+            //Properties.Settings.Default.IconSet = iconSet;
             Properties.Settings.Default.Opacity = form2.Opacity;
             Properties.Settings.Default.Save();
 
@@ -345,223 +280,36 @@ namespace DellHardwareMonitor
 
         #endregion
 
-        #region Tray icon draw/measure
-
-        private void MeasureFanControlHighMenuItem(object sender, MeasureItemEventArgs e)
-        {
-            MenuItem fanControlHighMenuItem = (MenuItem)sender;
-            Font menuFont = SystemFonts.MenuFont;
-            StringFormat stringFormat = new StringFormat();
-            SizeF sizeFloat = e.Graphics.MeasureString(fanControlHighMenuItem.Text, menuFont, 1000, stringFormat);
-
-            // Get image so size can be computed
-            Bitmap bitmapImage = Properties.Resources.icons8_close_48;
-
-            e.ItemWidth = (int)Math.Ceiling(sizeFloat.Width) + bitmapImage.Width;
-            e.ItemHeight = bitmapImage.Height; //(int)Math.Ceiling(sizeFloat.Height) 
-        }
-
-        private void DrawFanControlHighMenuItem(object sender, DrawItemEventArgs e)
-        {
-            MenuItem fanControlHighMenuItem = (MenuItem)sender;
-
-            // Default menu font
-            Font menuFont = SystemFonts.MenuFont;
-            SolidBrush menuBrush = null;
-
-            // Determine menu brush for painting
-            if (fanControlHighMenuItem.Enabled == false)
-            {
-                // disabled text
-                menuBrush = new SolidBrush(SystemColors.GrayText);
-            }
-            else // Normal (enabled) text
-            {
-                if ((e.State & DrawItemState.Selected) != 0)
-                {
-                    // Text color when selected (highlighted)
-                    menuBrush = new SolidBrush(SystemColors.MenuText);
-                }
-                else
-                {
-                    // Text color during normal drawing
-                    menuBrush = new SolidBrush(SystemColors.MenuText);
-                }
-            }
-
-            // Center the text portion (out to side of image portion)
-            StringFormat stringFormat = new StringFormat();
-            //stringFormat.LineAlignment = System.Drawing.StringAlignment.Center;
-
-            // Image for this menu item
-            Bitmap bitmapImage = Properties.Resources.icons8_close_48;
-
-            // Rectangle for image portion
-            Rectangle rectImage = e.Bounds;
-
-            // Set image rectangle same dimensions as image
-            rectImage.Width = bitmapImage.Width;
-            rectImage.Height = bitmapImage.Height;
-            Rectangle rectText = e.Bounds;
-            rectText.X += rectImage.Width;
-
-            // Start Drawing the menu rectangle
-
-            // Fill rectangle with proper background 
-            // [use this instead of e.DrawBackground() ]
-            if ((e.State & DrawItemState.Selected) != 0)
-            {
-                e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(222, 222, 222)), e.Bounds);
-                //bitmapImage = Properties.Resources.idea_on;
-                //menuFont = contextHoverFont;
-            }
-            else
-            {
-                e.Graphics.FillRectangle(SystemBrushes.Menu, e.Bounds);
-            }
-
-            e.Graphics.DrawImage(bitmapImage, rectImage);
-            e.Graphics.DrawString(fanControlHighMenuItem.Text,
-                menuFont,
-                menuBrush,
-                e.Bounds.Left + bitmapImage.Width,
-                e.Bounds.Top + ((e.Bounds.Height - menuFont.Height) / 2),
-                stringFormat);
-        }
-
-        private void MeasureFanControlLowMenuItem(object sender, MeasureItemEventArgs e)
-        {
-            MenuItem fanControlHighMenuItem = (MenuItem)sender;
-            Font menuFont = SystemFonts.MenuFont;
-            StringFormat stringFormat = new StringFormat();
-            SizeF sizeFloat = e.Graphics.MeasureString(fanControlHighMenuItem.Text, menuFont, 1000, stringFormat);
-
-            // Get image so size can be computed
-            Bitmap bitmapImage = Properties.Resources.icons8_close_window_48;
-
-            e.ItemWidth = (int)Math.Ceiling(sizeFloat.Width) + bitmapImage.Width;
-            e.ItemHeight = bitmapImage.Height; //(int)Math.Ceiling(sizeFloat.Height) 
-        }
-
-        private void DrawFanControlLowMenuItem(object sender, DrawItemEventArgs e)
-        {
-            MenuItem fanControlHighMenuItem = (MenuItem)sender;
-
-            // Default menu font
-            Font menuFont = SystemFonts.MenuFont;
-            SolidBrush menuBrush = null;
-
-            // Determine menu brush for painting
-            if (fanControlHighMenuItem.Enabled == false)
-            {
-                // disabled text
-                menuBrush = new SolidBrush(SystemColors.GrayText);
-            }
-            else // Normal (enabled) text
-            {
-                if ((e.State & DrawItemState.Selected) != 0)
-                {
-                    // Text color when selected (highlighted)
-                    menuBrush = new SolidBrush(SystemColors.MenuText);
-                }
-                else
-                {
-                    // Text color during normal drawing
-                    menuBrush = new SolidBrush(SystemColors.MenuText);
-                }
-            }
-
-            // Center the text portion (out to side of image portion)
-            StringFormat stringFormat = new StringFormat();
-            //stringFormat.LineAlignment = System.Drawing.StringAlignment.Center;
-
-            // Image for this menu item
-            Bitmap bitmapImage = Properties.Resources.icons8_close_window_48;
-
-            // Rectangle for image portion
-            Rectangle rectImage = e.Bounds;
-
-            // Set image rectangle same dimensions as image
-            rectImage.Width = bitmapImage.Width;
-            rectImage.Height = bitmapImage.Height;
-            Rectangle rectText = e.Bounds;
-            rectText.X += rectImage.Width;
-
-            // Start Drawing the menu rectangle
-
-            // Fill rectangle with proper background 
-            // [use this instead of e.DrawBackground() ]
-            if ((e.State & DrawItemState.Selected) != 0)
-            {
-                e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(222, 222, 222)), e.Bounds);
-                //bitmapImage = Properties.Resources.idea_on;
-                //menuFont = contextHoverFont;
-            }
-            else
-            {
-                e.Graphics.FillRectangle(SystemBrushes.Menu, e.Bounds);
-            }
-
-            e.Graphics.DrawImage(bitmapImage, rectImage);
-            e.Graphics.DrawString(fanControlHighMenuItem.Text,
-                menuFont,
-                menuBrush,
-                e.Bounds.Left + bitmapImage.Width,
-                e.Bounds.Top + ((e.Bounds.Height - menuFont.Height) / 2),
-                stringFormat);
-        }
-
-        #endregion
-
         #region Context menu
-
-        private void OnIconSet(object sender, EventArgs e)
-        {
-            if (sender != null)
-            {
-                MenuItem menuItem = sender as MenuItem;
-                iconSet = menuItem.Text;
-            } else
-            {
-                iconSet = Properties.Settings.Default.IconSet;
-            }
-
-            if (iconSet.Equals("Default"))
-            {
-                cpuPictureBox.Image = Properties.Resources.default_processor;
-                gpuPictureBox.Image = Properties.Resources.default_graphics;
-                ramPictureBox.Image = Properties.Resources.default_ram;
-                fanPictureBox.Image = Properties.Resources.default_fan;
-                ssdPictureBox.Image = Properties.Resources.default_ssd;
-                hddPictureBox.Image = Properties.Resources.default_hdd;
-                wifiPictureBox.Image = Properties.Resources.default_router;
-                iconSet = "Default";
-            } else if (iconSet.Equals("Black"))
-            {
-
-            }
-            this.Refresh();
-        }
 
         private void OnShow(object sender, EventArgs e)
         {
             form2.Activate();
             this.Activate();
 
-            if (this.Location.Y != 10)
+            if (this.Location.Y != yValue)
             {
-                pollingTimer.Start();
+                if (backgroundWorkerCompleted)
+                    pollingTimer.Start();
+
+                ShowInTaskbar = false;
+                Visible = true;
+                form2.ShowInTaskbar = false;
+                form2.Visible = true;
 
                 form2.Activate();
                 this.Activate();
 
                 Point initPos = this.Location;
 
-                for (int i = 1250; i >= 10; i -= 2)
+                for (int i = 1250; i >= yValue; i -= 2)
                 {
                     this.Location = new Point(initPos.X, i);
                     form2.Location = new Point(initPos.X, i);
                 }
+            } else
+            {
+
             }
         }
 
@@ -578,35 +326,61 @@ namespace DellHardwareMonitor
         {
             Rectangle screenBounds = Screen.FromControl(this).Bounds;
             this.Size = new Size(309, screenBounds.Height - 45);
-            this.Location = new Point(screenBounds.Width - this.Size.Width - 10, 8);
+            this.Location = new Point(screenBounds.Width - this.Size.Width - 10, yValue);
             form2.Size = new Size(309, screenBounds.Height - 45);
-            form2.Location = new Point(screenBounds.Width - this.Size.Width - 10, 8);
+            form2.Location = new Point(screenBounds.Width - this.Size.Width - 10, yValue);
         }
 
         private void ResetNetwork(object sender, EventArgs e)
         {
+            wifiHeaderLbl.Text = "";
+            publicIP.Text = "";
+            localhost.Text = "";
+            System.Threading.Thread.Sleep(250);
+
+            string publicIpAddr = "N/A";
+            string localAddr = "N/A";
+
             try
             {
-                publicIP.Text = new System.Net.WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
+                publicIpAddr = new System.Net.WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
             }
             catch
             {
-                publicIP.Text = "N/A";
+                publicIpAddr = "N/A";
             }
+
+            var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
+            foreach (var ipAddr in host.AddressList)
+            {
+                if (ipAddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    string ipString = ipAddr.ToString();
+                    if (ipString.Contains("192.168"))
+                    {
+                        localAddr = ipString;
+                        break;
+                    }
+                }
+            }
+
+            wifiHeaderLbl.Text = GetSSID();
+            publicIP.Text = publicIpAddr;
+            localhost.Text = localAddr;
         }
 
         #region Fan control 
 
         private void FanControlLow(object sender, EventArgs e)
         {
-            bool fanOneResult = true;
-            bool fanTwoResult = true;
+            bool fanOneResult;
+            bool fanTwoResult;
 
             if (fanControl)
             {
                 trayIcon.Icon = Properties.Resources.wrench_yellow;
-                //trayMenu.MenuItems[3].Checked = true;
-                //trayMenu.MenuItems[2].Checked = false;
+                trayMenu.MenuItems[1].Checked = true;
+                trayMenu.MenuItems[0].Checked = false;
                 fanControl = false;
                 fanControlLow = true;
 
@@ -625,9 +399,10 @@ namespace DellHardwareMonitor
 
             if (fanControlLow)
             {
+                trayMenu.MenuItems[2].Checked = true;
                 trayIcon.Icon = Properties.Resources.wrench;
                 fanControlLow = false;
-                //trayMenu.MenuItems[3].Checked = false;
+                trayMenu.MenuItems[1].Checked = false;
 
                 bool enableEc = DellSmbiosBzh.EnableAutomaticFanControl(false);
                 if (!enableEc)
@@ -645,7 +420,8 @@ namespace DellHardwareMonitor
             {
                 trayIcon.Icon = Properties.Resources.wrench_yellow;
                 fanControlLow = true;
-                //trayMenu.MenuItems[3].Checked = true;
+                trayMenu.MenuItems[2].Checked = false;
+                trayMenu.MenuItems[1].Checked = true;
 
                 bool disableEc = DellSmbiosBzh.DisableAutomaticFanControl(false);
 
@@ -672,14 +448,14 @@ namespace DellHardwareMonitor
 
         private void FanControl(object sender, EventArgs e)
         {
-            bool fanOneResult = true;
-            bool fanTwoResult = true;
+            bool fanOneResult;
+            bool fanTwoResult;
 
             if (fanControlLow)
             {
                 trayIcon.Icon = Properties.Resources.wrench_red;
-                //trayMenu.MenuItems[3].Checked = false;
-                //trayMenu.MenuItems[2].Checked = true;
+                trayMenu.MenuItems[1].Checked = false;
+                trayMenu.MenuItems[0].Checked = true;
                 fanControlLow = false;
                 fanControl = true;
 
@@ -700,7 +476,8 @@ namespace DellHardwareMonitor
             {
                 trayIcon.Icon = Properties.Resources.wrench;
                 fanControl = false;
-                //trayMenu.MenuItems[2].Checked = false;
+                trayMenu.MenuItems[2].Checked = true;
+                trayMenu.MenuItems[0].Checked = false;
 
                 bool enableEc = DellSmbiosBzh.EnableAutomaticFanControl(false);
                 if (!enableEc)
@@ -717,7 +494,8 @@ namespace DellHardwareMonitor
             {
                 trayIcon.Icon = Properties.Resources.wrench_red;
                 fanControl = true;
-                //trayMenu.MenuItems[2].Checked = true;
+                trayMenu.MenuItems[2].Checked = false;
+                trayMenu.MenuItems[0].Checked = true;
 
                 bool disableEc = DellSmbiosBzh.DisableAutomaticFanControl(false);
 
@@ -740,6 +518,25 @@ namespace DellHardwareMonitor
                     System.Environment.Exit(1);
                 }
             }
+        }
+
+        private void FanControlOff(object sender, EventArgs e)
+        {
+            trayIcon.Icon = Properties.Resources.wrench;
+            fanControl = false;
+            trayMenu.MenuItems[2].Checked = true;
+            trayMenu.MenuItems[1].Checked = false;
+            trayMenu.MenuItems[0].Checked = false;
+
+            bool enableEc = DellSmbiosBzh.EnableAutomaticFanControl(false);
+            if (!enableEc)
+            {
+                MessageBox.Show("Unable to enable automatic fan control.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+                System.Environment.Exit(1);
+            }
+
+            fanControlLbl.Text = "Disabled";
         }
 
         #endregion
@@ -958,16 +755,18 @@ namespace DellHardwareMonitor
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            loadingPictureBox.Dispose();
+            this.Visible = false;
+
             foreach (Control c in this.Controls)
             {
                 c.Visible = true;
             }
 
-            //Fader.FadeOutCustom(form2, Fader.FadeSpeed.ThreeSlow, null, opacity);
-            loadingPictureBox.Dispose();
             uploadPictureBox.Visible = false;
             downloadPictureBox.Visible = false;
             backgroundWorkerCompleted = true;
+            Fader.FadeIn(this, Fader.FadeSpeed.Slow);
         }
 
         #endregion

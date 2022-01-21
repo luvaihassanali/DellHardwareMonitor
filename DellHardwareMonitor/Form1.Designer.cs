@@ -1548,20 +1548,22 @@ namespace DellHardwareMonitor
             // 
             // uploadPictureBox
             // 
-            this.uploadPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("uploadPictureBox.Image")));
-            this.uploadPictureBox.Location = new System.Drawing.Point(232, 944);
+            this.uploadPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.bar_yellow;
+            this.uploadPictureBox.Location = new System.Drawing.Point(224, 944);
             this.uploadPictureBox.Name = "uploadPictureBox";
-            this.uploadPictureBox.Size = new System.Drawing.Size(16, 16);
+            this.uploadPictureBox.Size = new System.Drawing.Size(24, 16);
+            this.uploadPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.uploadPictureBox.TabIndex = 162;
             this.uploadPictureBox.TabStop = false;
             this.uploadPictureBox.Visible = false;
             // 
             // downloadPictureBox
             // 
-            this.downloadPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("downloadPictureBox.Image")));
-            this.downloadPictureBox.Location = new System.Drawing.Point(232, 920);
+            this.downloadPictureBox.Image = global::DellHardwareMonitor.Properties.Resources.bar_green;
+            this.downloadPictureBox.Location = new System.Drawing.Point(224, 920);
             this.downloadPictureBox.Name = "downloadPictureBox";
-            this.downloadPictureBox.Size = new System.Drawing.Size(16, 16);
+            this.downloadPictureBox.Size = new System.Drawing.Size(24, 16);
+            this.downloadPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.downloadPictureBox.TabIndex = 163;
             this.downloadPictureBox.TabStop = false;
             this.downloadPictureBox.Visible = false;
@@ -1745,8 +1747,6 @@ namespace DellHardwareMonitor
             this.Controls.Add(this.hddProgressBar1);
             this.Controls.Add(this.fanControlLbl);
             this.Controls.Add(this.label71);
-            this.Controls.Add(this.downloadPictureBox);
-            this.Controls.Add(this.uploadPictureBox);
             this.Controls.Add(this.label70);
             this.Controls.Add(this.localhost);
             this.Controls.Add(this.publicIP);
@@ -1877,6 +1877,8 @@ namespace DellHardwareMonitor
             this.Controls.Add(this.ssdPictureBox);
             this.Controls.Add(this.ramPictureBox);
             this.Controls.Add(this.gpuPictureBox);
+            this.Controls.Add(this.uploadPictureBox);
+            this.Controls.Add(this.downloadPictureBox);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.HighlightText;
@@ -1885,6 +1887,7 @@ namespace DellHardwareMonitor
             this.Name = "Form1";
             this.ShowInTaskbar = false;
             this.TransparencyKey = System.Drawing.SystemColors.ControlDark;
+            this.Deactivate += new System.EventHandler(this.Form1_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);

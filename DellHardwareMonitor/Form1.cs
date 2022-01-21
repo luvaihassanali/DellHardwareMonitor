@@ -202,6 +202,11 @@ namespace DellHardwareMonitor
             trayIcon.Dispose();
         }
 
+        private void Form1_Deactivate(object sender, EventArgs e)
+        {
+            label1.Focus();
+        }
+
         private void Form2_MouseClick(object sender, MouseEventArgs e)
         {
             form2.Activate();
@@ -222,6 +227,7 @@ namespace DellHardwareMonitor
 
         private void TrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            label1.Focus();
             if (e.Button == MouseButtons.Left)
             {
                 singleClickTimer.Stop();
@@ -232,6 +238,7 @@ namespace DellHardwareMonitor
 
         private void SingleClickTimer_Tick(object sender, EventArgs e)
         {
+            label1.Focus();
             singleClickTimer.Stop();
             Point initPos = this.Location;
             if (this.Location.Y == 10)
@@ -697,26 +704,11 @@ namespace DellHardwareMonitor
             hddUsedGBLbl.Text = hddUsedGB.ToString("0");
 
             double wifiBytesRecv = state.NetworkStates[1].Counters[0].NextValue() / 1048576d;
-            wifiBytesRecvLbl.Text = wifiBytesRecv.ToString("0.00");
-            if (wifiBytesRecv > 0.01)
-            {
-                downloadPictureBox.Visible = true;
-            }
-            else
-            {
-                downloadPictureBox.Visible = false;
-            }
-
             double wifiBytesSent = state.NetworkStates[1].Counters[1].NextValue() / 1048576d;
+            wifiBytesRecvLbl.Text = wifiBytesRecv.ToString("0.00");
             wifiBytesSentLbl.Text = wifiBytesSent.ToString("0.00");
-            if (wifiBytesSent > 0.01)
-            {
-                uploadPictureBox.Visible = true;
-            }
-            else
-            {
-                uploadPictureBox.Visible = false;
-            }
+            downloadPictureBox.Visible = wifiBytesRecv > 0.001 ? true : false;
+            uploadPictureBox.Visible = wifiBytesSent > 0.001 ? true : false;
         }
 
         private bool LoadDriver()

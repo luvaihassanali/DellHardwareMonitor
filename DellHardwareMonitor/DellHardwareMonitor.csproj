@@ -155,12 +155,6 @@
     <None Include="Resources\loading.gif" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\green.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\red.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\wrench-red.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +207,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\buttons\windir_b.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bar_green.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bar_yellow.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -214,6 +214,8 @@
   <ItemGroup>
     <None Include="Resources\bar_yellow.gif" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\wrench-blue.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

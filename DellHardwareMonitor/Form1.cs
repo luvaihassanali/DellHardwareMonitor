@@ -73,7 +73,6 @@ namespace DellHardwareMonitor
             trayIcon.Visible = true;
             trayIcon.MouseClick += new MouseEventHandler(trayIcon_Click);
             trayIcon.MouseDoubleClick += new MouseEventHandler(TrayIcon_MouseDoubleClick);
-            //trayIcon.MouseMove += new MouseEventHandler(TrayIcon_MouseMove);
 
             #endregion
 
@@ -91,11 +90,6 @@ namespace DellHardwareMonitor
             typeof(Form).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, form2, new object[] { true });
             form2.MouseClick += Form2_MouseClick;
         }
-        /*int counter = 0;
-        private void TrayIcon_MouseMove(object sender, MouseEventArgs e)
-        {
-            Console.WriteLine("Mousemove" + counter++);
-        }*/
 
         #region General form functions
 
@@ -168,16 +162,16 @@ namespace DellHardwareMonitor
             this.Activate();
         }
 
+        #region Tray icon functions
+
         private void trayIcon_Click(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
                 singleClickTimer.Start();
-            
+
             if (e != null && e.Button == MouseButtons.Right)
                 return;
         }
-
-        #region Tray icon functions
 
         private void TrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -185,8 +179,42 @@ namespace DellHardwareMonitor
             if (e.Button == MouseButtons.Left)
             {
                 singleClickTimer.Stop();
-                form2.Activate();
-                this.Activate();
+                Point initPos = this.Location;
+                if (this.Location.Y == yValue)
+                {
+                    Properties.Settings.Default.WindowLocation = this.Location;
+                    Properties.Settings.Default.WindowSize = this.Size;
+
+                    for (int i = 0; i < 1251; i += 2)
+                    {
+                        this.Location = new Point(initPos.X, i);
+                        form2.Location = new Point(initPos.X, i);
+                    }
+
+                    pollingTimer.Stop();
+                    ShowInTaskbar = false;
+                    Visible = false;
+                    form2.ShowInTaskbar = false;
+                    form2.Visible = false;
+                }
+                else
+                {
+                    if (backgroundWorkerCompleted)
+                        pollingTimer.Start();
+
+                    ShowInTaskbar = false;
+                    Visible = true;
+                    form2.ShowInTaskbar = false;
+                    form2.Visible = true;
+                    form2.Activate();
+                    this.Activate();
+
+                    for (int i = 1250; i >= yValue; i -= 2)
+                    {
+                        this.Location = new Point(initPos.X, i);
+                        form2.Location = new Point(initPos.X, i);
+                    }
+                }
             }
         }
 
@@ -194,43 +222,27 @@ namespace DellHardwareMonitor
         {
             label1.Focus();
             singleClickTimer.Stop();
-            Point initPos = this.Location;
-            if (this.Location.Y == yValue)
-            {
-                Properties.Settings.Default.WindowLocation = this.Location;
-                Properties.Settings.Default.WindowSize = this.Size;
 
-                for (int i = 0; i < 1251; i += 2)
-                {
-                    this.Location = new Point(initPos.X, i);
-                    form2.Location = new Point(initPos.X, i);
-                }
+            ShowInTaskbar = false;
+            Visible = true;
+            form2.ShowInTaskbar = false;
+            form2.Visible = true;
+            form2.Activate();
+            this.Activate();
 
-                pollingTimer.Stop();
-                ShowInTaskbar = false;
-                Visible = false;
-                form2.ShowInTaskbar = false;
-                form2.Visible = false;
-            }
-            else
+            if (this.Location.Y != yValue)
             {
-                if (backgroundWorkerCompleted)
+
+                if (backgroundWorkerCompleted && !pollingTimer.Enabled)
                     pollingTimer.Start();
 
-                ShowInTaskbar = false;
-                Visible = true;
-                form2.ShowInTaskbar = false;
-                form2.Visible = true;
-
-                form2.Activate();
-                this.Activate();
-
+                Point initPos = this.Location;
                 for (int i = 1250; i >= yValue; i -= 2)
                 {
                     this.Location = new Point(initPos.X, i);
                     form2.Location = new Point(initPos.X, i);
                 }
-            }
+            }  
         }
 
         #endregion 

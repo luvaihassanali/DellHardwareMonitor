@@ -56,12 +56,12 @@ namespace DellHardwareMonitor
             trayMenu = new ContextMenu();
 
             /*
-            MenuItem ideaMenuItem = new MenuItem();
-            ideaMenuItem.Text = "  Idea";
-            ideaMenuItem.Click += new EventHandler(OnIdea);
-            ideaMenuItem.OwnerDraw = true;
-            ideaMenuItem.DrawItem += new DrawItemEventHandler(DrawIdeaMenuItem);
-            ideaMenuItem.MeasureItem += new MeasureItemEventHandler(MeasureIdeaMenuItem);
+            MenuItem fanControlHighMenuItem = new MenuItem();
+            fanControlHighMenuItem.Text = "  Idea";
+            fanControlHighMenuItem.Click += new EventHandler(OnIdea);
+            fanControlHighMenuItem.OwnerDraw = true;
+            fanControlHighMenuItem.DrawItem += new DrawItemEventHandler(DrawfanControlHighMenuItem);
+            fanControlHighMenuItem.MeasureItem += new MeasureItemEventHandler(MeasurefanControlHighMenuItem);
 
             MenuItem saveMenuItem = new MenuItem();
             saveMenuItem.Text = "  Save";
@@ -93,15 +93,32 @@ namespace DellHardwareMonitor
 
             trayMenu.MenuItems.AddRange(new MenuItem[]
             {
-                ideaMenuItem, exitNoSaveMenuItem, saveMenuItem,  exitMenuItem, shutdownMenuItem
+                fanControlHighMenuItem, exitNoSaveMenuItem, saveMenuItem,  exitMenuItem, shutdownMenuItem
             });
             */
 
             //trayMenu.MenuItems.Add("Icon set");
             //trayMenu.MenuItems[0].MenuItems.Add("Default", OnIconSet);
             //trayMenu.MenuItems.Add("-");
-            trayMenu.MenuItems.Add("Fan control high", FanControl);
-            trayMenu.MenuItems.Add("Fan control low", FanControlLow);
+            //trayMenu.MenuItems.Add("Fan control high", FanControl);
+            //trayMenu.MenuItems.Add("Fan control low", FanControlLow);
+
+            MenuItem fanControlHighMenuItem = new MenuItem();
+            fanControlHighMenuItem.Text = "Fan control high";
+            fanControlHighMenuItem.Click += new EventHandler(FanControl);
+            fanControlHighMenuItem.OwnerDraw = true;
+            fanControlHighMenuItem.DrawItem += new DrawItemEventHandler(DrawFanControlHighMenuItem);
+            fanControlHighMenuItem.MeasureItem += new MeasureItemEventHandler(MeasureFanControlHighMenuItem);
+
+            MenuItem fanControlLowMenuItem = new MenuItem();
+            fanControlLowMenuItem.Text = "Fan control low";
+            fanControlLowMenuItem.Click += new EventHandler(FanControlLow);
+            fanControlLowMenuItem.OwnerDraw = true;
+            fanControlLowMenuItem.DrawItem += new DrawItemEventHandler(DrawFanControlLowMenuItem);
+            fanControlLowMenuItem.MeasureItem += new MeasureItemEventHandler(MeasureFanControlLowMenuItem);
+
+            trayMenu.MenuItems.Add(fanControlHighMenuItem);
+            trayMenu.MenuItems.Add(fanControlLowMenuItem);
             trayMenu.MenuItems.Add("-");
             trayMenu.MenuItems.Add("Reset orientation", ResetOrientation);
             trayMenu.MenuItems.Add("Reset network", ResetNetwork);
@@ -324,6 +341,174 @@ namespace DellHardwareMonitor
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        #endregion
+
+        #region Tray icon draw/measure
+
+        private void MeasureFanControlHighMenuItem(object sender, MeasureItemEventArgs e)
+        {
+            MenuItem fanControlHighMenuItem = (MenuItem)sender;
+            Font menuFont = SystemFonts.MenuFont;
+            StringFormat stringFormat = new StringFormat();
+            SizeF sizeFloat = e.Graphics.MeasureString(fanControlHighMenuItem.Text, menuFont, 1000, stringFormat);
+
+            // Get image so size can be computed
+            Bitmap bitmapImage = Properties.Resources.icons8_close_48;
+
+            e.ItemWidth = (int)Math.Ceiling(sizeFloat.Width) + bitmapImage.Width;
+            e.ItemHeight = bitmapImage.Height; //(int)Math.Ceiling(sizeFloat.Height) 
+        }
+
+        private void DrawFanControlHighMenuItem(object sender, DrawItemEventArgs e)
+        {
+            MenuItem fanControlHighMenuItem = (MenuItem)sender;
+
+            // Default menu font
+            Font menuFont = SystemFonts.MenuFont;
+            SolidBrush menuBrush = null;
+
+            // Determine menu brush for painting
+            if (fanControlHighMenuItem.Enabled == false)
+            {
+                // disabled text
+                menuBrush = new SolidBrush(SystemColors.GrayText);
+            }
+            else // Normal (enabled) text
+            {
+                if ((e.State & DrawItemState.Selected) != 0)
+                {
+                    // Text color when selected (highlighted)
+                    menuBrush = new SolidBrush(SystemColors.MenuText);
+                }
+                else
+                {
+                    // Text color during normal drawing
+                    menuBrush = new SolidBrush(SystemColors.MenuText);
+                }
+            }
+
+            // Center the text portion (out to side of image portion)
+            StringFormat stringFormat = new StringFormat();
+            //stringFormat.LineAlignment = System.Drawing.StringAlignment.Center;
+
+            // Image for this menu item
+            Bitmap bitmapImage = Properties.Resources.icons8_close_48;
+
+            // Rectangle for image portion
+            Rectangle rectImage = e.Bounds;
+
+            // Set image rectangle same dimensions as image
+            rectImage.Width = bitmapImage.Width;
+            rectImage.Height = bitmapImage.Height;
+            Rectangle rectText = e.Bounds;
+            rectText.X += rectImage.Width;
+
+            // Start Drawing the menu rectangle
+
+            // Fill rectangle with proper background 
+            // [use this instead of e.DrawBackground() ]
+            if ((e.State & DrawItemState.Selected) != 0)
+            {
+                e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(222, 222, 222)), e.Bounds);
+                //bitmapImage = Properties.Resources.idea_on;
+                //menuFont = contextHoverFont;
+            }
+            else
+            {
+                e.Graphics.FillRectangle(SystemBrushes.Menu, e.Bounds);
+            }
+
+            e.Graphics.DrawImage(bitmapImage, rectImage);
+            e.Graphics.DrawString(fanControlHighMenuItem.Text,
+                menuFont,
+                menuBrush,
+                e.Bounds.Left + bitmapImage.Width,
+                e.Bounds.Top + ((e.Bounds.Height - menuFont.Height) / 2),
+                stringFormat);
+        }
+
+        private void MeasureFanControlLowMenuItem(object sender, MeasureItemEventArgs e)
+        {
+            MenuItem fanControlHighMenuItem = (MenuItem)sender;
+            Font menuFont = SystemFonts.MenuFont;
+            StringFormat stringFormat = new StringFormat();
+            SizeF sizeFloat = e.Graphics.MeasureString(fanControlHighMenuItem.Text, menuFont, 1000, stringFormat);
+
+            // Get image so size can be computed
+            Bitmap bitmapImage = Properties.Resources.icons8_close_window_48;
+
+            e.ItemWidth = (int)Math.Ceiling(sizeFloat.Width) + bitmapImage.Width;
+            e.ItemHeight = bitmapImage.Height; //(int)Math.Ceiling(sizeFloat.Height) 
+        }
+
+        private void DrawFanControlLowMenuItem(object sender, DrawItemEventArgs e)
+        {
+            MenuItem fanControlHighMenuItem = (MenuItem)sender;
+
+            // Default menu font
+            Font menuFont = SystemFonts.MenuFont;
+            SolidBrush menuBrush = null;
+
+            // Determine menu brush for painting
+            if (fanControlHighMenuItem.Enabled == false)
+            {
+                // disabled text
+                menuBrush = new SolidBrush(SystemColors.GrayText);
+            }
+            else // Normal (enabled) text
+            {
+                if ((e.State & DrawItemState.Selected) != 0)
+                {
+                    // Text color when selected (highlighted)
+                    menuBrush = new SolidBrush(SystemColors.MenuText);
+                }
+                else
+                {
+                    // Text color during normal drawing
+                    menuBrush = new SolidBrush(SystemColors.MenuText);
+                }
+            }
+
+            // Center the text portion (out to side of image portion)
+            StringFormat stringFormat = new StringFormat();
+            //stringFormat.LineAlignment = System.Drawing.StringAlignment.Center;
+
+            // Image for this menu item
+            Bitmap bitmapImage = Properties.Resources.icons8_close_window_48;
+
+            // Rectangle for image portion
+            Rectangle rectImage = e.Bounds;
+
+            // Set image rectangle same dimensions as image
+            rectImage.Width = bitmapImage.Width;
+            rectImage.Height = bitmapImage.Height;
+            Rectangle rectText = e.Bounds;
+            rectText.X += rectImage.Width;
+
+            // Start Drawing the menu rectangle
+
+            // Fill rectangle with proper background 
+            // [use this instead of e.DrawBackground() ]
+            if ((e.State & DrawItemState.Selected) != 0)
+            {
+                e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(222, 222, 222)), e.Bounds);
+                //bitmapImage = Properties.Resources.idea_on;
+                //menuFont = contextHoverFont;
+            }
+            else
+            {
+                e.Graphics.FillRectangle(SystemBrushes.Menu, e.Bounds);
+            }
+
+            e.Graphics.DrawImage(bitmapImage, rectImage);
+            e.Graphics.DrawString(fanControlHighMenuItem.Text,
+                menuFont,
+                menuBrush,
+                e.Bounds.Left + bitmapImage.Width,
+                e.Bounds.Top + ((e.Bounds.Height - menuFont.Height) / 2),
+                stringFormat);
         }
 
         #endregion

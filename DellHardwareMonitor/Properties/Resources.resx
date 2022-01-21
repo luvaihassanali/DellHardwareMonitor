@@ -118,55 +118,70 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="cleanmgr" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cleanmgr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bar_green" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bar_green.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cpu" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-processor-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bar_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bar_yellow.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="fan" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-fan-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="computer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttons\computer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="gpu" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-graphics-card-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="computer_b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttons\computer_b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="green" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="default_fan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconset-default\default-fan.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="hdd" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-hard-disk-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="default_graphics" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconset-default\default-graphics.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="default_hdd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconset-default\default-hdd.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="default_processor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconset-default\default-processor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="default_ram" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconset-default\default-ram.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="default_router" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconset-default\default-router.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="default_ssd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconset-default\default-ssd.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="loading" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\loading.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mycomput" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mycomput.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="pia" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pia-client_1000-5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\buttons\pia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ram" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-ram-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="red" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pia_b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttons\pia_b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="regedit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\regedit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\buttons\regedit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ssd" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-ssd-drive-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="regedit_b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttons\regedit_b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="tree" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tree.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="windir" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttons\windir.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="wifi" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-router-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="windir_b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttons\windir_b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="wrench" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\wrench.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="wrenchRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="wrench_blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wrench-blue.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wrench_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\wrench-red.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wrench_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wrench-yellow.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

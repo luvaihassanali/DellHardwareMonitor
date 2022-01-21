@@ -3,120 +3,129 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
 using System.Management.Automation;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using DellFanManagement.DellSmbiozBzhLib;
-using DellHardwareMonitor.Properties;
 
 namespace DellHardwareMonitor
 {
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct SYSTEMTIME
-    {
-        public short wYear;
-        public short wMonth;
-        public short wDayOfWeek;
-        public short wDay;
-        public short wHour;
-        public short wMinute;
-        public short wSecond;
-        public short wMilliseconds;
-    }
-
     public partial class Form1 : Form
     {
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool SetSystemTime(ref SYSTEMTIME st);
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
 
+        private const int yValue = 8;
         private double opacity;
         private bool isDriverLoaded;
         private bool fanControl;
         private bool fanControlLow;
+        private bool backgroundWorkerCompleted;
+        private bool systemShutdown = false;
+
         private NotifyIcon trayIcon;
         private Timer pollingTimer;
+        private Timer singleClickTimer;
         private ContextMenu trayMenu;
         private HardwareState state;
         private Form form2;
+
         private string dateString;
         private string cpuName = ConfigurationManager.AppSettings["cpuName"];
         private string gpuName = ConfigurationManager.AppSettings["gpuName"];
         private string ssdName = ConfigurationManager.AppSettings["ssdName"];
         private string hddName = ConfigurationManager.AppSettings["hddName"];
+
         public Form1()
         {
             InitializeComponent();
 
+            backgroundWorkerCompleted = false;
             backgroundWorker1.WorkerReportsProgress = false;
             backgroundWorker1.WorkerSupportsCancellation = true;
             backgroundWorker1.RunWorkerAsync();
 
             this.FormBorderStyle = FormBorderStyle.None;
             this.DoubleBuffered = true;
-            this.SetStyle(ControlStyles.ResizeRedraw, true);
+            
+            #region Tray menu
 
             trayMenu = new ContextMenu();
             trayMenu.MenuItems.Add("Fan control high", FanControl);
             trayMenu.MenuItems.Add("Fan control low", FanControlLow);
+            trayMenu.MenuItems.Add("Fan control off", FanControlOff);
+            trayMenu.MenuItems[2].Checked = true;
+            trayMenu.MenuItems.Add("-");
             trayMenu.MenuItems.Add("Reset orientation", ResetOrientation);
             trayMenu.MenuItems.Add("Reset network", ResetNetwork);
+            trayMenu.MenuItems.Add("-");
             trayMenu.MenuItems.Add("Show", OnShow);
+            trayMenu.MenuItems.Add("-");
             trayMenu.MenuItems.Add("Exit", OnExit);
 
             trayIcon = new NotifyIcon();
             trayIcon.Text = "Dell Hardware Monitor";
-            trayIcon.Icon = Resources.wrench;
+            trayIcon.Icon = Properties.Resources.wrench;
             trayIcon.ContextMenu = trayMenu;
             trayIcon.Visible = true;
             trayIcon.MouseClick += new MouseEventHandler(trayIcon_Click);
+            trayIcon.MouseDoubleClick += new MouseEventHandler(TrayIcon_MouseDoubleClick);
+
+            #endregion
 
             pollingTimer = new Timer();
             pollingTimer.Tick += new EventHandler(polling_Tick);
+            pollingTimer.Interval = Int32.Parse(ConfigurationManager.AppSettings["pollingInterval"]);
+            singleClickTimer = new System.Windows.Forms.Timer();
+            singleClickTimer.Tick += SingleClickTimer_Tick;
 
             form2 = new Form();
             form2.FormBorderStyle = FormBorderStyle.None;
             form2.StartPosition = FormStartPosition.Manual;
             form2.BackColor = Color.Black;
             form2.ShowInTaskbar = false;
+            typeof(Form).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, form2, new object[] { true });
             form2.MouseClick += Form2_MouseClick;
         }
 
-        #region Form functions
+        #region General form functions
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Settings.Default.Opacity = 0;
-            if (Settings.Default.Opacity == 0)
+            //Properties.Settings.Default.Opacity = 0;
+            if (Properties.Settings.Default.Opacity == 0)
             {
                 Rectangle screenBounds = Screen.FromControl(this).Bounds;
-                this.Size = new Size(315, (screenBounds.Height - (10 * 3)));
-                this.Location = new Point(screenBounds.Width - this.Size.Width + 10, 0);
+                this.Size = new Size(309, screenBounds.Height - 45);
+                this.Location = new Point(screenBounds.Width - this.Size.Width - 10, yValue);
                 opacity = 0.8;
             }
             else
             {
-                this.Location = Settings.Default.WindowLocation;
-                this.Size = Settings.Default.WindowSize;
-                opacity = Settings.Default.Opacity;
+                this.Location = Properties.Settings.Default.WindowLocation;
+                this.Size = Properties.Settings.Default.WindowSize;
+                opacity = Properties.Settings.Default.Opacity;
             }
 
-            pollingTimer.Interval = Int32.Parse(ConfigurationManager.AppSettings["pollingInterval"]);
-
+            this.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20));
+            form2.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20)); //20
             form2.Location = new Point(this.Location.X, this.Location.Y);
             form2.Size = this.Size;
+            loadingPictureBox.Location = new System.Drawing.Point(this.Width / 2 - loadingPictureBox.Width / 2, this.Height / 2 - loadingPictureBox.Height / 2);
 
             isDriverLoaded = LoadDriver();
-
             if (!isDriverLoaded)
             {
                 if (System.IO.File.Exists("bzh_dell_smm_io_x64.sys"))
                 {
-                    MessageBox.Show("Failed to load DellSmbiosBzhLib driver. Check administrator priveleges.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Failed to load DellSmbiosBzhLib driver. Verify administrator priveleges.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    MessageBox.Show("Failed to load DellSmbiosBzhLib driver. Check that bzh_dell_smm_io_x64.sys is in application directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Failed to load DellSmbiosBzhLib driver. Verify that bzh_dell_smm_io_x64.sys is in application directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 Application.Exit();
                 System.Environment.Exit(1);
@@ -125,9 +134,8 @@ namespace DellHardwareMonitor
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            Fader.FadeInCustom(form2, Fader.FadeSpeed.Slowest, opacity);
-            Fader.FadeIn(this, Fader.FadeSpeed.Slowest);
-
+            Fader.FadeInCustom(form2, Fader.FadeSpeed.FourSlow, opacity);
+            Fader.FadeIn(this, Fader.FadeSpeed.FourSlow);
             form2.Activate();
             this.Activate();
         }
@@ -135,14 +143,17 @@ namespace DellHardwareMonitor
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (systemShutdown)
-            {
                 CleanUp();
-            }
 
             CleanUp();
 
             trayIcon.Visible = false;
             trayIcon.Dispose();
+        }
+
+        private void Form1_Deactivate(object sender, EventArgs e)
+        {
+            label1.Focus();
         }
 
         private void Form2_MouseClick(object sender, MouseEventArgs e)
@@ -151,284 +162,118 @@ namespace DellHardwareMonitor
             this.Activate();
         }
 
+        #region Tray icon functions
+
         private void trayIcon_Click(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Left)
+                singleClickTimer.Start();
+
             if (e != null && e.Button == MouseButtons.Right)
-            {
                 return;
-            }
+        }
 
-            Point initPos = this.Location;
-
-            
-            if (this.Location.Y == 0)
+        private void TrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            label1.Focus();
+            if (e.Button == MouseButtons.Left)
             {
-                for (int i = 0; i < 1251; i += 2)
+                singleClickTimer.Stop();
+                Point initPos = this.Location;
+                if (this.Location.Y == yValue)
                 {
-                    this.Location = new Point(initPos.X, i);
-                    form2.Location = new Point(initPos.X, i);
+                    Properties.Settings.Default.WindowLocation = this.Location;
+                    Properties.Settings.Default.WindowSize = this.Size;
+
+                    for (int i = 0; i < 1251; i += 2)
+                    {
+                        this.Location = new Point(initPos.X, i);
+                        form2.Location = new Point(initPos.X, i);
+                    }
+
+                    pollingTimer.Stop();
+                    ShowInTaskbar = false;
+                    Visible = false;
+                    form2.ShowInTaskbar = false;
+                    form2.Visible = false;
                 }
-
-                pollingTimer.Stop();
-                ShowInTaskbar = false;
-                Visible = false;
-                form2.ShowInTaskbar = false;
-                form2.Visible = false;
-            }
-            else
-            {
-                pollingTimer.Start();
-                ShowInTaskbar = false;
-                Visible = true;
-                form2.ShowInTaskbar = false;
-                form2.Visible = true;
-
-                form2.Activate();
-                this.Activate();
-
-                for (int i = 1250; i >= 0; i -= 2)
+                else
                 {
-                    this.Location = new Point(initPos.X, i);
-                    form2.Location = new Point(initPos.X, i);
+                    if (backgroundWorkerCompleted)
+                        pollingTimer.Start();
+
+                    ShowInTaskbar = false;
+                    Visible = true;
+                    form2.ShowInTaskbar = false;
+                    form2.Visible = true;
+                    form2.Activate();
+                    this.Activate();
+
+                    for (int i = 1250; i >= yValue; i -= 2)
+                    {
+                        this.Location = new Point(initPos.X, i);
+                        form2.Location = new Point(initPos.X, i);
+                    }
                 }
             }
         }
 
-        private void OnShow(object sender, EventArgs e)
+        private void SingleClickTimer_Tick(object sender, EventArgs e)
         {
+            label1.Focus();
+            singleClickTimer.Stop();
 
+            ShowInTaskbar = false;
+            Visible = true;
+            form2.ShowInTaskbar = false;
+            form2.Visible = true;
             form2.Activate();
             this.Activate();
 
-            if (this.Location.Y != 0)
+            if (this.Location.Y != yValue)
             {
-                pollingTimer.Start();
 
-                form2.Activate();
-                this.Activate();
+                if (backgroundWorkerCompleted && !pollingTimer.Enabled)
+                    pollingTimer.Start();
 
                 Point initPos = this.Location;
-
-                for (int i = 1250; i >= 0; i -= 2)
+                for (int i = 1250; i >= yValue; i -= 2)
                 {
                     this.Location = new Point(initPos.X, i);
                     form2.Location = new Point(initPos.X, i);
                 }
-            }
+            }  
         }
 
-        private void OnExit(object sender, EventArgs e)
-        {
-            trayIcon.Visible = false;
-            trayIcon.Dispose();
-
-            Application.Exit();
-            System.Environment.Exit(1);
-        }
-
-        private void ResetOrientation(object sender, EventArgs e)
-        {
-            Rectangle screenBounds = Screen.FromControl(this).Bounds;
-            this.Size = new Size(315, (screenBounds.Height - (10 * 3)));
-            this.Location = new Point(screenBounds.Width - this.Size.Width + 10, 0);
-            form2.Size = new Size(315, (screenBounds.Height - (10 * 3)));
-            form2.Location = new Point(screenBounds.Width - this.Size.Width + 10, 0);
-        }
-
-        private void ResetNetwork(object sender, EventArgs e)
-        {
-            try
-            {
-                publicIP.Text = new System.Net.WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
-            }
-            catch
-            {
-                publicIP.Text = "N/A";
-            }
-        }
-
-        private void FanControlLow(object sender, EventArgs e)
-        {
-            bool fanOneResult = true;
-            bool fanTwoResult = true;
-
-            if (fanControl)
-            {
-                trayMenu.MenuItems[1].Checked = true;
-                trayMenu.MenuItems[0].Checked = false;
-                fanControl = false;
-                fanControlLow = true;
-
-                fanOneResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan1, BzhFanLevel.Level1);
-                fanTwoResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan2, BzhFanLevel.Level1);
-
-                if (!fanOneResult || !fanTwoResult)
-                {
-                    MessageBox.Show("Unable to change fan speed level.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
-                    System.Environment.Exit(1);
-                }
-
-                return;
-            }
-
-            if (fanControlLow)
-            {
-                trayIcon.Icon = Resources.wrench;
-                fanControlLow = false;
-                trayMenu.MenuItems[1].Checked = false;
-
-                bool enableEc = DellSmbiosBzh.EnableAutomaticFanControl(false);
-                if (!enableEc)
-                {
-                    MessageBox.Show("Unable to enable automatic fan control.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
-                    System.Environment.Exit(1);
-                }
-
-                fanControlLbl.Text = "Disabled";
-
-            }
-            else
-            {
-                trayIcon.Icon = Resources.wrenchRed;
-                fanControlLow = true;
-                trayMenu.MenuItems[1].Checked = true;
-
-                bool disableEc = DellSmbiosBzh.DisableAutomaticFanControl(false);
-
-                if (!disableEc)
-                {
-                    MessageBox.Show("Unable to disable automatic fan control.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
-                    System.Environment.Exit(1);
-                }
-
-                fanControlLbl.Text = "Enable";
-
-                fanOneResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan1, BzhFanLevel.Level1);
-                fanTwoResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan2, BzhFanLevel.Level1);
-
-                if (!fanOneResult || !fanTwoResult)
-                {
-                    MessageBox.Show("Unable to change fan speed level.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
-                    System.Environment.Exit(1);
-                }
-            }
-        }
-
-        private void FanControl(object sender, EventArgs e)
-        {
-            bool fanOneResult = true;
-            bool fanTwoResult = true;
-
-            trayIcon.Icon = Resources.wrenchRed;
-
-            if (fanControlLow)
-            {
-                trayMenu.MenuItems[1].Checked = false;
-                trayMenu.MenuItems[0].Checked = true;
-                fanControlLow = false;
-                fanControl = true;
-
-                fanOneResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan1, BzhFanLevel.Level2);
-                fanTwoResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan2, BzhFanLevel.Level2);
-
-                if (!fanOneResult || !fanTwoResult)
-                {
-                    MessageBox.Show("Unable to change fan speed level.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
-                    System.Environment.Exit(1);
-                }
-
-                return;
-            }
-
-            if (fanControl)
-            {
-                trayIcon.Icon = Resources.wrench;
-                fanControl = false;
-                trayMenu.MenuItems[0].Checked = false;
-
-                bool enableEc = DellSmbiosBzh.EnableAutomaticFanControl(false);
-                if (!enableEc)
-                {
-                    MessageBox.Show("Unable to enable automatic fan control.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
-                    System.Environment.Exit(1);
-                }
-
-                fanControlLbl.Text = "Disabled";
-
-            }
-            else
-            {
-                trayIcon.Icon = Resources.wrenchRed;
-                fanControl = true;
-                trayMenu.MenuItems[0].Checked = true;
-
-                bool disableEc = DellSmbiosBzh.DisableAutomaticFanControl(false);
-
-                if (!disableEc)
-                {
-                    MessageBox.Show("Unable to disable automatic fan control.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
-                    System.Environment.Exit(1);
-                }
-
-                fanControlLbl.Text = "Enable";
-
-                fanOneResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan1, BzhFanLevel.Level2);
-                fanTwoResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan2, BzhFanLevel.Level2);
-
-                if (!fanOneResult || !fanTwoResult)
-                {
-                    MessageBox.Show("Unable to change fan speed level.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
-                    System.Environment.Exit(1);
-                }
-            }
-        }
+        #endregion 
 
         private void CleanUp()
         {
             if (backgroundWorker1.IsBusy)
-            {
                 backgroundWorker1.CancelAsync();
-            }
 
-            if (this.Location.Y == 0)
+            if (this.Location.Y == yValue)
             {
-                Settings.Default.WindowLocation = this.Location;
-                Settings.Default.WindowSize = this.Size;
+                Properties.Settings.Default.WindowLocation = this.Location;
+                Properties.Settings.Default.WindowSize = this.Size;
             }
-
-            Settings.Default.Opacity = form2.Opacity;
-            Settings.Default.Save();
+            Properties.Settings.Default.Opacity = form2.Opacity;
+            Properties.Settings.Default.Save();
 
             pollingTimer.Stop();
             pollingTimer.Dispose();
 
             if (isDriverLoaded)
-            {
                 UnloadDriver();
-            }
 
             if (state != null && state.Computer != null)
-            {
                 state.Computer.Close();
-            }
         }
 
-        private static int WM_QUERYENDSESSION = 0x11;
-        private static bool systemShutdown = false;
         protected override void WndProc(ref Message message)
         {
-            if (message.Msg == WM_QUERYENDSESSION)
-            {
+            if (message.Msg == 0x11) //WM_QUERYENDSESSION
                 systemShutdown = true;
-            }
 
             base.WndProc(ref message);
         }
@@ -448,6 +293,269 @@ namespace DellHardwareMonitor
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
+        #endregion
+
+        #region Context menu
+
+        private void OnShow(object sender, EventArgs e)
+        {
+            form2.Activate();
+            this.Activate();
+
+            if (this.Location.Y != yValue)
+            {
+                if (backgroundWorkerCompleted)
+                    pollingTimer.Start();
+
+                ShowInTaskbar = false;
+                Visible = true;
+                form2.ShowInTaskbar = false;
+                form2.Visible = true;
+
+                form2.Activate();
+                this.Activate();
+
+                Point initPos = this.Location;
+
+                for (int i = 1250; i >= yValue; i -= 2)
+                {
+                    this.Location = new Point(initPos.X, i);
+                    form2.Location = new Point(initPos.X, i);
+                }
+            } else
+            {
+
+            }
+        }
+
+        private void OnExit(object sender, EventArgs e)
+        {
+            trayIcon.Visible = false;
+            trayIcon.Dispose();
+
+            Application.Exit();
+            System.Environment.Exit(0);
+        }
+
+        private void ResetOrientation(object sender, EventArgs e)
+        {
+            Rectangle screenBounds = Screen.FromControl(this).Bounds;
+            this.Size = new Size(309, screenBounds.Height - 45);
+            this.Location = new Point(screenBounds.Width - this.Size.Width - 10, yValue);
+            form2.Size = new Size(309, screenBounds.Height - 45);
+            form2.Location = new Point(screenBounds.Width - this.Size.Width - 10, yValue);
+        }
+
+        private void ResetNetwork(object sender, EventArgs e)
+        {
+            wifiHeaderLbl.Text = "";
+            publicIP.Text = "";
+            localhost.Text = "";
+            System.Threading.Thread.Sleep(250);
+
+            string publicIpAddr = "N/A";
+            string localAddr = "N/A";
+
+            try
+            {
+                publicIpAddr = new System.Net.WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
+            }
+            catch
+            {
+                publicIpAddr = "N/A";
+            }
+
+            var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
+            foreach (var ipAddr in host.AddressList)
+            {
+                if (ipAddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    string ipString = ipAddr.ToString();
+                    if (ipString.Contains("192.168"))
+                    {
+                        localAddr = ipString;
+                        break;
+                    }
+                }
+            }
+
+            wifiHeaderLbl.Text = GetSSID();
+            publicIP.Text = publicIpAddr;
+            localhost.Text = localAddr;
+        }
+
+        #region Fan control 
+
+        private void FanControlLow(object sender, EventArgs e)
+        {
+            bool fanOneResult;
+            bool fanTwoResult;
+
+            if (fanControl)
+            {
+                trayIcon.Icon = Properties.Resources.wrench_yellow;
+                trayMenu.MenuItems[1].Checked = true;
+                trayMenu.MenuItems[0].Checked = false;
+                fanControl = false;
+                fanControlLow = true;
+
+                fanOneResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan1, BzhFanLevel.Level1);
+                fanTwoResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan2, BzhFanLevel.Level1);
+
+                if (!fanOneResult || !fanTwoResult)
+                {
+                    MessageBox.Show("Unable to change fan speed level.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    System.Environment.Exit(1);
+                }
+
+                return;
+            }
+
+            if (fanControlLow)
+            {
+                trayMenu.MenuItems[2].Checked = true;
+                trayIcon.Icon = Properties.Resources.wrench;
+                fanControlLow = false;
+                trayMenu.MenuItems[1].Checked = false;
+
+                bool enableEc = DellSmbiosBzh.EnableAutomaticFanControl(false);
+                if (!enableEc)
+                {
+                    MessageBox.Show("Unable to enable automatic fan control.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    System.Environment.Exit(1);
+                }
+
+                fanControlLbl.Text = "Disabled";
+
+            }
+
+            else
+            {
+                trayIcon.Icon = Properties.Resources.wrench_yellow;
+                fanControlLow = true;
+                trayMenu.MenuItems[2].Checked = false;
+                trayMenu.MenuItems[1].Checked = true;
+
+                bool disableEc = DellSmbiosBzh.DisableAutomaticFanControl(false);
+
+                if (!disableEc)
+                {
+                    MessageBox.Show("Unable to disable automatic fan control.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    System.Environment.Exit(1);
+                }
+
+                fanControlLbl.Text = "Enabled";
+
+                fanOneResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan1, BzhFanLevel.Level1);
+                fanTwoResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan2, BzhFanLevel.Level1);
+
+                if (!fanOneResult || !fanTwoResult)
+                {
+                    MessageBox.Show("Unable to change fan speed level.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    System.Environment.Exit(1);
+                }
+            }
+        }
+
+        private void FanControl(object sender, EventArgs e)
+        {
+            bool fanOneResult;
+            bool fanTwoResult;
+
+            if (fanControlLow)
+            {
+                trayIcon.Icon = Properties.Resources.wrench_red;
+                trayMenu.MenuItems[1].Checked = false;
+                trayMenu.MenuItems[0].Checked = true;
+                fanControlLow = false;
+                fanControl = true;
+
+                fanOneResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan1, BzhFanLevel.Level2);
+                fanTwoResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan2, BzhFanLevel.Level2);
+
+                if (!fanOneResult || !fanTwoResult)
+                {
+                    MessageBox.Show("Unable to change fan speed level.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    System.Environment.Exit(1);
+                }
+
+                return;
+            }
+
+            if (fanControl)
+            {
+                trayIcon.Icon = Properties.Resources.wrench;
+                fanControl = false;
+                trayMenu.MenuItems[2].Checked = true;
+                trayMenu.MenuItems[0].Checked = false;
+
+                bool enableEc = DellSmbiosBzh.EnableAutomaticFanControl(false);
+                if (!enableEc)
+                {
+                    MessageBox.Show("Unable to enable automatic fan control.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    System.Environment.Exit(1);
+                }
+
+                fanControlLbl.Text = "Disabled";
+
+            }
+            else
+            {
+                trayIcon.Icon = Properties.Resources.wrench_red;
+                fanControl = true;
+                trayMenu.MenuItems[2].Checked = false;
+                trayMenu.MenuItems[0].Checked = true;
+
+                bool disableEc = DellSmbiosBzh.DisableAutomaticFanControl(false);
+
+                if (!disableEc)
+                {
+                    MessageBox.Show("Unable to disable automatic fan control.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    System.Environment.Exit(1);
+                }
+
+                fanControlLbl.Text = "Enabled";
+
+                fanOneResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan1, BzhFanLevel.Level2);
+                fanTwoResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan2, BzhFanLevel.Level2);
+
+                if (!fanOneResult || !fanTwoResult)
+                {
+                    MessageBox.Show("Unable to change fan speed level.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    System.Environment.Exit(1);
+                }
+            }
+        }
+
+        private void FanControlOff(object sender, EventArgs e)
+        {
+            trayIcon.Icon = Properties.Resources.wrench;
+            fanControl = false;
+            trayMenu.MenuItems[2].Checked = true;
+            trayMenu.MenuItems[1].Checked = false;
+            trayMenu.MenuItems[0].Checked = false;
+
+            bool enableEc = DellSmbiosBzh.EnableAutomaticFanControl(false);
+            if (!enableEc)
+            {
+                MessageBox.Show("Unable to enable automatic fan control.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+                System.Environment.Exit(1);
+            }
+
+            fanControlLbl.Text = "Disabled";
+        }
+
+        #endregion
 
         #endregion
 
@@ -472,10 +580,16 @@ namespace DellHardwareMonitor
                 {
                     if (ipAddr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                     {
-                        localhost.Text = ipAddr.ToString();
-                        break;
+                        string ipString = ipAddr.ToString();
+                        if (ipString.Contains("192.168"))
+                        {
+                            localhost.Text = ipString;
+                            break;
+                        }
                     }
                 }
+
+                wifiHeaderLbl.Text = GetSSID();
 
                 //sometimes there's no internet
                 try
@@ -502,7 +616,7 @@ namespace DellHardwareMonitor
                 }
 
                 cpuNameLbl.Text = state.CPU.Name;
-                gpuNameLbl.Text = state.GPU.Name;
+                gpuNameLbl.Text = state.GPU.Name.Replace("NVIDIA", "NVIDIA ");
                 ssdNameLbl.Text = state.SSD.Name;
                 hddNameLbl.Text = state.HDD.Name;
             }
@@ -555,11 +669,18 @@ namespace DellHardwareMonitor
             uint? rightFanRpm = DellSmbiosBzh.GetFanRpm(BzhFanIndex.Fan2);
             cpuFanLbl.Text = leftFanRpm.ToString();
             gpuFanLbl.Text = rightFanRpm.ToString();
+            if(leftFanRpm > 0 && rightFanRpm > 0)
+            {
+                trayIcon.Icon = Properties.Resources.wrench_blue;
+            } else
+            {
+                trayIcon.Icon = Properties.Resources.wrench;
+            }
 
             float memoryUsed = (float)state.RAM.Sensors[0].Value;
             ramUsedLbl.Text = memoryUsed.ToString("0.00");
             float memoryAvailable = (float)state.RAM.Sensors[1].Value;
-            ramAvailableLbl.Text = memoryAvailable.ToString("0.00");
+            //ramAvailableLbl.Text = memoryAvailable.ToString("0.00");
             ramTotalLbl.Text = (memoryUsed + memoryAvailable).ToString("0.00");
             float memoryLoad = (float)state.RAM.Sensors[2].Value;
             ramLoadLbl.Text = memoryLoad.ToString("0");
@@ -588,26 +709,11 @@ namespace DellHardwareMonitor
             hddUsedGBLbl.Text = hddUsedGB.ToString("0");
 
             double wifiBytesRecv = state.NetworkStates[1].Counters[0].NextValue() / 1048576d;
-            wifiBytesRecvLbl.Text = wifiBytesRecv.ToString("0.00");
-            if (wifiBytesRecv > 0.01)
-            {
-                downloadPictureBox.Visible = true;
-            }
-            else
-            {
-                downloadPictureBox.Visible = false;
-            }
-
             double wifiBytesSent = state.NetworkStates[1].Counters[1].NextValue() / 1048576d;
+            wifiBytesRecvLbl.Text = wifiBytesRecv.ToString("0.00");
             wifiBytesSentLbl.Text = wifiBytesSent.ToString("0.00");
-            if (wifiBytesSent > 0.01)
-            {
-                uploadPictureBox.Visible = true;
-            }
-            else
-            {
-                uploadPictureBox.Visible = false;
-            }
+            downloadPictureBox.Visible = wifiBytesRecv > 0.001 ? true : false;
+            uploadPictureBox.Visible = wifiBytesSent > 0.001 ? true : false;
         }
 
         private bool LoadDriver()
@@ -626,6 +732,34 @@ namespace DellHardwareMonitor
             isDriverLoaded = false;
         }
 
+        private string GetSSID()
+        {
+            var process = new System.Diagnostics.Process
+            {
+                StartInfo = { FileName = "netsh.exe", Arguments = "wlan show interfaces", UseShellExecute = false, RedirectStandardOutput = true, CreateNoWindow = true }
+            };
+            process.Start();
+
+            string output = process.StandardOutput.ReadToEnd();
+            string[] lines = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            string line = null;
+            foreach (string tempLine in lines)
+            {
+                if (tempLine.Contains("SSID") && !tempLine.Contains("BSSID"))
+                {
+                    line = tempLine;
+                    break;
+                }
+            }
+
+            if (line == null)
+            {
+                return "N/A";
+            }
+
+            string ssid = line.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries)[1].TrimStart();
+            return ssid;
+        }
         #endregion
 
         #region Background worker
@@ -633,9 +767,7 @@ namespace DellHardwareMonitor
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-
             state = new HardwareState(cpuName, gpuName, ssdName, hddName);
-
             BeginInvoke((MethodInvoker)delegate
             {
                 polling_Tick(null, null);
@@ -646,14 +778,18 @@ namespace DellHardwareMonitor
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            loadingPictureBox.Dispose();
+            this.Visible = false;
+
             foreach (Control c in this.Controls)
             {
                 c.Visible = true;
             }
 
-            loadingPictureBox.Visible = false;
             uploadPictureBox.Visible = false;
             downloadPictureBox.Visible = false;
+            backgroundWorkerCompleted = true;
+            Fader.FadeIn(this, Fader.FadeSpeed.Slowest);
         }
 
         #endregion
@@ -676,23 +812,121 @@ namespace DellHardwareMonitor
 
         private void button3_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("cleanmgr.exe");
+            System.Diagnostics.Process.Start("regedit.exe");
             label1.Focus();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("regedit.exe");
-            label1.Focus();
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
             System.Diagnostics.Process.Start("compmgmt.msc");
             label1.Focus();
         }
 
+        private void roundButton1_MouseEnter(object sender, EventArgs e)
+        {
+            roundButton1.BackgroundImage = Properties.Resources.pia;
+        }
+
+        private void roundButton1_MouseLeave(object sender, EventArgs e)
+        {
+            roundButton1.BackgroundImage = Properties.Resources.pia_b;
+        }
+
+        private void roundButton2_MouseEnter(object sender, EventArgs e)
+        {
+            roundButton2.BackgroundImage = Properties.Resources.windir;
+        }
+
+        private void roundButton2_MouseLeave(object sender, EventArgs e)
+        {
+            roundButton2.BackgroundImage = Properties.Resources.windir_b;
+        }
+
+        private void roundButton3_MouseEnter(object sender, EventArgs e)
+        {
+            roundButton3.BackgroundImage = Properties.Resources.regedit;
+        }
+
+        private void roundButton3_MouseLeave(object sender, EventArgs e)
+        {
+            roundButton3.BackgroundImage = Properties.Resources.regedit_b;
+        }
+
+        private void roundButton4_MouseEnter(object sender, EventArgs e)
+        {
+            roundButton4.BackgroundImage = Properties.Resources.computer;
+        }
+
+        private void roundButton4_MouseLeave(object sender, EventArgs e)
+        {
+            roundButton4.BackgroundImage = Properties.Resources.computer_b;
+        }
+
         #endregion
 
+    }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct SYSTEMTIME
+{
+    public short wYear;
+    public short wMonth;
+    public short wDayOfWeek;
+    public short wDay;
+    public short wHour;
+    public short wMinute;
+    public short wSecond;
+    public short wMilliseconds;
+}
+
+//https://stackoverflow.com/questions/778678/how-to-change-the-color-of-progressbar-in-c-sharp-net-3-5 William Daniel answer
+public class ColorProgressBar : ProgressBar
+{
+    public ColorProgressBar()
+    {
+        this.SetStyle(ControlStyles.UserPaint, true);
+    }
+
+    protected override void OnPaintBackground(PaintEventArgs pevent)
+    {
+        // None... Helps control the flicker.
+    }
+
+    protected override void OnPaint(PaintEventArgs e)
+    {
+        const int inset = 2; // A single inset value to control teh sizing of the inner rect.
+
+        using (Image offscreenImage = new Bitmap(this.Width, this.Height))
+        {
+            using (Graphics offscreen = Graphics.FromImage(offscreenImage))
+            {
+                Rectangle rect = new Rectangle(0, 0, this.Width, this.Height);
+
+                if (ProgressBarRenderer.IsSupported)
+                    ProgressBarRenderer.DrawHorizontalBar(offscreen, rect);
+
+                rect.Inflate(new Size(-inset, -inset)); // Deflate inner rect.
+                rect.Width = (int)(rect.Width * ((double)this.Value / this.Maximum));
+                if (rect.Width == 0) rect.Width = 1; // Can't draw rec with width of 0.
+
+                System.Drawing.Drawing2D.LinearGradientBrush brush = new System.Drawing.Drawing2D.LinearGradientBrush(rect, this.BackColor, this.ForeColor, System.Drawing.Drawing2D.LinearGradientMode.Vertical);
+                offscreen.FillRectangle(brush, inset, inset, rect.Width, rect.Height);
+
+                e.Graphics.DrawImage(offscreenImage, 0, 0);
+            }
+        }
+    }
+}
+
+public class RoundButton : Button
+{
+    //https://stackoverflow.com/questions/3708113/round-shaped-buttons
+    protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
+    {
+        System.Drawing.Drawing2D.GraphicsPath grPath = new System.Drawing.Drawing2D.GraphicsPath();
+        grPath.AddEllipse(0, 0, ClientSize.Width, ClientSize.Height);
+        this.Region = new System.Drawing.Region(grPath);
+        base.OnPaint(e);
     }
 }

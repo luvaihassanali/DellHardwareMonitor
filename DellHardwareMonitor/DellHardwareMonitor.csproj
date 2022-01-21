@@ -34,7 +34,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -43,7 +43,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -60,7 +60,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -69,7 +69,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -112,21 +112,23 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="app.manifest" />
-    <None Include="bzh_dell_smm_io_x64.sys" />
+    <None Include="bzh_dell_smm_io_x64.sys">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -150,52 +152,70 @@
     <None Include="Resources\wrench.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons8-fan-64.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-graphics-card-64.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-hard-disk-64.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-processor-64.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-ram-64.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-router-64.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-ssd-drive-64.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\loading.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\tree.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\cleanmgr.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\regedit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\mycomput.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\green.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\red.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\wrench-red.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\pia-client_1000-5.png" />
+    <None Include="Resources\iconset-default\default-graphics.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-default\default-hard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-default\default-processor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-default\default-ssd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-default\default-hdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-default\default-ram.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-default\default-router.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconset-default\default-fan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wrench-yellow.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttons\computer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttons\computer_b.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttons\pia.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttons\pia_b.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttons\regedit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttons\regedit_b.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttons\windir.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttons\windir_b.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bar_green.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bar_yellow.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wrench-blue.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

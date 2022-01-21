@@ -54,7 +54,6 @@ namespace DellHardwareMonitor
             #region Tray menu
 
             trayMenu = new ContextMenu();
-
             trayMenu.MenuItems.Add("Fan control high", FanControl);
             trayMenu.MenuItems.Add("Fan control low", FanControlLow);
             trayMenu.MenuItems.Add("Fan control off", FanControlOff);
@@ -74,6 +73,7 @@ namespace DellHardwareMonitor
             trayIcon.Visible = true;
             trayIcon.MouseClick += new MouseEventHandler(trayIcon_Click);
             trayIcon.MouseDoubleClick += new MouseEventHandler(TrayIcon_MouseDoubleClick);
+            //trayIcon.MouseMove += new MouseEventHandler(TrayIcon_MouseMove);
 
             #endregion
 
@@ -91,6 +91,11 @@ namespace DellHardwareMonitor
             typeof(Form).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, form2, new object[] { true });
             form2.MouseClick += Form2_MouseClick;
         }
+        /*int counter = 0;
+        private void TrayIcon_MouseMove(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine("Mousemove" + counter++);
+        }*/
 
         #region General form functions
 
@@ -240,7 +245,6 @@ namespace DellHardwareMonitor
                 Properties.Settings.Default.WindowLocation = this.Location;
                 Properties.Settings.Default.WindowSize = this.Size;
             }
-            //Properties.Settings.Default.IconSet = iconSet;
             Properties.Settings.Default.Opacity = form2.Opacity;
             Properties.Settings.Default.Save();
 

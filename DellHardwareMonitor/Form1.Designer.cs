@@ -1518,22 +1518,22 @@ namespace DellHardwareMonitor
             // 
             // localhost
             // 
-            this.localhost.Location = new System.Drawing.Point(232, 872);
+            this.localhost.Location = new System.Drawing.Point(188, 872);
             this.localhost.Name = "localhost";
-            this.localhost.Size = new System.Drawing.Size(72, 13);
+            this.localhost.Size = new System.Drawing.Size(114, 13);
             this.localhost.TabIndex = 156;
-            this.localhost.Text = "000.000.000";
-            this.localhost.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.localhost.Text = "000.000.000.000";
+            this.localhost.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.localhost.Visible = false;
             // 
             // publicIP
             // 
-            this.publicIP.Location = new System.Drawing.Point(232, 896);
+            this.publicIP.Location = new System.Drawing.Point(188, 896);
             this.publicIP.Name = "publicIP";
-            this.publicIP.Size = new System.Drawing.Size(72, 13);
+            this.publicIP.Size = new System.Drawing.Size(114, 13);
             this.publicIP.TabIndex = 155;
-            this.publicIP.Text = "000.000.000";
-            this.publicIP.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.publicIP.Text = "000.000.000.000";
+            this.publicIP.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.publicIP.Visible = false;
             // 
             // label70

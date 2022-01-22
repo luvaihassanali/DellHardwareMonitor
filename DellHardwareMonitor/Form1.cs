@@ -352,6 +352,7 @@ namespace DellHardwareMonitor
             wifiHeaderLbl.Text = "";
             publicIP.Text = "";
             localhost.Text = "";
+            this.Refresh();
             System.Threading.Thread.Sleep(250);
 
             string publicIpAddr = "N/A";

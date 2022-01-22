@@ -153,7 +153,7 @@ namespace DellHardwareMonitor
 
         private void Form1_Deactivate(object sender, EventArgs e)
         {
-            label1.Focus();
+            label6.Focus();
         }
 
         private void Form2_MouseClick(object sender, MouseEventArgs e)
@@ -175,7 +175,7 @@ namespace DellHardwareMonitor
 
         private void TrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            label1.Focus();
+            label6.Focus();
             if (e.Button == MouseButtons.Left)
             {
                 singleClickTimer.Stop();
@@ -220,7 +220,7 @@ namespace DellHardwareMonitor
 
         private void SingleClickTimer_Tick(object sender, EventArgs e)
         {
-            label1.Focus();
+            label6.Focus();
             singleClickTimer.Stop();
 
             ShowInTaskbar = false;
@@ -352,6 +352,7 @@ namespace DellHardwareMonitor
             wifiHeaderLbl.Text = "";
             publicIP.Text = "";
             localhost.Text = "";
+            this.Refresh();
             System.Threading.Thread.Sleep(250);
 
             string publicIpAddr = "N/A";
@@ -391,28 +392,6 @@ namespace DellHardwareMonitor
         {
             bool fanOneResult;
             bool fanTwoResult;
-
-            trayIcon.Icon = Resources.wrenchRed;
-
-            if (fanControlLow)
-            {
-                trayMenu.MenuItems[1].Checked = false;
-                trayMenu.MenuItems[0].Checked = true;
-                fanControlLow = false;
-                fanControl = true;
-
-                fanOneResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan1, BzhFanLevel.Level2);
-                fanTwoResult = DellSmbiosBzh.SetFanLevel(BzhFanIndex.Fan2, BzhFanLevel.Level2);
-
-                if (!fanOneResult || !fanTwoResult)
-                {
-                    MessageBox.Show("Unable to change fan speed level.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
-                    System.Environment.Exit(1);
-                }
-
-                return;
-            }
 
             if (fanControl)
             {
@@ -823,7 +802,7 @@ namespace DellHardwareMonitor
             var script = "Enable-ScheduledTask -TaskName \"LaunchPia\";Start-ScheduledTask -TaskName \"LaunchPia\";Disable-ScheduledTask -TaskName \"LaunchPia\"";
             var powerShell = PowerShell.Create().AddScript(script);
             powerShell.Invoke();
-            label1.Focus();
+            label6.Focus();
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -50,7 +50,7 @@ namespace DellHardwareMonitor
 
             this.FormBorderStyle = FormBorderStyle.None;
             this.DoubleBuffered = true;
-            
+
             #region Tray menu
 
             trayMenu = new ContextMenu();
@@ -242,7 +242,7 @@ namespace DellHardwareMonitor
                     this.Location = new Point(initPos.X, i);
                     form2.Location = new Point(initPos.X, i);
                 }
-            }  
+            }
         }
 
         #endregion 
@@ -323,7 +323,8 @@ namespace DellHardwareMonitor
                     this.Location = new Point(initPos.X, i);
                     form2.Location = new Point(initPos.X, i);
                 }
-            } else
+            }
+            else
             {
 
             }
@@ -670,12 +671,17 @@ namespace DellHardwareMonitor
             uint? rightFanRpm = DellSmbiosBzh.GetFanRpm(BzhFanIndex.Fan2);
             cpuFanLbl.Text = leftFanRpm.ToString();
             gpuFanLbl.Text = rightFanRpm.ToString();
-            if(leftFanRpm > 0 && rightFanRpm > 0)
-            {
-                trayIcon.Icon = Properties.Resources.wrench_blue;
-            } else
-            {
-                trayIcon.Icon = Properties.Resources.wrench;
+
+            if (!fanControl && !fanControlLow)
+            { 
+                if (leftFanRpm > 0 && rightFanRpm > 0)
+                {
+                    trayIcon.Icon = Properties.Resources.wrench_blue;
+                }
+                else
+                {
+                    trayIcon.Icon = Properties.Resources.wrench;
+                }
             }
 
             float memoryUsed = (float)state.RAM.Sensors[0].Value;

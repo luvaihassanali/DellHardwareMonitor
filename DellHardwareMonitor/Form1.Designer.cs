@@ -1504,7 +1504,7 @@ namespace DellHardwareMonitor
             // label43
             // 
             this.label43.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label43.Location = new System.Drawing.Point(6, 976);
+            this.label43.Location = new System.Drawing.Point(6, 974);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(296, 1);
             this.label43.TabIndex = 176;
@@ -1516,7 +1516,7 @@ namespace DellHardwareMonitor
             this.roundButton4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.roundButton4.FlatAppearance.BorderSize = 0;
             this.roundButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.roundButton4.Location = new System.Drawing.Point(261, 989);
+            this.roundButton4.Location = new System.Drawing.Point(261, 983);
             this.roundButton4.Name = "roundButton4";
             this.roundButton4.Size = new System.Drawing.Size(32, 32);
             this.roundButton4.TabIndex = 180;
@@ -1532,7 +1532,7 @@ namespace DellHardwareMonitor
             this.roundButton3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.roundButton3.FlatAppearance.BorderSize = 0;
             this.roundButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.roundButton3.Location = new System.Drawing.Point(182, 989);
+            this.roundButton3.Location = new System.Drawing.Point(182, 983);
             this.roundButton3.Name = "roundButton3";
             this.roundButton3.Size = new System.Drawing.Size(32, 32);
             this.roundButton3.TabIndex = 179;
@@ -1548,7 +1548,7 @@ namespace DellHardwareMonitor
             this.roundButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.roundButton2.FlatAppearance.BorderSize = 0;
             this.roundButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.roundButton2.Location = new System.Drawing.Point(96, 989);
+            this.roundButton2.Location = new System.Drawing.Point(96, 983);
             this.roundButton2.Name = "roundButton2";
             this.roundButton2.Size = new System.Drawing.Size(32, 32);
             this.roundButton2.TabIndex = 178;
@@ -1564,7 +1564,7 @@ namespace DellHardwareMonitor
             this.roundButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.roundButton1.FlatAppearance.BorderSize = 0;
             this.roundButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.roundButton1.Location = new System.Drawing.Point(15, 989);
+            this.roundButton1.Location = new System.Drawing.Point(15, 983);
             this.roundButton1.Name = "roundButton1";
             this.roundButton1.Size = new System.Drawing.Size(32, 32);
             this.roundButton1.TabIndex = 177;
@@ -1597,7 +1597,7 @@ namespace DellHardwareMonitor
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ClientSize = new System.Drawing.Size(309, 1035);
+            this.ClientSize = new System.Drawing.Size(309, 1025);
             this.Controls.Add(this.roundButton4);
             this.Controls.Add(this.roundButton3);
             this.Controls.Add(this.roundButton2);

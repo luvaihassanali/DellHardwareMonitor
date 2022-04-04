@@ -99,7 +99,7 @@ namespace DellHardwareMonitor
             if (Properties.Settings.Default.Opacity == 0)
             {
                 Rectangle screenBounds = Screen.FromControl(this).Bounds;
-                this.Size = new Size(309, screenBounds.Height - 45);
+                this.Size = new Size(309, screenBounds.Height - 55);
                 this.Location = new Point(screenBounds.Width - this.Size.Width - 10, yValue);
                 opacity = 0.8;
             }
@@ -342,9 +342,9 @@ namespace DellHardwareMonitor
         private void ResetOrientation(object sender, EventArgs e)
         {
             Rectangle screenBounds = Screen.FromControl(this).Bounds;
-            this.Size = new Size(309, screenBounds.Height - 45);
+            this.Size = new Size(309, screenBounds.Height - 55);
             this.Location = new Point(screenBounds.Width - this.Size.Width - 10, yValue);
-            form2.Size = new Size(309, screenBounds.Height - 45);
+            form2.Size = new Size(309, screenBounds.Height - 55);
             form2.Location = new Point(screenBounds.Width - this.Size.Width - 10, yValue);
         }
 

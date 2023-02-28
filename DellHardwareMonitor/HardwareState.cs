@@ -13,14 +13,9 @@ namespace DellHardwareMonitor
         private IHardware ram;
         private IHardware hdd;
         private IHardware ssd;
-        private IHardware ethernet;
-        private IHardware wifi;
 
         private DriveState[] driveStates;
         private NetworkState[] networkStates;
-
-        private string localhost;
-        private string publicIpAddress;
 
         public HardwareState(string cpuName, string gpuName, string ssdName, string hddName)
         {
@@ -46,7 +41,6 @@ namespace DellHardwareMonitor
                 hddName = "WDC WD10SPCX-21KHST0";
             }
 
-            
             foreach (IHardware hardware in computer.Hardware)
             {
                 if(hardware.Name.Equals(cpuName))
@@ -73,47 +67,6 @@ namespace DellHardwareMonitor
                 {
                     ram = hardware;
                 }
-
-                if (hardware.Name.Equals("Ethernet"))
-                {
-                    ethernet = hardware;
-                }
-
-                if (hardware.Name.Equals("Wi-Fi"))
-                {
-                    wifi = hardware;
-                }
-
-                #region switch 
-                /*
-                switch (hardware.Name)
-                {
-                    case cpuName: //Constant value is expected
-                        cpu = hardware;
-                        break;
-                    case : 
-                        gpu = hardware;
-                        break;
-                    case "Generic Memory": 
-                        ram = hardware;
-                        break;
-                    case : 
-                        hdd = hardware;
-                        break;
-                    case : 
-                        ssd = hardware;
-                        break;
-                    case "Ethernet":
-                        ethernet = hardware;
-                        break;
-                    case "Wi-Fi":
-                        wifi = hardware;
-                        break;
-                    default:
-                        //Local Area Connection, 1, and 10 network sensors available
-                        break;
-                }*/
-                #endregion
             }
 
             string[] allDriveInstances = new PerformanceCounterCategory("LogicalDisk").GetInstanceNames();
@@ -186,18 +139,6 @@ namespace DellHardwareMonitor
             set => ssd = value;
         }
 
-        public IHardware Ethernet
-        {
-            get => ethernet;
-            set => ethernet = value;
-        }
-
-        public IHardware WiFi
-        {
-            get => wifi;
-            set => wifi = value;
-        }
-
         public DriveState[] DriveStates
         {
             get => driveStates;
@@ -208,18 +149,6 @@ namespace DellHardwareMonitor
         {
             get => networkStates;
             set => networkStates = value;
-        }
-
-        public string LocalHost
-        {
-            get => localhost;
-            set => localhost = value;
-        }
-
-        public string PublicIpAddress
-        {
-            get => publicIpAddress;
-            set => publicIpAddress = value;
         }
     }
 

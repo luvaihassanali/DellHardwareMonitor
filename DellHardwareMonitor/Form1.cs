@@ -41,10 +41,12 @@ namespace DellHardwareMonitor
         private string gpuName = ConfigurationManager.AppSettings["gpuName"];
         private string ssdName = ConfigurationManager.AppSettings["ssdName"];
         private string hddName = ConfigurationManager.AppSettings["hddName"];
+        private bool fourCoreHost = !String.Equals(String.Empty, ConfigurationManager.AppSettings["numCores"]);
 
         public Form1()
         {
             InitializeComponent();
+
             backgroundWorkerCompleted = false;
             backgroundWorker1.WorkerReportsProgress = false;
             backgroundWorker1.WorkerSupportsCancellation = true;
@@ -116,7 +118,7 @@ namespace DellHardwareMonitor
             form2.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20)); //20
             form2.Location = new Point(this.Location.X, this.Location.Y);
             form2.Size = this.Size;
-            loadingPictureBox.Location = new System.Drawing.Point(this.Width / 2 - loadingPictureBox.Width / 2, this.Height / 2 - loadingPictureBox.Height / 2);
+            loadingPictureBox.Location = new Point(this.Width / 2 - loadingPictureBox.Width / 2, this.Height / 2 - loadingPictureBox.Height / 2);
 
             isDriverLoaded = LoadDriver();
             if (!isDriverLoaded)
@@ -130,7 +132,7 @@ namespace DellHardwareMonitor
                     MessageBox.Show("Failed to load DellSmbiosBzhLib driver. Verify that bzh_dell_smm_io_x64.sys is in application directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 Application.Exit();
-                System.Environment.Exit(1);
+                Environment.Exit(1);
             }
         }
 
@@ -144,9 +146,7 @@ namespace DellHardwareMonitor
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (systemShutdown)
-                CleanUp();
-
+            if (systemShutdown) CleanUp();
             CleanUp();
 
             trayIcon.Visible = false;
@@ -155,7 +155,7 @@ namespace DellHardwareMonitor
 
         private void Form1_Deactivate(object sender, EventArgs e)
         {
-            label6.Focus();
+            label1.Focus();
         }
 
         private void Form2_MouseClick(object sender, MouseEventArgs e)
@@ -168,16 +168,13 @@ namespace DellHardwareMonitor
 
         private void trayIcon_Click(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-                singleClickTimer.Start();
-
-            if (e != null && e.Button == MouseButtons.Right)
-                return;
+            if (e.Button == MouseButtons.Left) singleClickTimer.Start();
+            if (e != null && e.Button == MouseButtons.Right) return;
         }
 
         private void TrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            label6.Focus();
+            label1.Focus();
             if (e.Button == MouseButtons.Left)
             {
                 singleClickTimer.Stop();
@@ -201,8 +198,7 @@ namespace DellHardwareMonitor
                 }
                 else
                 {
-                    if (backgroundWorkerCompleted)
-                        pollingTimer.Start();
+                    if (backgroundWorkerCompleted) pollingTimer.Start();
 
                     ShowInTaskbar = false;
                     Visible = true;
@@ -222,7 +218,7 @@ namespace DellHardwareMonitor
 
         private void SingleClickTimer_Tick(object sender, EventArgs e)
         {
-            label6.Focus();
+            label1.Focus();
             singleClickTimer.Stop();
 
             ShowInTaskbar = false;
@@ -251,8 +247,7 @@ namespace DellHardwareMonitor
 
         private void CleanUp()
         {
-            if (backgroundWorker1.IsBusy)
-                backgroundWorker1.CancelAsync();
+            if (backgroundWorker1.IsBusy) backgroundWorker1.CancelAsync();
 
             if (this.Location.Y == yValue)
             {
@@ -265,18 +260,15 @@ namespace DellHardwareMonitor
             pollingTimer.Stop();
             pollingTimer.Dispose();
 
-            if (isDriverLoaded)
-                UnloadDriver();
+            if (isDriverLoaded) UnloadDriver();
 
             if (state != null && state.Computer != null)
                 state.Computer.Close();
         }
 
         protected override void WndProc(ref Message message)
-        {
-            if (message.Msg == 0x11) //WM_QUERYENDSESSION
-                systemShutdown = true;
-
+        {   //WM_QUERYENDSESSION 0x11
+            if (message.Msg == 0x11) systemShutdown = true;
             base.WndProc(ref message);
         }
 
@@ -292,7 +284,6 @@ namespace DellHardwareMonitor
                 form2.Opacity -= 0.05;
                 return true;
             }
-
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -625,6 +616,7 @@ namespace DellHardwareMonitor
 
             try
             {
+                // CPU Load
                 float cpuOneLoad = (float)state.CPU.Sensors[0].Value;
                 cpu1LoadLbl.Text = cpuOneLoad.ToString("0");
                 float cpuTwoLoad = (float)state.CPU.Sensors[1].Value;
@@ -633,19 +625,17 @@ namespace DellHardwareMonitor
                 cpu3LoadLbl.Text = cpuThreeLoad.ToString("0");
                 float cpuFourLoad = (float)state.CPU.Sensors[3].Value;
                 cpu4LoadLbl.Text = cpuFourLoad.ToString("0");
-                float cpuFiveLoad = (float)state.CPU.Sensors[4].Value;
-                cpu5LoadLbl.Text = cpuFiveLoad.ToString("0");
-                float cpuSixLoad = (float)state.CPU.Sensors[5].Value;
-                cpu6LoadLbl.Text = cpuSixLoad.ToString("0");
                 float cpuTotalLoadF = (float)state.CPU.Sensors[6].Value;
                 cpuTotalLoadLbl.Text = cpuTotalLoadF.ToString("0");
+
+                // CPU Temp
                 cpu1TempLbl.Text = state.CPU.Sensors[7].Value.ToString();
                 cpu2TempLbl.Text = state.CPU.Sensors[8].Value.ToString();
                 cpu3TempLbl.Text = state.CPU.Sensors[9].Value.ToString();
                 cpu4TempLbl.Text = state.CPU.Sensors[10].Value.ToString();
-                cpu5TempLbl.Text = state.CPU.Sensors[11].Value.ToString();
-                cpu6TempLbl.Text = state.CPU.Sensors[12].Value.ToString();
                 cpuPackageTempLbl.Text = state.CPU.Sensors[13].Value.ToString();
+
+                // CPU Speed
                 double cpuOneClock = (double)state.CPU.Sensors[22].Value;
                 cpu1ClockLbl.Text = cpuOneClock.ToString("0");
                 double cpuTwoClock = (double)state.CPU.Sensors[23].Value;
@@ -654,13 +644,24 @@ namespace DellHardwareMonitor
                 cpu3ClockLbl.Text = cpuThreeClock.ToString("0");
                 double cpuFourClock = (double)state.CPU.Sensors[25].Value;
                 cpu4ClockLbl.Text = cpuFourClock.ToString("0");
-                double cpuFiveClock = (double)state.CPU.Sensors[26].Value;
-                cpu5ClockLbl.Text = cpuFiveClock.ToString("0");
-                double cpuSixClock = (double)state.CPU.Sensors[27].Value;
-                cpu6ClockLbl.Text = cpuSixClock.ToString("0");
                 float cpuPackagePower = (float)state.CPU.Sensors[28].Value;
                 cpuPackagePwrLbl.Text = cpuPackagePower.ToString("0.00");
 
+                if (!fourCoreHost)
+                {
+                    float cpuFiveLoad = (float)state.CPU.Sensors[4].Value;
+                    cpu5LoadLbl.Text = cpuFiveLoad.ToString("0");
+                    float cpuSixLoad = (float)state.CPU.Sensors[5].Value;
+                    cpu6LoadLbl.Text = cpuSixLoad.ToString("0");
+                    cpu5TempLbl.Text = state.CPU.Sensors[11].Value.ToString();
+                    cpu6TempLbl.Text = state.CPU.Sensors[12].Value.ToString();
+                    double cpuFiveClock = (double)state.CPU.Sensors[26].Value;
+                    cpu5ClockLbl.Text = cpuFiveClock.ToString("0");
+                    double cpuSixClock = (double)state.CPU.Sensors[27].Value;
+                    cpu6ClockLbl.Text = cpuSixClock.ToString("0");
+                }
+
+                // GPU
                 gpuTempLbl.Text = state.GPU.Sensors[0].Value.ToString();
                 gpuCoreClockLbl.Text = (state.GPU.Sensors[1].Value).Value.ToString("0");
                 gpuMemClockLbl.Text = (state.GPU.Sensors[2].Value).Value.ToString("0");
@@ -669,6 +670,7 @@ namespace DellHardwareMonitor
                 gpuFreeMemLbl.Text = (state.GPU.Sensors[8].Value / 1000d).Value.ToString("0.00");
                 gpuMemUsedLbl.Text = (state.GPU.Sensors[9].Value / 1000d).Value.ToString("0.00");
 
+                // Fans
                 uint? leftFanRpm = DellSmbiosBzh.GetFanRpm(BzhFanIndex.Fan1);
                 uint? rightFanRpm = DellSmbiosBzh.GetFanRpm(BzhFanIndex.Fan2);
                 cpuFanLbl.Text = leftFanRpm.ToString();
@@ -686,6 +688,7 @@ namespace DellHardwareMonitor
                     }
                 }
 
+                // RAM
                 float memoryUsed = (float)state.RAM.Sensors[0].Value;
                 ramUsedLbl.Text = memoryUsed.ToString("0.00");
                 float memoryAvailable = (float)state.RAM.Sensors[1].Value;
@@ -694,6 +697,7 @@ namespace DellHardwareMonitor
                 float memoryLoad = (float)state.RAM.Sensors[2].Value;
                 ramLoadLbl.Text = memoryLoad.ToString("0");
 
+                // SSD
                 ssdTempLbl.Text = state.SSD.Sensors[0].Value.ToString();
                 double ssdFreeGB = state.DriveStates[0].Counters[0].NextValue() / 1024d;
                 ssdFreeGBLbl.Text = ssdFreeGB.ToString("0");
@@ -706,6 +710,7 @@ namespace DellHardwareMonitor
                 double ssdUsedGB = ssdTotalGB - ssdFreeGB;
                 ssdUsedGBLbl.Text = ssdUsedGB.ToString("0");
 
+                // HDD
                 hddTempLbl.Text = state.HDD.Sensors[0].Value.ToString();
                 double hddFreeGB = state.DriveStates[1].Counters[0].NextValue() / 1024d;
                 hddFreeGBLbl.Text = hddFreeGB.ToString("0");
@@ -717,6 +722,7 @@ namespace DellHardwareMonitor
                 double hddUsedGB = hddTotalGB - hddFreeGB;
                 hddUsedGBLbl.Text = hddUsedGB.ToString("0");
 
+                // Wi-Fi
                 double wifiBytesRecv = state.NetworkStates[1].Counters[0].NextValue() / 1048576d;
                 double wifiBytesSent = state.NetworkStates[1].Counters[1].NextValue() / 1048576d;
                 wifiBytesRecvLbl.Text = wifiBytesRecv.ToString("0.00");
@@ -794,12 +800,25 @@ namespace DellHardwareMonitor
         {
             loadingPictureBox.Dispose();
             this.Visible = false;
-
             foreach (Control c in this.Controls)
             {
                 c.Visible = true;
             }
-
+            if (fourCoreHost)
+            {
+                label2.Visible = false;
+                label6.Visible = false;
+                label7.Visible = false;
+                label8.Visible = false;
+                label13.Visible = false;
+                label14.Visible = false;
+                cpu5TempLbl.Visible = false;
+                cpu6TempLbl.Visible = false;
+                cpu5LoadLbl.Visible = false;
+                cpu6LoadLbl.Visible = false;
+                cpu5ClockLbl.Visible = false;
+                cpu6ClockLbl.Visible = false;
+            }
             uploadPictureBox.Visible = false;
             downloadPictureBox.Visible = false;
             backgroundWorkerCompleted = true;
@@ -815,7 +834,7 @@ namespace DellHardwareMonitor
             var script = "Enable-ScheduledTask -TaskName \"LaunchPia\";Start-ScheduledTask -TaskName \"LaunchPia\";Disable-ScheduledTask -TaskName \"LaunchPia\"";
             var powerShell = PowerShell.Create().AddScript(script);
             powerShell.Invoke();
-            label6.Focus();
+            label1.Focus();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -826,19 +845,19 @@ namespace DellHardwareMonitor
 
             }
             System.Diagnostics.Process.Start(path);
-            label6.Focus();
+            label1.Focus();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("regedit.exe");
-            label6.Focus();
+            label1.Focus();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("compmgmt.msc");
-            label6.Focus();
+            label1.Focus();
         }
 
         private void roundButton1_MouseEnter(object sender, EventArgs e)
@@ -914,16 +933,13 @@ public class ColorProgressBar : ProgressBar
 
     protected override void OnPaint(PaintEventArgs e)
     {
-        const int inset = 2; // A single inset value to control teh sizing of the inner rect.
-
+        const int inset = 2; // A single inset value to control teh sizing of the inner rect
         using (Image offscreenImage = new Bitmap(this.Width, this.Height))
         {
             using (Graphics offscreen = Graphics.FromImage(offscreenImage))
             {
                 Rectangle rect = new Rectangle(0, 0, this.Width, this.Height);
-
-                if (ProgressBarRenderer.IsSupported)
-                    ProgressBarRenderer.DrawHorizontalBar(offscreen, rect);
+                if (ProgressBarRenderer.IsSupported) ProgressBarRenderer.DrawHorizontalBar(offscreen, rect);
 
                 rect.Inflate(new Size(-inset, -inset)); // Deflate inner rect.
                 rect.Width = (int)(rect.Width * ((double)this.Value / this.Maximum));
@@ -931,7 +947,6 @@ public class ColorProgressBar : ProgressBar
 
                 System.Drawing.Drawing2D.LinearGradientBrush brush = new System.Drawing.Drawing2D.LinearGradientBrush(rect, this.BackColor, this.ForeColor, System.Drawing.Drawing2D.LinearGradientMode.Vertical);
                 offscreen.FillRectangle(brush, inset, inset, rect.Width, rect.Height);
-
                 e.Graphics.DrawImage(offscreenImage, 0, 0);
             }
         }

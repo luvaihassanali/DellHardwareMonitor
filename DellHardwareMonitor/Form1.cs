@@ -11,6 +11,7 @@ using System.Windows.Forms;
 
 using DellFanManagement.DellSmbiozBzhLib;
 using Microsoft.Toolkit.Uwp.Notifications;
+using Windows.Media.Protection.PlayReady;
 
 namespace DellHardwareMonitor
 {
@@ -91,6 +92,7 @@ namespace DellHardwareMonitor
             form2.StartPosition = FormStartPosition.Manual;
             form2.BackColor = Color.Black;
             form2.ShowInTaskbar = false;
+            form2.Icon = Properties.Resources.wrench_yellow;
             typeof(Form).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, form2, new object[] { true });
             form2.MouseClick += Form2_MouseClick;
         }
@@ -556,6 +558,7 @@ namespace DellHardwareMonitor
 
         private void polling_Tick(object sender, EventArgs e)
         {
+            // Refresh LibreHardwareMonitor sensor array
             state.CPU.Update();
             state.GPU.Update();
             state.RAM.Update();
@@ -831,33 +834,47 @@ namespace DellHardwareMonitor
 
         private void button1_Click(object sender, EventArgs e)
         {
+            roundButton1.BackgroundImage = Properties.Resources.pia_invert;
+            Application.DoEvents();
+            string path = @"C:\Program Files\Private Internet Access\pia-client.exe";
+            if (!File.Exists(path))
+            {
+                new ToastContentBuilder().AddText("PIA not installed").Show();
+            }
             var script = "Enable-ScheduledTask -TaskName \"LaunchPia\";Start-ScheduledTask -TaskName \"LaunchPia\";Disable-ScheduledTask -TaskName \"LaunchPia\"";
             var powerShell = PowerShell.Create().AddScript(script);
-            powerShell.Invoke();
+            powerShell.Invoke(); 
             label1.Focus();
+            Task.Delay(500).Wait();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            roundButton2.BackgroundImage = Properties.Resources.windir_invert;
             string path = @"C:\Program Files (x86)\WinDirStat\windirstat.exe";
             if (!File.Exists(path))
             {
-
+                new ToastContentBuilder().AddText("WinDirStat not installed").Show();
             }
             System.Diagnostics.Process.Start(path);
             label1.Focus();
+            Task.Delay(500).Wait();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            roundButton3.BackgroundImage = Properties.Resources.regedit_invert;
             System.Diagnostics.Process.Start("regedit.exe");
             label1.Focus();
+            Task.Delay(500).Wait();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
+            roundButton4.BackgroundImage = Properties.Resources.computer_invert;
             System.Diagnostics.Process.Start("compmgmt.msc");
             label1.Focus();
+            Task.Delay(500).Wait();
         }
 
         private void roundButton1_MouseEnter(object sender, EventArgs e)

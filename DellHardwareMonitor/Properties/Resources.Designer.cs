@@ -103,6 +103,16 @@ namespace DellHardwareMonitor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap computer_invert {
+            get {
+                object obj = ResourceManager.GetObject("computer_invert", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap default_fan {
             get {
                 object obj = ResourceManager.GetObject("default_fan", resourceCulture);
@@ -203,6 +213,16 @@ namespace DellHardwareMonitor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap pia_invert {
+            get {
+                object obj = ResourceManager.GetObject("pia_invert", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap regedit {
             get {
                 object obj = ResourceManager.GetObject("regedit", resourceCulture);
@@ -223,6 +243,16 @@ namespace DellHardwareMonitor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap regedit_invert {
+            get {
+                object obj = ResourceManager.GetObject("regedit_invert", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap windir {
             get {
                 object obj = ResourceManager.GetObject("windir", resourceCulture);
@@ -236,6 +266,16 @@ namespace DellHardwareMonitor.Properties {
         internal static System.Drawing.Bitmap windir_b {
             get {
                 object obj = ResourceManager.GetObject("windir_b", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap windir_invert {
+            get {
+                object obj = ResourceManager.GetObject("windir_invert", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

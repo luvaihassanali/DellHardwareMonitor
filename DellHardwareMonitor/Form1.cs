@@ -628,26 +628,31 @@ namespace DellHardwareMonitor
                 cpu3LoadLbl.Text = cpuThreeLoad.ToString("0");
                 float cpuFourLoad = (float)state.CPU.Sensors[3].Value;
                 cpu4LoadLbl.Text = cpuFourLoad.ToString("0");
-                float cpuTotalLoadF = (float)state.CPU.Sensors[6].Value;
+                int cpuTotalLoadIdx = fourCoreHost ? 4 : 6;
+                float cpuTotalLoadF = (float)state.CPU.Sensors[cpuTotalLoadIdx].Value;
                 cpuTotalLoadLbl.Text = cpuTotalLoadF.ToString("0");
 
                 // CPU Temp
-                cpu1TempLbl.Text = state.CPU.Sensors[7].Value.ToString();
-                cpu2TempLbl.Text = state.CPU.Sensors[8].Value.ToString();
-                cpu3TempLbl.Text = state.CPU.Sensors[9].Value.ToString();
-                cpu4TempLbl.Text = state.CPU.Sensors[10].Value.ToString();
-                cpuPackageTempLbl.Text = state.CPU.Sensors[13].Value.ToString();
+                int cpu1TempIdx = fourCoreHost ? 5 : 7;
+                cpu1TempLbl.Text = state.CPU.Sensors[cpu1TempIdx].Value.ToString();
+                cpu2TempLbl.Text = state.CPU.Sensors[cpu1TempIdx++].Value.ToString();
+                cpu3TempLbl.Text = state.CPU.Sensors[cpu1TempIdx++].Value.ToString();
+                cpu4TempLbl.Text = state.CPU.Sensors[cpu1TempIdx++].Value.ToString();
+                int cpuPkgTempIdx = fourCoreHost ? 9 : 13;
+                cpuPackageTempLbl.Text = state.CPU.Sensors[cpuPkgTempIdx].Value.ToString();
 
                 // CPU Speed
-                double cpuOneClock = (double)state.CPU.Sensors[22].Value;
+                int cpuOneClockIdx = fourCoreHost ? 16 : 22;
+                double cpuOneClock = (double)state.CPU.Sensors[cpuOneClockIdx].Value;
                 cpu1ClockLbl.Text = cpuOneClock.ToString("0");
-                double cpuTwoClock = (double)state.CPU.Sensors[23].Value;
+                double cpuTwoClock = (double)state.CPU.Sensors[cpuOneClockIdx++].Value;
                 cpu2ClockLbl.Text = cpuTwoClock.ToString("0");
-                double cpuThreeClock = (double)state.CPU.Sensors[24].Value;
+                double cpuThreeClock = (double)state.CPU.Sensors[cpuOneClockIdx++].Value;
                 cpu3ClockLbl.Text = cpuThreeClock.ToString("0");
-                double cpuFourClock = (double)state.CPU.Sensors[25].Value;
+                double cpuFourClock = (double)state.CPU.Sensors[cpuOneClockIdx++].Value;
                 cpu4ClockLbl.Text = cpuFourClock.ToString("0");
-                float cpuPackagePower = (float)state.CPU.Sensors[28].Value;
+                int cpuPkgPwrIdx = fourCoreHost ? 20 : 28;
+                float cpuPackagePower = (float)state.CPU.Sensors[cpuPkgPwrIdx].Value;
                 cpuPackagePwrLbl.Text = cpuPackagePower.ToString("0.00");
 
                 if (!fourCoreHost)

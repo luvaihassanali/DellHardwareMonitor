@@ -2,28 +2,21 @@
 using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Management.Automation;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using DellFanManagement.DellSmbiozBzhLib;
-using Microsoft.Toolkit.Uwp.Notifications;
-using Windows.Media.Protection.PlayReady;
 
 namespace DellHardwareMonitor
 {
     public partial class Form1 : Form
     {
-        [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern bool SetSystemTime(ref SYSTEMTIME st);
-        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
-
+        static public int opacity = Properties.Settings.Default.Opacity;
         private const int yValue = 8;
-        private double opacity;
         private bool isDriverLoaded;
         private bool fanControl;
         private bool fanControlLow;
@@ -47,7 +40,6 @@ namespace DellHardwareMonitor
         public Form1()
         {
             InitializeComponent();
-
             backgroundWorkerCompleted = false;
             backgroundWorker1.WorkerReportsProgress = false;
             backgroundWorker1.WorkerSupportsCancellation = true;
@@ -87,39 +79,38 @@ namespace DellHardwareMonitor
             singleClickTimer = new Timer();
             singleClickTimer.Tick += SingleClickTimer_Tick;
 
-            form2 = new Form();
-            form2.FormBorderStyle = FormBorderStyle.None;
-            form2.StartPosition = FormStartPosition.Manual;
-            form2.BackColor = Color.Black;
-            form2.ShowInTaskbar = false;
-            form2.Icon = Properties.Resources.wrench_yellow;
-            typeof(Form).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, form2, new object[] { true });
+            form2 = new Form2();
             form2.MouseClick += Form2_MouseClick;
+            form2.Show();
+        }
+
+        private void DrawForm(object sender, EventArgs e)
+        {
+            roundButton1.Invalidate();
+            roundButton2.Invalidate();
+            roundButton3.Invalidate();
+            roundButton4.Invalidate();
         }
 
         #region General form functions
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Properties.Settings.Default.Opacity = 0;
-            if (Properties.Settings.Default.Opacity == 0)
+            //Properties.Settings.Default.Opacity = 220;
+            if (Properties.Settings.Default.Opacity == 220)
             {
                 Rectangle screenBounds = Screen.FromControl(this).Bounds;
                 this.Size = new Size(309, screenBounds.Height - 45);
                 this.Location = new Point(screenBounds.Width - this.Size.Width - 10, yValue);
-                opacity = 0.8;
             }
             else
             {
                 this.Location = Properties.Settings.Default.WindowLocation;
                 this.Size = Properties.Settings.Default.WindowSize;
-                opacity = Properties.Settings.Default.Opacity;
             }
 
-            this.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20));
-            form2.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Width, this.Height, 20, 20)); //20
             form2.Location = new Point(this.Location.X, this.Location.Y);
-            form2.Size = this.Size;
+            form2.Size = new Size(this.Size.Width, this.Size.Height);
             loadingPictureBox.Location = new Point(this.Width / 2 - loadingPictureBox.Width / 2, this.Height / 2 - loadingPictureBox.Height / 2);
 
             isDriverLoaded = LoadDriver();
@@ -140,7 +131,6 @@ namespace DellHardwareMonitor
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            Fader.FadeInCustom(form2, Fader.FadeSpeed.FourSlow, opacity);
             Fader.FadeIn(this, Fader.FadeSpeed.FourSlow);
             form2.Activate();
             this.Activate();
@@ -256,7 +246,7 @@ namespace DellHardwareMonitor
                 Properties.Settings.Default.WindowLocation = this.Location;
                 Properties.Settings.Default.WindowSize = this.Size;
             }
-            Properties.Settings.Default.Opacity = form2.Opacity;
+            Properties.Settings.Default.Opacity = opacity;
             Properties.Settings.Default.Save();
 
             pollingTimer.Stop();
@@ -278,12 +268,14 @@ namespace DellHardwareMonitor
         {
             if (keyData == Keys.Oemplus)
             {
-                form2.Opacity += 0.05;
+                opacity += 5;
+                if (opacity > 220) opacity = 220;
                 return true;
             }
             if (keyData == Keys.OemMinus)
             {
-                form2.Opacity -= 0.05;
+                opacity -= 5;
+                if (opacity < 35) opacity = 35;
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
@@ -604,7 +596,7 @@ namespace DellHardwareMonitor
                     st.wMinute = (short)dateValue.Minute;
                     st.wSecond = (short)dateValue.Second;
 
-                    SetSystemTime(ref st);
+                    Form2.Win32.SetSystemTime(ref st);
                 }
                 catch
                 {
@@ -740,7 +732,7 @@ namespace DellHardwareMonitor
             }
             catch (Exception ex)
             {
-                new ToastContentBuilder().AddText(ex.Message).Show();
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -844,11 +836,11 @@ namespace DellHardwareMonitor
             string path = @"C:\Program Files\Private Internet Access\pia-client.exe";
             if (!File.Exists(path))
             {
-                new ToastContentBuilder().AddText("PIA not installed").Show();
+                MessageBox.Show("PIA not installed");
             }
             var script = "Enable-ScheduledTask -TaskName \"LaunchPia\";Start-ScheduledTask -TaskName \"LaunchPia\";Disable-ScheduledTask -TaskName \"LaunchPia\"";
             var powerShell = PowerShell.Create().AddScript(script);
-            powerShell.Invoke(); 
+            powerShell.Invoke();
             label1.Focus();
             Task.Delay(500).Wait();
         }
@@ -859,7 +851,7 @@ namespace DellHardwareMonitor
             string path = @"C:\Program Files (x86)\WinDirStat\windirstat.exe";
             if (!File.Exists(path))
             {
-                new ToastContentBuilder().AddText("WinDirStat not installed").Show();
+                MessageBox.Show("WinDirStat not installed");
             }
             System.Diagnostics.Process.Start(path);
             label1.Focus();
@@ -967,22 +959,46 @@ public class ColorProgressBar : ProgressBar
                 rect.Width = (int)(rect.Width * ((double)this.Value / this.Maximum));
                 if (rect.Width == 0) rect.Width = 1; // Can't draw rec with width of 0.
 
-                System.Drawing.Drawing2D.LinearGradientBrush brush = new System.Drawing.Drawing2D.LinearGradientBrush(rect, this.BackColor, this.ForeColor, System.Drawing.Drawing2D.LinearGradientMode.Vertical);
+                LinearGradientBrush brush = new LinearGradientBrush(rect, this.BackColor, this.ForeColor, LinearGradientMode.Vertical);
                 offscreen.FillRectangle(brush, inset, inset, rect.Width, rect.Height);
                 e.Graphics.DrawImage(offscreenImage, 0, 0);
             }
         }
     }
 }
-
-public class RoundButton : Button
+class RoundButton : Button
 {
-    //https://stackoverflow.com/questions/3708113/round-shaped-buttons
+    GraphicsPath GetRoundPath(RectangleF Rect, int radius)
+    {
+        float m = 2.75F;
+        float r2 = radius / 2f;
+        GraphicsPath GraphPath = new GraphicsPath();
+
+        GraphPath.AddArc(Rect.X + m, Rect.Y + m, radius, radius, 180, 90);
+        GraphPath.AddLine(Rect.X + r2 + m, Rect.Y + m, Rect.Width - r2 - m, Rect.Y + m);
+        GraphPath.AddArc(Rect.X + Rect.Width - radius - m, Rect.Y + m, radius, radius, 270, 90);
+        GraphPath.AddLine(Rect.Width - m, Rect.Y + r2, Rect.Width - m, Rect.Height - r2 - m);
+        GraphPath.AddArc(Rect.X + Rect.Width - radius - m,
+                       Rect.Y + Rect.Height - radius - m, radius, radius, 0, 90);
+        GraphPath.AddLine(Rect.Width - r2 - m, Rect.Height - m, Rect.X + r2 - m, Rect.Height - m);
+        GraphPath.AddArc(Rect.X + m, Rect.Y + Rect.Height - radius - m, radius, radius, 90, 90);
+        GraphPath.AddLine(Rect.X + m, Rect.Height - r2 - m, Rect.X + m, Rect.Y + r2 + m);
+
+        GraphPath.CloseFigure();
+        return GraphPath;
+    }
+
     protected override void OnPaint(PaintEventArgs e)
     {
-        System.Drawing.Drawing2D.GraphicsPath grPath = new System.Drawing.Drawing2D.GraphicsPath();
-        grPath.AddEllipse(0, 0, ClientSize.Width, ClientSize.Height);
-        this.Region = new System.Drawing.Region(grPath);
+        e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+        e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+        e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+        int borderRadius = 5;
         base.OnPaint(e);
+        RectangleF Rect = new RectangleF(0, 0, this.Width, this.Height);
+        GraphicsPath GraphPath = GetRoundPath(Rect, borderRadius);
+
+        this.Region = new Region(GraphPath);
     }
 }

@@ -9,7 +9,7 @@
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
     <Setting Name="Opacity" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">255</Value>
+      <Value Profile="(Default)">220</Value>
     </Setting>
   </Settings>
 </SettingsFile>

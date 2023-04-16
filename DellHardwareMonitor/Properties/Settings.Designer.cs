@@ -49,7 +49,7 @@ namespace DellHardwareMonitor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("255")]
+        [global::System.Configuration.DefaultSettingValueAttribute("220")]
         public int Opacity {
             get {
                 return ((int)(this["Opacity"]));
